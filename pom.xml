@@ -61,7 +61,7 @@
                         <id>default-cli</id>
                         <configuration>
                             <mainClass>
-                                com.maxim.subotin.selfsolvingsudoku/com.maxim.subotin.selfsolvingsudoku.HelloApplication
+                                com.maxim.subotin.selfsolvingsudoku/max.selfsolvingsudoku.System
                             </mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>

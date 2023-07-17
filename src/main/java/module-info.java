@@ -3,6 +3,6 @@ module com.maxim.subotin.selfsolvingsudoku {
     requires javafx.fxml;
 
 
-    opens com.maxim.subotin.selfsolvingsudoku to javafx.fxml;
-    exports com.maxim.subotin.selfsolvingsudoku;
+    opens max.selfsolvingsudoku to javafx.fxml;
+    exports max.selfsolvingsudoku;
 }

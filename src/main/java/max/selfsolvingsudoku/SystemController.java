@@ -1,9 +1,9 @@
-package com.maxim.subotin.selfsolvingsudoku;
+package max.selfsolvingsudoku;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
-public class HelloController {
+public class SystemController {
     @FXML
     private Label welcomeText;
 
