@@ -1,6 +1,6 @@
 package max.selfsolvingsudoku;
 
-import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
@@ -8,31 +8,40 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
-import javafx.scene.text.Text;
 
-import java.util.Arrays;
-import java.util.List;
+import java.io.IOException;
 import java.util.Objects;
 import java.util.Random;
-import java.util.function.IntPredicate;
 
 public class SystemController {
-    @FXML
-    Label header;
 
     @FXML
+    Label header;
+    @FXML
     GridPane gameGrid;
+    @FXML
+    Label mistakesLabel;
 
     private TextField activeField = null;
     private Sudoku sudoku = null;
+    private boolean keyProcessing = false; // a flag to track if a key is being processed
+    private int mistakesTotal = 5;
+    private int mistakesCounter = 0;
 
-    public void initialize() {
+    public void setup(String level) {
         generateLevel();
-        removeSomeNumbers();
+        header.setText("Game Mode: "+level);
+
+        if (Objects.equals(level, "Easy"))
+            removeSomeNumbers(15);
+        else if (Objects.equals(level, "Medium"))
+            removeSomeNumbers(30);
+        else if (Objects.equals(level, "Hard"))
+            removeSomeNumbers(45);
     }
 
     private void generateLevel() {
-        int i = 0,j = 0;
+        int i, j;
         this.sudoku = new Sudoku(3);
         for (Node node: gameGrid.getChildren()) {
             if (node.getId() == null) return;
@@ -40,71 +49,98 @@ public class SystemController {
             j = idToCol(node.getId());
             activeField = (TextField)node;
             activeField.setText(Integer.toString(this.sudoku.game[i][j]));
+            activeField.setEditable(false);
         }
     }
 
-    private void removeSomeNumbers() {
+    private void removeSomeNumbers(int N) { // can make this method get easy, medium, hard and set count accordingly
+        int count = 0;
+        while (count <= N) {
+            int randomIndex;
 
+            do {
+                randomIndex = new Random().nextInt(0, 81);
+                activeField = (TextField) gameGrid.getChildren().get(randomIndex);
+            } while (activeField.getText().isEmpty());
+
+            activeField.setText("");
+            count++;
+        }
     }
 
     @FXML
     protected void onSquareClick(MouseEvent e) {
-        this.resetLabelBorder();
+        if (activeField.getStyle().contains("-fx-text-fill: red;"))
+            activeField.setStyle("-fx-text-fill: red;");
+        else
+            this.resetLabelBorder();
         activeField = identifyTextfield(e);
-        activeField.setStyle("-fx-border-width: 4; -fx-border-color: blue;");
+        activeField.setStyle("-fx-border-width: 4; -fx-border-color: blue; ");
     }
 
     @FXML
-    protected void enterUserInput(KeyEvent e) {
-        if (activeField != null) {
-            if (checkNumberInput(e.getText())) {
-                if (gameRules(activeField.getId(), e.getText()))
-                    activeField.setText(e.getText());
+    private void onKeyPressed(KeyEvent event) {
+        if (keyProcessing) {
+            event.consume();
+        } else {
+            keyProcessing = true;
+        }
+    }
+
+    @FXML
+    private void onKeyReleased(KeyEvent event) {
+        if (keyProcessing) {
+            activeField = (TextField) event.getSource();
+            String input = event.getText();
+
+            if (!isCorrectInput(activeField.getId(), input)) {
+                activeField.setStyle(activeField.getStyle() + "-fx-text-fill: red;");
+                increaseMistakes(event);
+            } else {
+                activeField.setStyle(activeField.getStyle() + "-fx-text-fill: black;");
             }
-        }
-    }
 
-    // Game Logic
-    public boolean gameRules(String id, String value) {
-        ObservableList<Node> children = gameGrid.getChildren();
-        return (checkRow(children, idToRow(id), value) &&
-                checkColumn(children, idToCol(id), value) &&
-                checkSquare(children, idToRow(id), idToCol(id), value));
-    }
-
-    private boolean checkRow(ObservableList<Node> children, int row, String value) {
-        for (Node node: children) {
-            if (node.getId() == null) break;
-            if (idToRow(node.getId()) == row) {
-                if (Objects.equals(((TextField) node).getText(), value)) return false;
-            } else if (idToRow(node.getId()) > row) return true;
-        }
-        return true;
-    }
-
-    private boolean checkColumn(ObservableList<Node> children, int col, String value) {
-        for (Node node: children) {
-            if (node.getId() == null) break;
-            if (idToCol(node.getId()) != col) continue;
-            else if (Objects.equals(((TextField) node).getText(), value)) return false;
-        }
-        return true;
-    }
-
-    private boolean checkSquare(ObservableList<Node> children,int row, int col, String value) {
-        int[] sqr = findSquare(row,col);
-        if (sqr[0] == -1) return false;
-
-        for (Node node: children) {
-            String id = node.getId();
-            if (id == null) break;
-            if ((idToRow(id) == sqr[0] || idToRow(id) == sqr[0]-1 || idToRow(id) == sqr[0]-2) &&
-                    (idToCol(id) == sqr[1] || idToCol(id) == sqr[1]-1 || idToCol(id) == sqr[1]-2)) {
-                if (Objects.equals(((TextField) node).getText(), value)) return false;
+            if (isValidInput(input)) {
+                activeField.setText(input);
             }
+            keyProcessing = false;
+            event.consume();
         }
-        return true;
     }
+
+    private boolean isValidInput(String input) {
+        try {
+            int x = Integer.parseInt(input);
+            return x != 0;
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    private boolean isCorrectInput(String id, String input) {
+        int i = idToRow(id);
+        int j = idToCol(id);
+        return sudoku.game[i][j] == Integer.parseInt(input);
+    }
+
+
+    @FXML
+    public void quitButtonClicked(ActionEvent e) throws IOException {
+        SceneController s = new SceneController();
+        s.switchToStartScene(e);
+    }
+
+    public void handleGameOver(KeyEvent e) throws IOException {
+        SceneController s = new SceneController();
+        s.switchToEndScene(e);
+    }
+
+    public void handlePlayerWins(KeyEvent e) throws IOException {
+        SceneController s = new SceneController();
+        s.switchToEndScene(e);
+    }
+
 
     // Helper Methods
     private TextField identifyTextfield(MouseEvent e) { return (TextField)e.getSource(); }
@@ -112,17 +148,6 @@ public class SystemController {
     private void resetLabelBorder() {
         if (activeField != null)
             activeField.setStyle("-fx-border-width: 0;");
-    }
-
-    private boolean checkNumberInput(String input) {
-        if (input.length() != 1) return false;
-        try {
-            int x = Integer.parseInt(input);
-            return x != 0;
-        } catch (NumberFormatException e) {
-            e.printStackTrace();
-        }
-        return false;
     }
 
     private int idToRow(String id) {
@@ -133,16 +158,15 @@ public class SystemController {
         return id.charAt(1) - '1';
     }
 
-    private int[] findSquare(int row, int col) {
-        if ((row >= 0 && row <= 2) && (col >= 0 && col <= 2)) return new int[]{2,2};
-        else if ((row >= 0 && row <= 2) && (col >= 3 && col <= 5)) return new int[]{2,5};
-        else if ((row >= 0 && row <= 2) && (col >= 6 && col <= 8)) return new int[]{2,8};
-        else if ((row >= 3 && row <= 5) && (col >= 0 && col <= 2)) return new int[]{5,2};
-        else if ((row >= 3 && row <= 5) && (col >= 3 && col <= 5)) return new int[]{5,5};
-        else if ((row >= 3 && row <= 5) && (col >= 6 && col <= 8)) return new int[]{5,8};
-        else if ((row >= 6 && row <= 8) && (col >= 0 && col <= 2)) return new int[]{8,2};
-        else if ((row >= 6 && row <= 8) && (col >= 3 && col <= 5)) return new int[]{8,5};
-        else if ((row >= 6 && row <= 8) && (col >= 6 && col <= 8)) return new int[]{8,8};
-        return new int[]{-1,-1};
+    private void increaseMistakes(KeyEvent event) {
+        if (++this.mistakesCounter > this.mistakesTotal) {
+            try {
+                handleGameOver(event);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        else
+            mistakesLabel.setText("mistakes counter: " + this.mistakesCounter + " / " + this.mistakesTotal);
     }
 }

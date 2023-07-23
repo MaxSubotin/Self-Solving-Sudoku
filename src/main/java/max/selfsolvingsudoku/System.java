@@ -11,12 +11,11 @@ public class System extends Application {
     @Override
     public void start(Stage stage) {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(System.class.getResource("MainScreen.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(System.class.getResource("StartScreen.fxml"));
             Scene scene = new Scene(fxmlLoader.load());
-            stage.setTitle("Hello!");
+            stage.setTitle("SUDOKU");
             stage.setScene(scene);
             stage.show();
-
         } catch (IOException e) {
             e.printStackTrace();
         }

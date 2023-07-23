@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="715.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="max.selfsolvingsudoku.SceneController">
+   <children>
+      <Button layoutX="225.0" layoutY="310.0" mnemonicParsing="false" onAction="#switchToMainScene" prefHeight="40.0" prefWidth="150.0" text="Retry">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Button>
+      <Button layoutX="225.0" layoutY="366.0" mnemonicParsing="false" onAction="#switchToStartScene" prefHeight="40.0" prefWidth="150.0" text="Back to Start">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>
