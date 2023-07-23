@@ -16,6 +16,7 @@ public class System extends Application {
             stage.setTitle("Hello!");
             stage.setScene(scene);
             stage.show();
+
         } catch (IOException e) {
             e.printStackTrace();
         }

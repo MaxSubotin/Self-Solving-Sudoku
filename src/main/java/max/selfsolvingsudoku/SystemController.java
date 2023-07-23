@@ -13,6 +13,7 @@ import javafx.scene.text.Text;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
+import java.util.Random;
 import java.util.function.IntPredicate;
 
 public class SystemController {
@@ -23,6 +24,28 @@ public class SystemController {
     GridPane gameGrid;
 
     private TextField activeField = null;
+    private Sudoku sudoku = null;
+
+    public void initialize() {
+        generateLevel();
+        removeSomeNumbers();
+    }
+
+    private void generateLevel() {
+        int i = 0,j = 0;
+        this.sudoku = new Sudoku(3);
+        for (Node node: gameGrid.getChildren()) {
+            if (node.getId() == null) return;
+            i = idToRow(node.getId());
+            j = idToCol(node.getId());
+            activeField = (TextField)node;
+            activeField.setText(Integer.toString(this.sudoku.game[i][j]));
+        }
+    }
+
+    private void removeSomeNumbers() {
+
+    }
 
     @FXML
     protected void onSquareClick(MouseEvent e) {
