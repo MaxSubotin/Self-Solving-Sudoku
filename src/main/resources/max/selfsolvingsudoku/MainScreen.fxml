@@ -470,5 +470,10 @@
             <Font name="Monospaced Bold" size="16.0" />
          </font>
       </Button>
+      <Button layoutX="409.0" layoutY="105.0" mnemonicParsing="false" onAction="#autoSolve" prefHeight="31.0" prefWidth="72.0" text="Solve">
+         <font>
+            <Font name="Monospaced Bold" size="16.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

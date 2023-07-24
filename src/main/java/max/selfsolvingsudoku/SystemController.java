@@ -1,5 +1,7 @@
 package max.selfsolvingsudoku;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -8,6 +10,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import javafx.util.Duration;
 
 import java.io.IOException;
 import java.util.Objects;
@@ -33,11 +36,11 @@ public class SystemController {
         header.setText("Game Mode: "+level);
 
         if (Objects.equals(level, "Easy"))
-            removeSomeNumbers(15);
+            removeSomeNumbers(14);
         else if (Objects.equals(level, "Medium"))
-            removeSomeNumbers(30);
+            removeSomeNumbers(29);
         else if (Objects.equals(level, "Hard"))
-            removeSomeNumbers(45);
+            removeSomeNumbers(44);
     }
 
     private void generateLevel() {
@@ -103,9 +106,52 @@ public class SystemController {
             if (isValidInput(input)) {
                 activeField.setText(input);
             }
+
+            if (checkEndGame()) {
+                try {
+                    handlePlayerWins(event);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+
             keyProcessing = false;
             event.consume();
         }
+    }
+
+    @FXML
+    public void autoSolve() {
+        int i, j, count = 0;
+        for (Node node: gameGrid.getChildren()) {
+            if (node.getId() == null) break;
+            i = idToRow(node.getId());
+            j = idToCol(node.getId());
+            activeField = (TextField) node;
+            if (activeField.getText().isEmpty() || activeField.getStyle().contains("-fx-text-fill: red;")) {
+                int finalI = i;
+                int finalJ = j;
+                Timeline timeline = new Timeline();
+                KeyFrame keyFrame = new KeyFrame(Duration.millis(350).multiply(count++ + 1), event -> {
+                    TextField t = (TextField) node;
+                    t.setText(Integer.toString(sudoku.game[finalI][finalJ]));
+                });
+                timeline.getKeyFrames().add(keyFrame);
+                timeline.play();
+            }
+        }
+    }
+
+    private boolean checkEndGame() {
+        int i, j;
+        for (Node node: gameGrid.getChildren()) {
+            if (node.getId() == null) break;
+            i = idToRow(node.getId());
+            j = idToCol(node.getId());
+            activeField = (TextField) node;
+            if (!Objects.equals(activeField.getText(), Integer.toString(sudoku.game[i][j]))) return false;
+        }
+        return true;
     }
 
     private boolean isValidInput(String input) {
@@ -133,12 +179,12 @@ public class SystemController {
 
     public void handleGameOver(KeyEvent e) throws IOException {
         SceneController s = new SceneController();
-        s.switchToEndScene(e);
+        s.switchToEndScene(e, "Lose");
     }
 
     public void handlePlayerWins(KeyEvent e) throws IOException {
         SceneController s = new SceneController();
-        s.switchToEndScene(e);
+        s.switchToEndScene(e,"Win");
     }
 
 

@@ -23,7 +23,7 @@ public class SceneController {
     private static String level;
 
     @FXML
-    Label a;
+    Label a, result;
 
     @FXML
     public void switchToMainScene(ActionEvent event) throws IOException {
@@ -52,8 +52,12 @@ public class SceneController {
     }
 
     @FXML
-    public void switchToEndScene(KeyEvent event) throws IOException {
-        root = FXMLLoader.load(getClass().getResource("EndScreen.fxml"));
+    public void switchToEndScene(KeyEvent event, String temp) throws IOException {
+        FXMLLoader loader = new FXMLLoader (getClass().getResource("EndScreen.fxml")) ;
+        root = loader.load();
+        SceneController s = loader.getController();
+        s.result.setText("You "+temp+"!");
+
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
