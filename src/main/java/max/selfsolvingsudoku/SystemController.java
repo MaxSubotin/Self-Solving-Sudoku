@@ -19,17 +19,15 @@ import java.util.Random;
 public class SystemController {
 
     @FXML
-    Label header;
+    Label header,mistakesLabel,timer;
     @FXML
     GridPane gameGrid;
-    @FXML
-    Label mistakesLabel;
 
+    private Timer gameTimer;
     private TextField activeField = null;
     private Sudoku sudoku = null;
     private boolean keyProcessing = false; // a flag to track if a key is being processed
-    private int mistakesTotal = 5;
-    private int mistakesCounter = 0;
+    private int mistakesTotal = 5, mistakesCounter = 0;
 
     private final String style = "-fx-border-width: 4; -fx-border-color: blue;";
     private final String goodStyle = "-fx-text-fill: black;";
@@ -46,6 +44,9 @@ public class SystemController {
             removeSomeNumbers(29);
         else if (Objects.equals(level, "Hard"))
             removeSomeNumbers(44);
+
+        gameTimer = new Timer(this.timer);
+        gameTimer.startTimer();
     }
 
     private void generateLevel() {
@@ -75,6 +76,9 @@ public class SystemController {
             count++;
         }
     }
+
+    // Start the timer
+
 
     @FXML
     protected void onSquareClick(MouseEvent e) {
@@ -122,6 +126,7 @@ public class SystemController {
 
             if (checkEndGame()) {
                 try {
+                    gameTimer.stopTimer();
                     handlePlayerWins(event);
                 } catch (IOException e) {
                     throw new RuntimeException(e);
@@ -152,6 +157,7 @@ public class SystemController {
                 });
                 timeline.getKeyFrames().add(keyFrame);
                 timeline.play();
+                gameTimer.stopTimer();
             }
         }
     }

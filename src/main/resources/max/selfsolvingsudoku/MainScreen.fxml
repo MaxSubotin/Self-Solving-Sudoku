@@ -475,5 +475,10 @@
             <Font name="Monospaced Bold" size="16.0" />
          </font>
       </Button>
+      <Label fx:id="timer" layoutX="34.0" layoutY="86.0" text="00:00">
+         <font>
+            <Font name="Monospaced Bold" size="16.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>
