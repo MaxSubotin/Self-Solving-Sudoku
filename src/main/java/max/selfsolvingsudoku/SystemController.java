@@ -31,6 +31,11 @@ public class SystemController {
     private int mistakesTotal = 5;
     private int mistakesCounter = 0;
 
+    private final String style = "-fx-border-width: 4; -fx-border-color: blue;";
+    private final String goodStyle = "-fx-text-fill: black;";
+    private final String badStyle = "-fx-text-fill: red;";
+    private final int autoSolveTimer = 225;
+
     public void setup(String level) {
         generateLevel();
         header.setText("Game Mode: "+level);
@@ -73,12 +78,21 @@ public class SystemController {
 
     @FXML
     protected void onSquareClick(MouseEvent e) {
-        if (activeField.getStyle().contains("-fx-text-fill: red;"))
-            activeField.setStyle("-fx-text-fill: red;");
+        TextField temp =  identifyTextfield(e);
+
+        if (activeField == temp) return;
+
+        if (activeField != null && activeField.getStyle().contains(badStyle))
+            activeField.setStyle(badStyle);
         else
-            this.resetLabelBorder();
-        activeField = identifyTextfield(e);
-        activeField.setStyle("-fx-border-width: 4; -fx-border-color: blue; ");
+            resetLabelBorder();
+
+        if (temp.getStyle().contains(badStyle)) {
+            temp.setStyle(style + badStyle);
+        } else
+            temp.setStyle(style);
+
+        activeField = temp;
     }
 
     @FXML
@@ -93,18 +107,17 @@ public class SystemController {
     @FXML
     private void onKeyReleased(KeyEvent event) {
         if (keyProcessing) {
-            activeField = (TextField) event.getSource();
             String input = event.getText();
-
-            if (!isCorrectInput(activeField.getId(), input)) {
-                activeField.setStyle(activeField.getStyle() + "-fx-text-fill: red;");
-                increaseMistakes(event);
-            } else {
-                activeField.setStyle(activeField.getStyle() + "-fx-text-fill: black;");
-            }
 
             if (isValidInput(input)) {
                 activeField.setText(input);
+
+                if (!isCorrectInput(activeField.getId(), input)) {
+                    activeField.setStyle(style + badStyle);
+                    increaseMistakes(event);
+                } else {
+                    activeField.setStyle(style + goodStyle);
+                }
             }
 
             if (checkEndGame()) {
@@ -128,13 +141,14 @@ public class SystemController {
             i = idToRow(node.getId());
             j = idToCol(node.getId());
             activeField = (TextField) node;
-            if (activeField.getText().isEmpty() || activeField.getStyle().contains("-fx-text-fill: red;")) {
+            if (activeField.getText().isEmpty() || activeField.getStyle().contains(badStyle)) {
                 int finalI = i;
                 int finalJ = j;
                 Timeline timeline = new Timeline();
-                KeyFrame keyFrame = new KeyFrame(Duration.millis(350).multiply(count++ + 1), event -> {
-                    TextField t = (TextField) node;
-                    t.setText(Integer.toString(sudoku.game[finalI][finalJ]));
+                KeyFrame keyFrame = new KeyFrame(Duration.millis(autoSolveTimer).multiply(count++ + 1), event -> {
+                    TextField temp = (TextField) node;
+                    temp.setText(Integer.toString(sudoku.game[finalI][finalJ]));
+                    temp.setStyle(goodStyle);
                 });
                 timeline.getKeyFrames().add(keyFrame);
                 timeline.play();
@@ -148,8 +162,8 @@ public class SystemController {
             if (node.getId() == null) break;
             i = idToRow(node.getId());
             j = idToCol(node.getId());
-            activeField = (TextField) node;
-            if (!Objects.equals(activeField.getText(), Integer.toString(sudoku.game[i][j]))) return false;
+            TextField temp = (TextField) node;
+            if (!Objects.equals(temp.getText(), Integer.toString(sudoku.game[i][j]))) return false;
         }
         return true;
     }
@@ -193,7 +207,7 @@ public class SystemController {
 
     private void resetLabelBorder() {
         if (activeField != null)
-            activeField.setStyle("-fx-border-width: 0;");
+            activeField.setStyle("");
     }
 
     private int idToRow(String id) {
