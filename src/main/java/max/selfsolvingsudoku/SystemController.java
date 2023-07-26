@@ -4,17 +4,24 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.Random;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class SystemController {
 
@@ -27,12 +34,13 @@ public class SystemController {
     private TextField activeField = null;
     private Sudoku sudoku = null;
     private boolean keyProcessing = false; // a flag to track if a key is being processed
-    private int mistakesTotal = 5, mistakesCounter = 0;
+    private boolean solvingOnGoing = false;
+    private final int mistakesTotal = 5;
+    private int mistakesCounter = 0;
 
     private final String style = "-fx-border-width: 4; -fx-border-color: blue;";
     private final String goodStyle = "-fx-text-fill: black;";
     private final String badStyle = "-fx-text-fill: red;";
-    private final int autoSolveTimer = 225;
 
     public void setup(String level) {
         generateLevel();
@@ -58,7 +66,7 @@ public class SystemController {
             j = idToCol(node.getId());
             activeField = (TextField)node;
             activeField.setText(Integer.toString(this.sudoku.game[i][j]));
-            activeField.setEditable(false);
+            activeField.setOpacity(0.75);
         }
     }
 
@@ -73,15 +81,14 @@ public class SystemController {
             } while (activeField.getText().isEmpty());
 
             activeField.setText("");
+            activeField.setOpacity(1);
             count++;
         }
     }
 
-    // Start the timer
-
-
     @FXML
     protected void onSquareClick(MouseEvent e) {
+        if (solvingOnGoing) return;
         TextField temp =  identifyTextfield(e);
 
         if (activeField == temp) return;
@@ -101,7 +108,7 @@ public class SystemController {
 
     @FXML
     private void onKeyPressed(KeyEvent event) {
-        if (keyProcessing) {
+        if (keyProcessing || ((TextField)event.getSource()).getOpacity() != 1 || solvingOnGoing) {
             event.consume();
         } else {
             keyProcessing = true;
@@ -140,25 +147,65 @@ public class SystemController {
 
     @FXML
     public void autoSolve() {
-        int i, j, count = 0;
-        for (Node node: gameGrid.getChildren()) {
+        this.solvingOnGoing = true;
+        int[] count = {0};
+
+        // Create a list to hold the text fields to be auto-solved
+        List<TextField> fieldsToAutoSolve = new ArrayList<>();
+
+        for (Node node : gameGrid.getChildren()) {
             if (node.getId() == null) break;
-            i = idToRow(node.getId());
-            j = idToCol(node.getId());
             activeField = (TextField) node;
             if (activeField.getText().isEmpty() || activeField.getStyle().contains(badStyle)) {
-                int finalI = i;
-                int finalJ = j;
-                Timeline timeline = new Timeline();
-                KeyFrame keyFrame = new KeyFrame(Duration.millis(autoSolveTimer).multiply(count++ + 1), event -> {
-                    TextField temp = (TextField) node;
-                    temp.setText(Integer.toString(sudoku.game[finalI][finalJ]));
-                    temp.setStyle(goodStyle);
-                });
-                timeline.getKeyFrames().add(keyFrame);
-                timeline.play();
-                gameTimer.stopTimer();
+                fieldsToAutoSolve.add((TextField) node);
             }
+        }
+
+        // Create a single Timeline for all the text fields
+        Timeline timeline = new Timeline();
+
+        int autoSolveTimer = 225;
+        for (int index = 0; index < fieldsToAutoSolve.size(); index++) {
+            TextField field = fieldsToAutoSolve.get(index);
+            int i = idToRow(field.getId());
+            int j = idToCol(field.getId());
+
+            KeyFrame keyFrame = new KeyFrame(Duration.millis(autoSolveTimer * (index + 1)), event -> {
+                field.setText(Integer.toString(sudoku.game[i][j]));
+                field.setStyle(goodStyle);
+                count[0]--;
+
+                // Check if this is the last field to be auto-solved
+                if (count[0] == 0) {
+                    // The timeline has finished, execute the code you want here
+                    openInfoWindow();
+                }
+            });
+
+            timeline.getKeyFrames().add(keyFrame);
+            count[0]++;
+        }
+
+        timeline.play();
+        gameTimer.stopTimer();
+    }
+
+
+    private void openInfoWindow() {
+        try {
+            // Load the pop-up content from FXML
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("SolvedPopup.fxml"));
+            Parent infoWindowContent = fxmlLoader.load();
+
+            // Create a new Stage for the info window
+            Stage infoStage = new Stage();
+            infoStage.setTitle("Info Window");
+            infoStage.setScene(new Scene(infoWindowContent));
+
+            // Show the info window
+            infoStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 

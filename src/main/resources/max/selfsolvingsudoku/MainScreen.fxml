@@ -11,9 +11,9 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="715.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="max.selfsolvingsudoku.SystemController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="715.0" prefWidth="600.0" style="-fx-background-color: linear-gradient(from 0% 0% to 0% 100%, #74c2e3,#00a8e8);" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="max.selfsolvingsudoku.SystemController">
    <children>
-      <GridPane fx:id="gameGrid" alignment="CENTER" focusTraversable="true" gridLinesVisible="true" layoutX="35.0" layoutY="150.0" prefHeight="530.0" prefWidth="530.0">
+      <GridPane fx:id="gameGrid" alignment="CENTER" focusTraversable="true" gridLinesVisible="true" layoutX="35.0" layoutY="150.0" prefHeight="530.0" prefWidth="530.0" style="-fx-background-color: transparent;">
         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -455,27 +455,27 @@
       <Line endX="53.0" endY="553.0" layoutX="-18.0" layoutY="125.0" startX="53.0" startY="25.0" strokeWidth="3.0" />
       <Line endX="53.0" endY="553.0" layoutX="512.0" layoutY="125.0" startX="53.0" startY="25.0" strokeWidth="3.0" />
       <Line endX="380.0" endY="367.0" layoutX="183.0" layoutY="-40.0" startX="-146.0" startY="367.0" strokeWidth="3.0" />
-      <Label fx:id="header" layoutX="34.0" layoutY="38.0" prefHeight="48.0" prefWidth="459.0" text="Game Mode:">
+      <Label fx:id="header" layoutX="34.0" layoutY="38.0" prefHeight="48.0" prefWidth="459.0" style="-fx-background-color: transparent;" text="Game Mode:">
          <font>
-            <Font name="Monospaced Bold" size="40.0" />
+            <Font name="Monospaced Bold" size="34.0" />
          </font>
       </Label>
-      <Label fx:id="mistakesLabel" layoutX="34.0" layoutY="110.0" text="mistakes counter: 0 / 5">
+      <Label fx:id="mistakesLabel" layoutX="37.0" layoutY="112.0" style="-fx-background-color: transparent;" text="mistakes counter: 0 / 5">
          <font>
             <Font name="Monospaced Bold" size="16.0" />
          </font>
       </Label>
-      <Button layoutX="493.0" layoutY="105.0" mnemonicParsing="false" onAction="#quitButtonClicked" prefHeight="31.0" prefWidth="72.0" text="Quit">
+      <Button layoutX="470.0" layoutY="105.0" mnemonicParsing="false" onAction="#quitButtonClicked" prefHeight="34.0" prefWidth="95.0" style="-fx-background-radius: 25; -fx-background-color: white; -fx-border-color: black; -fx-border-width: 2; -fx-border-radius: 25; -fx-padding: 5 10 5 10; -fx-background-insets: 1.5; -fx-text-fill: #ff6f61;" text="Quit">
          <font>
             <Font name="Monospaced Bold" size="16.0" />
          </font>
       </Button>
-      <Button layoutX="409.0" layoutY="105.0" mnemonicParsing="false" onAction="#autoSolve" prefHeight="31.0" prefWidth="72.0" text="Solve">
+      <Button layoutX="365.0" layoutY="105.0" mnemonicParsing="false" onAction="#autoSolve" prefHeight="34.0" prefWidth="95.0" style="-fx-background-radius: 25; -fx-background-color: white; -fx-border-color: black; -fx-border-width: 2; -fx-border-radius: 25; -fx-padding: 5 10 5 10; -fx-background-insets: 1.5; -fx-text-fill: #008080;" text="Solve">
          <font>
             <Font name="Monospaced Bold" size="16.0" />
          </font>
       </Button>
-      <Label fx:id="timer" layoutX="34.0" layoutY="86.0" text="00:00">
+      <Label fx:id="timer" layoutX="34.0" layoutY="88.0" style="-fx-background-color: transparent;" text="00:00">
          <font>
             <Font name="Monospaced Bold" size="16.0" />
          </font>

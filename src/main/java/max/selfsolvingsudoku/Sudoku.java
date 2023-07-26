@@ -2,7 +2,7 @@ package max.selfsolvingsudoku;
 import java.util.Random;
 
 public class Sudoku {
-    private int size, SIZE;
+    private final int size, SIZE;
     public int[][] game;
 
     public Sudoku(int _size) {
@@ -72,17 +72,6 @@ public class Sudoku {
             }
         }
 
-        return true;
-    }
-
-    private boolean isSolved() {
-        // Check if the Sudoku puzzle is fully filled and valid
-        for (int i = 0; i < SIZE; i++) {
-            for (int j = 0; j < SIZE; j++) {
-                if (game[i][j] == -1 || !isValid(i, j, game[i][j]))
-                    return false;
-            }
-        }
         return true;
     }
 

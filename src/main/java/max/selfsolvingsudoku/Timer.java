@@ -12,12 +12,13 @@ import java.util.Date;
 public class Timer {
     private Timeline time;
     private int runningTime;
-    private Label timer;
+    private final Label timer;
 
     public Timer(Label timer) {
         this.timer = timer;
     }
 
+    // Start the timer
     public void startTimer() {
         runningTime = 0;
 
@@ -42,7 +43,7 @@ public class Timer {
     private void updateTimer() {
         runningTime++;
         SimpleDateFormat sdf = new SimpleDateFormat("mm:ss");
-        String time = sdf.format(new Date(runningTime * 1000));
+        String time = sdf.format(new Date(runningTime * 1000L));
         timer.setText(time);
     }
 }
