@@ -31,6 +31,7 @@ public class System extends Application {
 
             stage.setTitle("SUDOKU");
             stage.setScene(scene);
+            stage.setResizable(false);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

@@ -1,6 +1,5 @@
 package max.selfsolvingsudoku;
 
-import javafx.animation.ScaleTransition;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -16,7 +15,6 @@ import javafx.scene.paint.LinearGradient;
 import javafx.scene.paint.Stop;
 import javafx.stage.Stage;
 import javafx.scene.control.Label;
-import javafx.util.Duration;
 
 
 import java.io.IOException;
@@ -49,7 +47,7 @@ public class SceneController {
         if (!Objects.equals(temp, "Retry"))
             level = temp;
 
-        FXMLLoader loader = new FXMLLoader (getClass().getResource("MainScreen.fxml")) ;
+        FXMLLoader loader = new FXMLLoader (getClass().getResource("MainScreen.fxml"));
         root = loader.load();
         SystemController s = loader.getController();
         s.setup(level);
@@ -62,11 +60,11 @@ public class SceneController {
     }
 
     @FXML
-    public void switchToStartScene(ActionEvent event, String username) throws IOException {
-        FXMLLoader loader = new FXMLLoader (getClass().getResource("StartScreen.fxml")) ;
+    public void switchToStartScene(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader (getClass().getResource("StartScreen.fxml"));
         root = loader.load();
         SceneController s = loader.getController();
-        s.setWelcomeLabelText(username);
+        s.setWelcomeLabelText(LoginController.currentPlayer.getUsername());
 
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
@@ -77,7 +75,7 @@ public class SceneController {
 
     @FXML
     public void switchToEndScene(KeyEvent event, String temp) throws IOException {
-        FXMLLoader loader = new FXMLLoader (getClass().getResource("EndScreen.fxml")) ;
+        FXMLLoader loader = new FXMLLoader (getClass().getResource("EndScreen.fxml"));
         root = loader.load();
         SceneController s = loader.getController();
         s.result.setText("You "+temp+"!");
@@ -87,6 +85,35 @@ public class SceneController {
         scene.setFill(backgroundGradient);
         stage.setScene(scene);
         stage.show();
+    }
+
+    @FXML
+    public void openUserProfileScene() {
+        if (UserProfileController.windowCounter != 0) return; // makes sure there is only one window open at a time
+        try {
+            // Load the pop-up content from FXML
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("UserProfile.fxml"));
+            Parent root = fxmlLoader.load();
+
+            // Create a new Stage for the info window
+            Stage stage = new Stage();
+            stage.setTitle("User Profile");
+
+            // Add the setOnCloseRequest event handler
+            stage.setOnCloseRequest(event -> {
+                UserProfileController.windowCounter = 0;
+            });
+
+            Scene scene = new Scene(root);
+            scene.setFill(backgroundGradient);
+            stage.setScene(scene);
+            stage.setResizable(false);
+
+            // Show the info window
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     // ----------------------------- FXML Methods : Animations ----------------------------- //

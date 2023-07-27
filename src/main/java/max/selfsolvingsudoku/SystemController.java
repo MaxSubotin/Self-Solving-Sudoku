@@ -1,7 +1,6 @@
 package max.selfsolvingsudoku;
 
 import javafx.animation.KeyFrame;
-import javafx.animation.ScaleTransition;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
@@ -27,7 +26,7 @@ public class SystemController {
     // ----------------------------- Variables ----------------------------- //
 
     @FXML
-    Label header,mistakesLabel,timer;
+    Label header, mistakesLabel, timer, usernameLabel;
     @FXML
     GridPane gameGrid;
     @FXML
@@ -38,6 +37,7 @@ public class SystemController {
     private Sudoku sudoku = null;
     private boolean keyProcessing = false; // a flag to track if a key is being processed
     private boolean solvingOnGoing = false;
+    private boolean hintWasUsed = false;
     private final int mistakesTotal = 5;
     private int mistakesCounter = 0;
 
@@ -60,6 +60,7 @@ public class SystemController {
             removeSomeNumbers(44);
 
         solveButton.setVisible(true);
+        usernameLabel.setText("@" + LoginController.currentPlayer.getUsername());
         gameTimer = new Timer(this.timer);
         gameTimer.startTimer();
     }
@@ -136,6 +137,7 @@ public class SystemController {
                 if (!isCorrectInput(activeField.getId(), input)) {
                     activeField.setStyle(style + badStyle);
                     increaseMistakes(event);
+                    LoginController.currentPlayer.setTotalMistakesCounter(LoginController.currentPlayer.getTotalMistakesCounter() + 1);
                 } else {
                     activeField.setStyle(style + goodStyle);
                 }
@@ -145,6 +147,8 @@ public class SystemController {
                 try {
                     gameTimer.stopTimer();
                     handlePlayerWins(event);
+                    if (!solvingOnGoing && !hintWasUsed)
+                        LoginController.currentPlayer.setSolvedPuzzlesCounter(LoginController.currentPlayer.getSolvedPuzzlesCounter() + 1);
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
@@ -205,7 +209,7 @@ public class SystemController {
     @FXML
     public void quitButtonClicked(ActionEvent e) throws IOException {
         SceneController s = new SceneController();
-        s.switchToStartScene(e, "Quit Button Clicked");
+        s.switchToStartScene(e);
     }
 
     @FXML
@@ -227,6 +231,13 @@ public class SystemController {
             this.solveButton.setVisible(false);
             this.hintButton.setVisible(false);
         }
+        hintWasUsed = true;
+    }
+
+    @FXML
+    public void showUserProfile() {
+        SceneController s = new SceneController();
+        s.openUserProfileScene();
     }
 
     // ----------------------------- FXML Methods : Animations ----------------------------- //
