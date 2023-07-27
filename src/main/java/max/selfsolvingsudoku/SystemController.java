@@ -4,16 +4,14 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
+import javafx.scene.Cursor;
 import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
-import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.IOException;
@@ -21,14 +19,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Random;
-import java.util.concurrent.atomic.AtomicInteger;
 
 public class SystemController {
+
+    // ----------------------------- Variables ----------------------------- //
 
     @FXML
     Label header,mistakesLabel,timer;
     @FXML
     GridPane gameGrid;
+    @FXML
+    Button solveButton;
 
     private Timer gameTimer;
     private TextField activeField = null;
@@ -42,6 +43,9 @@ public class SystemController {
     private final String goodStyle = "-fx-text-fill: black;";
     private final String badStyle = "-fx-text-fill: red;";
 
+
+    // ----------------------------- Game Generation Methods ----------------------------- //
+
     public void setup(String level) {
         generateLevel();
         header.setText("Game Mode: "+level);
@@ -53,6 +57,7 @@ public class SystemController {
         else if (Objects.equals(level, "Hard"))
             removeSomeNumbers(44);
 
+        solveButton.setVisible(true);
         gameTimer = new Timer(this.timer);
         gameTimer.startTimer();
     }
@@ -82,15 +87,18 @@ public class SystemController {
 
             activeField.setText("");
             activeField.setOpacity(1);
+            activeField.setCursor(Cursor.HAND);
             count++;
         }
     }
 
+    // ----------------------------- FXML Methods ----------------------------- //
+
     @FXML
     protected void onSquareClick(MouseEvent e) {
         if (solvingOnGoing) return;
-        TextField temp =  identifyTextfield(e);
 
+        TextField temp =  identifyTextfield(e);
         if (activeField == temp) return;
 
         if (activeField != null && activeField.getStyle().contains(badStyle))
@@ -100,7 +108,7 @@ public class SystemController {
 
         if (temp.getStyle().contains(badStyle)) {
             temp.setStyle(style + badStyle);
-        } else
+        } else if (temp.getOpacity() == 1)
             temp.setStyle(style);
 
         activeField = temp;
@@ -148,7 +156,7 @@ public class SystemController {
     @FXML
     public void autoSolve() {
         this.solvingOnGoing = true;
-        int[] count = {0};
+        //int[] count = {0};
 
         // Create a list to hold the text fields to be auto-solved
         List<TextField> fieldsToAutoSolve = new ArrayList<>();
@@ -173,41 +181,31 @@ public class SystemController {
             KeyFrame keyFrame = new KeyFrame(Duration.millis(autoSolveTimer * (index + 1)), event -> {
                 field.setText(Integer.toString(sudoku.game[i][j]));
                 field.setStyle(goodStyle);
-                count[0]--;
+                //count[0]--;
 
                 // Check if this is the last field to be auto-solved
-                if (count[0] == 0) {
+                //if (count[0] == 0) {
                     // The timeline has finished, execute the code you want here
-                    openInfoWindow();
-                }
+                    // this code will run when the animation is finished and all numbers are loaded
+                //}
             });
 
             timeline.getKeyFrames().add(keyFrame);
-            count[0]++;
+            //count[0]++;
         }
 
         timeline.play();
         gameTimer.stopTimer();
+        solveButton.setVisible(false);
     }
 
-
-    private void openInfoWindow() {
-        try {
-            // Load the pop-up content from FXML
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("SolvedPopup.fxml"));
-            Parent infoWindowContent = fxmlLoader.load();
-
-            // Create a new Stage for the info window
-            Stage infoStage = new Stage();
-            infoStage.setTitle("Info Window");
-            infoStage.setScene(new Scene(infoWindowContent));
-
-            // Show the info window
-            infoStage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    @FXML
+    public void quitButtonClicked(ActionEvent e) throws IOException {
+        SceneController s = new SceneController();
+        s.switchToStartScene(e);
     }
+
+    // ----------------------------- Helper Methods ----------------------------- //
 
     private boolean checkEndGame() {
         int i, j;
@@ -237,13 +235,6 @@ public class SystemController {
         return sudoku.game[i][j] == Integer.parseInt(input);
     }
 
-
-    @FXML
-    public void quitButtonClicked(ActionEvent e) throws IOException {
-        SceneController s = new SceneController();
-        s.switchToStartScene(e);
-    }
-
     public void handleGameOver(KeyEvent e) throws IOException {
         SceneController s = new SceneController();
         s.switchToEndScene(e, "Lose");
@@ -254,8 +245,6 @@ public class SystemController {
         s.switchToEndScene(e,"Win");
     }
 
-
-    // Helper Methods
     private TextField identifyTextfield(MouseEvent e) { return (TextField)e.getSource(); }
 
     private void resetLabelBorder() {

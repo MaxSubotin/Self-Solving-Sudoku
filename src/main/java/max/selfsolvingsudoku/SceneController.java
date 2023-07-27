@@ -24,6 +24,8 @@ import java.util.Objects;
 
 public class SceneController {
 
+    // ----------------------------- Variables ----------------------------- //
+
     private Stage stage;
     private Scene scene;
     private Parent root;
@@ -37,6 +39,9 @@ public class SceneController {
             new Stop(0, Color.web("#74c2e3")),
             new Stop(1, Color.web("#00a8e8"))
     );
+
+
+    // ----------------------------- FXML Methods ----------------------------- //
 
     @FXML
     public void switchToMainScene(ActionEvent event) throws IOException {

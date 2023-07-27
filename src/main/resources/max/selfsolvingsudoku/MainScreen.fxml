@@ -469,11 +469,17 @@
          <font>
             <Font name="Monospaced Bold" size="16.0" />
          </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </Button>
-      <Button layoutX="365.0" layoutY="105.0" mnemonicParsing="false" onAction="#autoSolve" prefHeight="34.0" prefWidth="95.0" style="-fx-background-radius: 25; -fx-background-color: white; -fx-border-color: black; -fx-border-width: 2; -fx-border-radius: 25; -fx-padding: 5 10 5 10; -fx-background-insets: 1.5; -fx-text-fill: #008080;" text="Solve">
+      <Button fx:id="solveButton" layoutX="365.0" layoutY="105.0" mnemonicParsing="false" onAction="#autoSolve" prefHeight="34.0" prefWidth="95.0" style="-fx-background-radius: 25; -fx-background-color: white; -fx-border-color: black; -fx-border-width: 2; -fx-border-radius: 25; -fx-padding: 5 10 5 10; -fx-background-insets: 1.5; -fx-text-fill: #008080;" text="Solve">
          <font>
             <Font name="Monospaced Bold" size="16.0" />
          </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </Button>
       <Label fx:id="timer" layoutX="34.0" layoutY="88.0" style="-fx-background-color: transparent;" text="00:00">
          <font>
