@@ -86,13 +86,15 @@ public class SceneController {
         stage.show();
     }
 
+    // ----------------------------- FXML Methods : Animations ----------------------------- //
+
     @FXML
     public void onButtonHoverStart(Event e) {
         Button btn = (Button) e.getSource();
 
-        ScaleTransition scaleTransition = new ScaleTransition(Duration.seconds(0.275), btn);
-        scaleTransition.setToX(0.9);
-        scaleTransition.setToY(0.9);
+        ScaleTransition scaleTransition = new ScaleTransition(Duration.seconds(0.2), btn);
+        scaleTransition.setToX(0.875);
+        scaleTransition.setToY(0.875);
 
         scaleTransition.play();
     }
@@ -101,7 +103,7 @@ public class SceneController {
     public void onButtonHoverEnd(Event e) {
         Button btn = (Button)e.getSource();
 
-        ScaleTransition scaleTransition = new ScaleTransition(Duration.seconds(0.5), btn);
+        ScaleTransition scaleTransition = new ScaleTransition(Duration.seconds(0.4), btn);
         scaleTransition.setToX(1);
         scaleTransition.setToY(1);
 

@@ -1,8 +1,10 @@
 package max.selfsolvingsudoku;
 
 import javafx.animation.KeyFrame;
+import javafx.animation.ScaleTransition;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
@@ -29,7 +31,7 @@ public class SystemController {
     @FXML
     GridPane gameGrid;
     @FXML
-    Button solveButton;
+    Button solveButton, hintButton;
 
     private Timer gameTimer;
     private TextField activeField = null;
@@ -197,12 +199,57 @@ public class SystemController {
         timeline.play();
         gameTimer.stopTimer();
         solveButton.setVisible(false);
+        hintButton.setVisible(false);
     }
 
     @FXML
     public void quitButtonClicked(ActionEvent e) throws IOException {
         SceneController s = new SceneController();
         s.switchToStartScene(e);
+    }
+
+    @FXML
+    public void showHint(ActionEvent e) {
+        if (this.solvingOnGoing) return;
+
+        int randomIndex;
+        TextField temp;
+
+        do {
+            randomIndex = new Random().nextInt(0, 81);
+            temp = (TextField) gameGrid.getChildren().get(randomIndex);
+        } while (!temp.getText().isEmpty());
+
+        int i = idToRow(temp.getId());
+        int j = idToCol(temp.getId());
+        temp.setText(Integer.toString(sudoku.game[i][j]));
+        if (checkEndGame()) {
+            this.solveButton.setVisible(false);
+            this.hintButton.setVisible(false);
+        }
+    }
+
+    // ----------------------------- FXML Methods : Animations ----------------------------- //
+    @FXML
+    public void onButtonHoverStart(Event e) {
+        Button btn = (Button) e.getSource();
+
+        ScaleTransition scaleTransition = new ScaleTransition(Duration.seconds(0.2), btn);
+        scaleTransition.setToX(1.15);
+        scaleTransition.setToY(1.15);
+
+        scaleTransition.play();
+    }
+
+    @FXML
+    public void onButtonHoverEnd(Event e) {
+        Button btn = (Button)e.getSource();
+
+        ScaleTransition scaleTransition = new ScaleTransition(Duration.seconds(0.4), btn);
+        scaleTransition.setToX(1);
+        scaleTransition.setToY(1);
+
+        scaleTransition.play();
     }
 
     // ----------------------------- Helper Methods ----------------------------- //

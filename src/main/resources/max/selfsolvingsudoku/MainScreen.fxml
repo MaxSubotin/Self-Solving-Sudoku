@@ -465,7 +465,7 @@
             <Font name="Monospaced Bold" size="16.0" />
          </font>
       </Label>
-      <Button layoutX="470.0" layoutY="105.0" mnemonicParsing="false" onAction="#quitButtonClicked" prefHeight="34.0" prefWidth="95.0" style="-fx-background-radius: 25; -fx-background-color: white; -fx-border-color: black; -fx-border-width: 2; -fx-border-radius: 25; -fx-padding: 5 10 5 10; -fx-background-insets: 1.5; -fx-text-fill: #ff6f61;" text="Quit">
+      <Button layoutX="489.0" layoutY="105.0" mnemonicParsing="false" onAction="#quitButtonClicked" onMouseEntered="#onButtonHoverStart" onMouseExited="#onButtonHoverEnd" prefHeight="34.0" prefWidth="75.0" style="-fx-background-radius: 25; -fx-background-color: white; -fx-border-color: black; -fx-border-width: 2; -fx-border-radius: 25; -fx-padding: 5 10 5 10; -fx-background-insets: 1.5; -fx-text-fill: #ff6f61;" text="Quit">
          <font>
             <Font name="Monospaced Bold" size="16.0" />
          </font>
@@ -473,7 +473,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Button fx:id="solveButton" layoutX="365.0" layoutY="105.0" mnemonicParsing="false" onAction="#autoSolve" prefHeight="34.0" prefWidth="95.0" style="-fx-background-radius: 25; -fx-background-color: white; -fx-border-color: black; -fx-border-width: 2; -fx-border-radius: 25; -fx-padding: 5 10 5 10; -fx-background-insets: 1.5; -fx-text-fill: #008080;" text="Solve">
+      <Button fx:id="solveButton" layoutX="404.0" layoutY="105.0" mnemonicParsing="false" onAction="#autoSolve" onMouseEntered="#onButtonHoverStart" onMouseExited="#onButtonHoverEnd" prefHeight="34.0" prefWidth="75.0" style="-fx-background-radius: 25; -fx-background-color: white; -fx-border-color: black; -fx-border-width: 2; -fx-border-radius: 25; -fx-padding: 5 10 5 10; -fx-background-insets: 1.5; -fx-text-fill: #00a8e8;" text="Solve">
          <font>
             <Font name="Monospaced Bold" size="16.0" />
          </font>
@@ -486,5 +486,13 @@
             <Font name="Monospaced Bold" size="16.0" />
          </font>
       </Label>
+      <Button fx:id="hintButton" layoutX="319.0" layoutY="105.0" mnemonicParsing="false" onAction="#showHint" onMouseEntered="#onButtonHoverStart" onMouseExited="#onButtonHoverEnd" prefHeight="34.0" prefWidth="75.0" style="-fx-background-radius: 25; -fx-background-color: white; -fx-border-color: black; -fx-border-width: 2; -fx-border-radius: 25; -fx-padding: 5 10 5 10; -fx-background-insets: 1.5; -fx-text-fill: #008080;" text="Hint">
+         <font>
+            <Font name="Monospaced Bold" size="16.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
    </children>
 </AnchorPane>
