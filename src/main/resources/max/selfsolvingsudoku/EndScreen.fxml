@@ -8,7 +8,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="715.0" prefWidth="600.0" style="-fx-background-color: linear-gradient(from 0% 0% to 0% 100%, #74c2e3,#00a8e8);" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="max.selfsolvingsudoku.SceneController">
    <children>
-      <Button layoutX="190.0" layoutY="311.0" mnemonicParsing="false" onAction="#switchToMainScene" prefHeight="55.0" prefWidth="220.0" style="-fx-background-radius: 25; -fx-background-color: white; -fx-border-color: black; -fx-border-width: 2; -fx-border-radius: 25; -fx-padding: 5 10 5 10; -fx-background-insets: 1.5; -fx-text-fill: #008080;" text="Retry">
+      <Button layoutX="190.0" layoutY="311.0" mnemonicParsing="false" onAction="#switchToMainScene" onMouseEntered="#onButtonHoverStart" onMouseExited="#onButtonHoverEnd" prefHeight="55.0" prefWidth="220.0" style="-fx-background-radius: 25; -fx-background-color: white; -fx-border-color: black; -fx-border-width: 2; -fx-border-radius: 25; -fx-padding: 5 10 5 10; -fx-background-insets: 1.5; -fx-text-fill: #008080;" text="Retry">
          <font>
             <Font name="Monospaced Bold" size="22.0" />
          </font>
@@ -16,7 +16,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Button layoutX="190.0" layoutY="379.0" mnemonicParsing="false" onAction="#switchToStartScene" prefHeight="55.0" prefWidth="220.0" style="-fx-background-radius: 25; -fx-background-color: white; -fx-border-color: black; -fx-border-width: 2; -fx-border-radius: 25; -fx-padding: 5 10 5 10; -fx-background-insets: 1.5; -fx-text-fill: #00a8e8;" text="Back to Start">
+      <Button layoutX="190.0" layoutY="379.0" mnemonicParsing="false" onAction="#switchToStartScene" onMouseEntered="#onButtonHoverStart" onMouseExited="#onButtonHoverEnd" prefHeight="55.0" prefWidth="220.0" style="-fx-background-radius: 25; -fx-background-color: white; -fx-border-color: black; -fx-border-width: 2; -fx-border-radius: 25; -fx-padding: 5 10 5 10; -fx-background-insets: 1.5; -fx-text-fill: #00a8e8;" text="Back to Start">
          <font>
             <Font name="Monospaced Bold" size="22.0" />
          </font>

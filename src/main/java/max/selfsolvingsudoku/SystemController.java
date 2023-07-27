@@ -1,8 +1,10 @@
 package max.selfsolvingsudoku;
 
 import javafx.animation.KeyFrame;
+import javafx.animation.ScaleTransition;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
@@ -225,6 +227,29 @@ public class SystemController {
             this.solveButton.setVisible(false);
             this.hintButton.setVisible(false);
         }
+    }
+
+    // ----------------------------- FXML Methods : Animations ----------------------------- //
+    @FXML
+    public void onButtonHoverStart(Event e) {
+        Button btn = (Button) e.getSource();
+
+        ScaleTransition scaleTransition = new ScaleTransition(Duration.seconds(0.2), btn);
+        scaleTransition.setToX(1.15);
+        scaleTransition.setToY(1.15);
+
+        scaleTransition.play();
+    }
+
+    @FXML
+    public void onButtonHoverEnd(Event e) {
+        Button btn = (Button)e.getSource();
+
+        ScaleTransition scaleTransition = new ScaleTransition(Duration.seconds(0.4), btn);
+        scaleTransition.setToX(1);
+        scaleTransition.setToY(1);
+
+        scaleTransition.play();
     }
 
     // ----------------------------- Helper Methods ----------------------------- //
