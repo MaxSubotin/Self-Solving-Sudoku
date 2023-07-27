@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -10,9 +11,9 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="max.selfsolvingsudoku.SystemController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="715.0" prefWidth="600.0" style="-fx-background-color: linear-gradient(from 0% 0% to 0% 100%, #74c2e3,#00a8e8);" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="max.selfsolvingsudoku.SystemController">
    <children>
-      <GridPane fx:id="gameGrid" alignment="CENTER" focusTraversable="true" gridLinesVisible="true" layoutX="35.0" layoutY="136.0" prefHeight="530.0" prefWidth="530.0">
+      <GridPane fx:id="gameGrid" alignment="CENTER" focusTraversable="true" gridLinesVisible="true" layoutX="35.0" layoutY="150.0" prefHeight="530.0" prefWidth="530.0" style="-fx-background-color: transparent;">
         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -36,407 +37,407 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <TextField fx:id="a1" alignment="CENTER" editable="false" layoutX="68.0" layoutY="82.0" onKeyPressed="#enterUserInput" onMouseClicked="#onSquareClick" prefHeight="58.0" prefWidth="58.0" text=" ">
+            <TextField fx:id="a1" alignment="CENTER" editable="false" layoutX="68.0" layoutY="82.0" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" onMouseClicked="#onSquareClick" prefHeight="58.0" prefWidth="58.0" text=" ">
                <font>
                   <Font size="28.0" />
                </font>
             </TextField>
-            <TextField fx:id="a2" alignment="CENTER" editable="false" layoutX="10.0" layoutY="23.0" onKeyPressed="#enterUserInput" onMouseClicked="#onSquareClick" prefHeight="59.0" prefWidth="59.0" text=" " GridPane.columnIndex="1">
+            <TextField fx:id="a2" alignment="CENTER" editable="false" layoutX="10.0" layoutY="23.0" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" onMouseClicked="#onSquareClick" prefHeight="59.0" prefWidth="59.0" text=" " GridPane.columnIndex="1">
                <font>
                   <Font size="28.0" />
                </font>
             </TextField>
-            <TextField fx:id="a3" alignment="CENTER" editable="false" onKeyPressed="#enterUserInput" onMouseClicked="#onSquareClick" prefHeight="58.0" prefWidth="58.0" text=" " GridPane.columnIndex="2">
+            <TextField fx:id="a3" alignment="CENTER" editable="false" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" onMouseClicked="#onSquareClick" prefHeight="58.0" prefWidth="58.0" text=" " GridPane.columnIndex="2">
                <font>
                   <Font size="28.0" />
                </font>
             </TextField>
-            <TextField fx:id="a4" alignment="CENTER" editable="false" layoutX="68.0" layoutY="23.0" onKeyPressed="#enterUserInput" onMouseClicked="#onSquareClick" prefHeight="59.0" prefWidth="59.0" text=" " GridPane.columnIndex="3">
+            <TextField fx:id="a4" alignment="CENTER" editable="false" layoutX="68.0" layoutY="23.0" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" onMouseClicked="#onSquareClick" prefHeight="59.0" prefWidth="59.0" text=" " GridPane.columnIndex="3">
                <font>
                   <Font size="28.0" />
                </font>
             </TextField>
-            <TextField fx:id="a5" alignment="CENTER" editable="false" layoutX="10.0" layoutY="23.0" onKeyPressed="#enterUserInput" onMouseClicked="#onSquareClick" prefHeight="59.0" prefWidth="59.0" text=" " GridPane.columnIndex="4">
+            <TextField fx:id="a5" alignment="CENTER" editable="false" layoutX="10.0" layoutY="23.0" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" onMouseClicked="#onSquareClick" prefHeight="59.0" prefWidth="59.0" text=" " GridPane.columnIndex="4">
                <font>
                   <Font size="28.0" />
                </font>
             </TextField>
-            <TextField fx:id="a6" alignment="CENTER" editable="false" layoutX="10.0" layoutY="23.0" onKeyPressed="#enterUserInput" onMouseClicked="#onSquareClick" prefHeight="58.0" prefWidth="58.0" text=" " GridPane.columnIndex="5">
+            <TextField fx:id="a6" alignment="CENTER" editable="false" layoutX="10.0" layoutY="23.0" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" onMouseClicked="#onSquareClick" prefHeight="58.0" prefWidth="58.0" text=" " GridPane.columnIndex="5">
                <font>
                   <Font size="28.0" />
                </font>
             </TextField>
-            <TextField fx:id="a7" alignment="CENTER" editable="false" layoutX="10.0" layoutY="23.0" onKeyPressed="#enterUserInput" onMouseClicked="#onSquareClick" prefHeight="59.0" prefWidth="59.0" text=" " GridPane.columnIndex="6">
+            <TextField fx:id="a7" alignment="CENTER" editable="false" layoutX="10.0" layoutY="23.0" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" onMouseClicked="#onSquareClick" prefHeight="59.0" prefWidth="59.0" text=" " GridPane.columnIndex="6">
                <font>
                   <Font size="28.0" />
                </font>
             </TextField>
-            <TextField fx:id="a8" alignment="CENTER" editable="false" layoutX="10.0" layoutY="23.0" onKeyPressed="#enterUserInput" onMouseClicked="#onSquareClick" prefHeight="59.0" prefWidth="59.0" text=" " GridPane.columnIndex="7">
+            <TextField fx:id="a8" alignment="CENTER" editable="false" layoutX="10.0" layoutY="23.0" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" onMouseClicked="#onSquareClick" prefHeight="59.0" prefWidth="59.0" text=" " GridPane.columnIndex="7">
                <font>
                   <Font size="28.0" />
                </font>
             </TextField>
-            <TextField fx:id="a9" alignment="CENTER" editable="false" layoutX="245.0" layoutY="23.0" onKeyPressed="#enterUserInput" onMouseClicked="#onSquareClick" prefHeight="58.0" prefWidth="58.0" text=" " GridPane.columnIndex="8">
+            <TextField fx:id="a9" alignment="CENTER" editable="false" layoutX="245.0" layoutY="23.0" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" onMouseClicked="#onSquareClick" prefHeight="58.0" prefWidth="58.0" text=" " GridPane.columnIndex="8">
                <font>
                   <Font size="28.0" />
                </font>
             </TextField>
-            <TextField fx:id="b1" alignment="CENTER" editable="false" layoutX="10.0" layoutY="23.0" onKeyPressed="#enterUserInput" onMouseClicked="#onSquareClick" prefHeight="58.0" prefWidth="58.0" text=" " GridPane.rowIndex="1">
+            <TextField fx:id="b1" alignment="CENTER" editable="false" layoutX="10.0" layoutY="23.0" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" onMouseClicked="#onSquareClick" prefHeight="58.0" prefWidth="58.0" text=" " GridPane.rowIndex="1">
                <font>
                   <Font size="28.0" />
                </font>
             </TextField>
-            <TextField fx:id="b2" alignment="CENTER" editable="false" layoutX="70.0" layoutY="23.0" onKeyPressed="#enterUserInput" onMouseClicked="#onSquareClick" prefHeight="59.0" prefWidth="59.0" text=" " GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <TextField fx:id="b2" alignment="CENTER" editable="false" layoutX="70.0" layoutY="23.0" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" onMouseClicked="#onSquareClick" prefHeight="59.0" prefWidth="59.0" text=" " GridPane.columnIndex="1" GridPane.rowIndex="1">
                <font>
                   <Font size="28.0" />
                </font>
             </TextField>
-            <TextField fx:id="b3" alignment="CENTER" editable="false" layoutX="127.0" layoutY="23.0" onKeyPressed="#enterUserInput" onMouseClicked="#onSquareClick" prefHeight="58.0" prefWidth="58.0" text=" " GridPane.columnIndex="2" GridPane.rowIndex="1">
+            <TextField fx:id="b3" alignment="CENTER" editable="false" layoutX="127.0" layoutY="23.0" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" onMouseClicked="#onSquareClick" prefHeight="58.0" prefWidth="58.0" text=" " GridPane.columnIndex="2" GridPane.rowIndex="1">
                <font>
                   <Font size="28.0" />
                </font>
             </TextField>
-            <TextField fx:id="b4" alignment="CENTER" editable="false" layoutX="186.0" layoutY="23.0" onKeyPressed="#enterUserInput" onMouseClicked="#onSquareClick" prefHeight="59.0" prefWidth="59.0" text=" " GridPane.columnIndex="3" GridPane.rowIndex="1">
+            <TextField fx:id="b4" alignment="CENTER" editable="false" layoutX="186.0" layoutY="23.0" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" onMouseClicked="#onSquareClick" prefHeight="59.0" prefWidth="59.0" text=" " GridPane.columnIndex="3" GridPane.rowIndex="1">
                <font>
                   <Font size="28.0" />
                </font>
             </TextField>
-            <TextField fx:id="b5" alignment="CENTER" editable="false" layoutX="245.0" layoutY="23.0" onKeyPressed="#enterUserInput" onMouseClicked="#onSquareClick" prefHeight="59.0" prefWidth="59.0" text=" " GridPane.columnIndex="4" GridPane.rowIndex="1">
+            <TextField fx:id="b5" alignment="CENTER" editable="false" layoutX="245.0" layoutY="23.0" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" onMouseClicked="#onSquareClick" prefHeight="59.0" prefWidth="59.0" text=" " GridPane.columnIndex="4" GridPane.rowIndex="1">
                <font>
                   <Font size="28.0" />
                </font>
             </TextField>
-            <TextField fx:id="b6" alignment="CENTER" editable="false" layoutX="304.0" layoutY="23.0" onKeyPressed="#enterUserInput" onMouseClicked="#onSquareClick" prefHeight="58.0" prefWidth="58.0" text=" " GridPane.columnIndex="5" GridPane.rowIndex="1">
+            <TextField fx:id="b6" alignment="CENTER" editable="false" layoutX="304.0" layoutY="23.0" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" onMouseClicked="#onSquareClick" prefHeight="58.0" prefWidth="58.0" text=" " GridPane.columnIndex="5" GridPane.rowIndex="1">
                <font>
                   <Font size="28.0" />
                </font>
             </TextField>
-            <TextField fx:id="b7" alignment="CENTER" editable="false" layoutX="363.0" layoutY="23.0" onKeyPressed="#enterUserInput" onMouseClicked="#onSquareClick" prefHeight="59.0" prefWidth="59.0" text=" " GridPane.columnIndex="6" GridPane.rowIndex="1">
+            <TextField fx:id="b7" alignment="CENTER" editable="false" layoutX="363.0" layoutY="23.0" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" onMouseClicked="#onSquareClick" prefHeight="59.0" prefWidth="59.0" text=" " GridPane.columnIndex="6" GridPane.rowIndex="1">
                <font>
                   <Font size="28.0" />
                </font>
             </TextField>
-            <TextField fx:id="b8" alignment="CENTER" editable="false" layoutX="422.0" layoutY="23.0" onKeyPressed="#enterUserInput" onMouseClicked="#onSquareClick" prefHeight="59.0" prefWidth="59.0" text=" " GridPane.columnIndex="7" GridPane.rowIndex="1">
+            <TextField fx:id="b8" alignment="CENTER" editable="false" layoutX="422.0" layoutY="23.0" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" onMouseClicked="#onSquareClick" prefHeight="59.0" prefWidth="59.0" text=" " GridPane.columnIndex="7" GridPane.rowIndex="1">
                <font>
                   <Font size="28.0" />
                </font>
             </TextField>
-            <TextField fx:id="b9" alignment="CENTER" editable="false" layoutX="481.0" layoutY="23.0" onKeyPressed="#enterUserInput" onMouseClicked="#onSquareClick" prefHeight="58.0" prefWidth="58.0" text=" " GridPane.columnIndex="8" GridPane.rowIndex="1">
+            <TextField fx:id="b9" alignment="CENTER" editable="false" layoutX="481.0" layoutY="23.0" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" onMouseClicked="#onSquareClick" prefHeight="58.0" prefWidth="58.0" text=" " GridPane.columnIndex="8" GridPane.rowIndex="1">
                <font>
                   <Font size="28.0" />
                </font>
             </TextField>
-            <TextField fx:id="c1" alignment="CENTER" editable="false" layoutX="10.0" layoutY="82.0" onKeyPressed="#enterUserInput" onMouseClicked="#onSquareClick" prefHeight="58.0" prefWidth="58.0" text=" " GridPane.rowIndex="2">
+            <TextField fx:id="c1" alignment="CENTER" editable="false" layoutX="10.0" layoutY="82.0" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" onMouseClicked="#onSquareClick" prefHeight="58.0" prefWidth="58.0" text=" " GridPane.rowIndex="2">
                <font>
                   <Font size="28.0" />
                </font>
             </TextField>
-            <TextField fx:id="c2" alignment="CENTER" editable="false" layoutX="68.0" layoutY="82.0" onKeyPressed="#enterUserInput" onMouseClicked="#onSquareClick" prefHeight="59.0" prefWidth="59.0" text=" " GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <TextField fx:id="c2" alignment="CENTER" editable="false" layoutX="68.0" layoutY="82.0" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" onMouseClicked="#onSquareClick" prefHeight="59.0" prefWidth="59.0" text=" " GridPane.columnIndex="1" GridPane.rowIndex="2">
                <font>
                   <Font size="28.0" />
                </font>
             </TextField>
-            <TextField fx:id="c3" alignment="CENTER" editable="false" layoutX="127.0" layoutY="82.0" onKeyPressed="#enterUserInput" onMouseClicked="#onSquareClick" prefHeight="58.0" prefWidth="58.0" text=" " GridPane.columnIndex="2" GridPane.rowIndex="2">
+            <TextField fx:id="c3" alignment="CENTER" editable="false" layoutX="127.0" layoutY="82.0" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" onMouseClicked="#onSquareClick" prefHeight="58.0" prefWidth="58.0" text=" " GridPane.columnIndex="2" GridPane.rowIndex="2">
                <font>
                   <Font size="28.0" />
                </font>
             </TextField>
-            <TextField fx:id="c4" alignment="CENTER" editable="false" layoutX="186.0" layoutY="82.0" onKeyPressed="#enterUserInput" onMouseClicked="#onSquareClick" prefHeight="59.0" prefWidth="59.0" text=" " GridPane.columnIndex="3" GridPane.rowIndex="2">
+            <TextField fx:id="c4" alignment="CENTER" editable="false" layoutX="186.0" layoutY="82.0" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" onMouseClicked="#onSquareClick" prefHeight="59.0" prefWidth="59.0" text=" " GridPane.columnIndex="3" GridPane.rowIndex="2">
                <font>
                   <Font size="28.0" />
                </font>
             </TextField>
-            <TextField fx:id="c5" alignment="CENTER" editable="false" layoutX="245.0" layoutY="82.0" onKeyPressed="#enterUserInput" onMouseClicked="#onSquareClick" prefHeight="59.0" prefWidth="59.0" text=" " GridPane.columnIndex="4" GridPane.rowIndex="2">
+            <TextField fx:id="c5" alignment="CENTER" editable="false" layoutX="245.0" layoutY="82.0" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" onMouseClicked="#onSquareClick" prefHeight="59.0" prefWidth="59.0" text=" " GridPane.columnIndex="4" GridPane.rowIndex="2">
                <font>
                   <Font size="28.0" />
                </font>
             </TextField>
-            <TextField fx:id="c6" alignment="CENTER" editable="false" layoutX="304.0" layoutY="82.0" onKeyPressed="#enterUserInput" onMouseClicked="#onSquareClick" prefHeight="58.0" prefWidth="58.0" text=" " GridPane.columnIndex="5" GridPane.rowIndex="2">
+            <TextField fx:id="c6" alignment="CENTER" editable="false" layoutX="304.0" layoutY="82.0" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" onMouseClicked="#onSquareClick" prefHeight="58.0" prefWidth="58.0" text=" " GridPane.columnIndex="5" GridPane.rowIndex="2">
                <font>
                   <Font size="28.0" />
                </font>
             </TextField>
-            <TextField fx:id="c7" alignment="CENTER" editable="false" layoutX="363.0" layoutY="82.0" onKeyPressed="#enterUserInput" onMouseClicked="#onSquareClick" prefHeight="59.0" prefWidth="59.0" text=" " GridPane.columnIndex="6" GridPane.rowIndex="2">
+            <TextField fx:id="c7" alignment="CENTER" editable="false" layoutX="363.0" layoutY="82.0" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" onMouseClicked="#onSquareClick" prefHeight="59.0" prefWidth="59.0" text=" " GridPane.columnIndex="6" GridPane.rowIndex="2">
                <font>
                   <Font size="28.0" />
                </font>
             </TextField>
-            <TextField fx:id="c8" alignment="CENTER" editable="false" layoutX="422.0" layoutY="82.0" onKeyPressed="#enterUserInput" onMouseClicked="#onSquareClick" prefHeight="59.0" prefWidth="59.0" text=" " GridPane.columnIndex="7" GridPane.rowIndex="2">
+            <TextField fx:id="c8" alignment="CENTER" editable="false" layoutX="422.0" layoutY="82.0" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" onMouseClicked="#onSquareClick" prefHeight="59.0" prefWidth="59.0" text=" " GridPane.columnIndex="7" GridPane.rowIndex="2">
                <font>
                   <Font size="28.0" />
                </font>
             </TextField>
-            <TextField fx:id="c9" alignment="CENTER" editable="false" layoutX="481.0" layoutY="82.0" onKeyPressed="#enterUserInput" onMouseClicked="#onSquareClick" prefHeight="58.0" prefWidth="58.0" text=" " GridPane.columnIndex="8" GridPane.rowIndex="2">
+            <TextField fx:id="c9" alignment="CENTER" editable="false" layoutX="481.0" layoutY="82.0" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" onMouseClicked="#onSquareClick" prefHeight="58.0" prefWidth="58.0" text=" " GridPane.columnIndex="8" GridPane.rowIndex="2">
                <font>
                   <Font size="28.0" />
                </font>
             </TextField>
-            <TextField fx:id="d1" alignment="CENTER" editable="false" onKeyPressed="#enterUserInput" onMouseClicked="#onSquareClick" prefHeight="58.0" prefWidth="58.0" text=" " GridPane.rowIndex="3">
+            <TextField fx:id="d1" alignment="CENTER" editable="false" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" onMouseClicked="#onSquareClick" prefHeight="58.0" prefWidth="58.0" text=" " GridPane.rowIndex="3">
                <font>
                   <Font size="28.0" />
                </font>
             </TextField>
-            <TextField fx:id="d2" alignment="CENTER" editable="false" onKeyPressed="#enterUserInput" onMouseClicked="#onSquareClick" prefHeight="59.0" prefWidth="59.0" text=" " GridPane.columnIndex="1" GridPane.rowIndex="3">
+            <TextField fx:id="d2" alignment="CENTER" editable="false" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" onMouseClicked="#onSquareClick" prefHeight="59.0" prefWidth="59.0" text=" " GridPane.columnIndex="1" GridPane.rowIndex="3">
                <font>
                   <Font size="28.0" />
                </font>
             </TextField>
-            <TextField fx:id="d3" alignment="CENTER" editable="false" onKeyPressed="#enterUserInput" onMouseClicked="#onSquareClick" prefHeight="58.0" prefWidth="58.0" text=" " GridPane.columnIndex="2" GridPane.rowIndex="3">
+            <TextField fx:id="d3" alignment="CENTER" editable="false" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" onMouseClicked="#onSquareClick" prefHeight="58.0" prefWidth="58.0" text=" " GridPane.columnIndex="2" GridPane.rowIndex="3">
                <font>
                   <Font size="28.0" />
                </font>
             </TextField>
-            <TextField fx:id="d4" alignment="CENTER" editable="false" onKeyPressed="#enterUserInput" onMouseClicked="#onSquareClick" prefHeight="59.0" prefWidth="59.0" text=" " GridPane.columnIndex="3" GridPane.rowIndex="3">
+            <TextField fx:id="d4" alignment="CENTER" editable="false" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" onMouseClicked="#onSquareClick" prefHeight="59.0" prefWidth="59.0" text=" " GridPane.columnIndex="3" GridPane.rowIndex="3">
                <font>
                   <Font size="28.0" />
                </font>
             </TextField>
-            <TextField fx:id="d5" alignment="CENTER" editable="false" onKeyPressed="#enterUserInput" onMouseClicked="#onSquareClick" prefHeight="59.0" prefWidth="59.0" text=" " GridPane.columnIndex="4" GridPane.rowIndex="3">
+            <TextField fx:id="d5" alignment="CENTER" editable="false" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" onMouseClicked="#onSquareClick" prefHeight="59.0" prefWidth="59.0" text=" " GridPane.columnIndex="4" GridPane.rowIndex="3">
                <font>
                   <Font size="28.0" />
                </font>
             </TextField>
-            <TextField fx:id="d6" alignment="CENTER" editable="false" onKeyPressed="#enterUserInput" onMouseClicked="#onSquareClick" prefHeight="58.0" prefWidth="58.0" text=" " GridPane.columnIndex="5" GridPane.rowIndex="3">
+            <TextField fx:id="d6" alignment="CENTER" editable="false" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" onMouseClicked="#onSquareClick" prefHeight="58.0" prefWidth="58.0" text=" " GridPane.columnIndex="5" GridPane.rowIndex="3">
                <font>
                   <Font size="28.0" />
                </font>
             </TextField>
-            <TextField fx:id="d7" alignment="CENTER" editable="false" onKeyPressed="#enterUserInput" onMouseClicked="#onSquareClick" prefHeight="59.0" prefWidth="59.0" text=" " GridPane.columnIndex="6" GridPane.rowIndex="3">
+            <TextField fx:id="d7" alignment="CENTER" editable="false" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" onMouseClicked="#onSquareClick" prefHeight="59.0" prefWidth="59.0" text=" " GridPane.columnIndex="6" GridPane.rowIndex="3">
                <font>
                   <Font size="28.0" />
                </font>
             </TextField>
-            <TextField fx:id="d8" alignment="CENTER" editable="false" onKeyPressed="#enterUserInput" onMouseClicked="#onSquareClick" prefHeight="59.0" prefWidth="59.0" text=" " GridPane.columnIndex="7" GridPane.rowIndex="3">
+            <TextField fx:id="d8" alignment="CENTER" editable="false" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" onMouseClicked="#onSquareClick" prefHeight="59.0" prefWidth="59.0" text=" " GridPane.columnIndex="7" GridPane.rowIndex="3">
                <font>
                   <Font size="28.0" />
                </font>
             </TextField>
-            <TextField fx:id="d9" alignment="CENTER" editable="false" onKeyPressed="#enterUserInput" onMouseClicked="#onSquareClick" prefHeight="58.0" prefWidth="58.0" text=" " GridPane.columnIndex="8" GridPane.rowIndex="3">
+            <TextField fx:id="d9" alignment="CENTER" editable="false" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" onMouseClicked="#onSquareClick" prefHeight="58.0" prefWidth="58.0" text=" " GridPane.columnIndex="8" GridPane.rowIndex="3">
                <font>
                   <Font size="28.0" />
                </font>
             </TextField>
-            <TextField fx:id="e1" alignment="CENTER" editable="false" layoutX="10.0" layoutY="200.0" onKeyPressed="#enterUserInput" onMouseClicked="#onSquareClick" prefHeight="58.0" prefWidth="58.0" text=" " GridPane.rowIndex="4">
+            <TextField fx:id="e1" alignment="CENTER" editable="false" layoutX="10.0" layoutY="200.0" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" onMouseClicked="#onSquareClick" prefHeight="58.0" prefWidth="58.0" text=" " GridPane.rowIndex="4">
                <font>
                   <Font size="28.0" />
                </font>
             </TextField>
-            <TextField fx:id="e2" alignment="CENTER" editable="false" layoutX="68.0" layoutY="200.0" onKeyPressed="#enterUserInput" onMouseClicked="#onSquareClick" prefHeight="59.0" prefWidth="59.0" text=" " GridPane.columnIndex="1" GridPane.rowIndex="4">
+            <TextField fx:id="e2" alignment="CENTER" editable="false" layoutX="68.0" layoutY="200.0" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" onMouseClicked="#onSquareClick" prefHeight="59.0" prefWidth="59.0" text=" " GridPane.columnIndex="1" GridPane.rowIndex="4">
                <font>
                   <Font size="28.0" />
                </font>
             </TextField>
-            <TextField fx:id="e3" alignment="CENTER" editable="false" layoutX="127.0" layoutY="200.0" onKeyPressed="#enterUserInput" onMouseClicked="#onSquareClick" prefHeight="58.0" prefWidth="58.0" text=" " GridPane.columnIndex="2" GridPane.rowIndex="4">
+            <TextField fx:id="e3" alignment="CENTER" editable="false" layoutX="127.0" layoutY="200.0" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" onMouseClicked="#onSquareClick" prefHeight="58.0" prefWidth="58.0" text=" " GridPane.columnIndex="2" GridPane.rowIndex="4">
                <font>
                   <Font size="28.0" />
                </font>
             </TextField>
-            <TextField fx:id="e4" alignment="CENTER" editable="false" layoutX="186.0" layoutY="200.0" onKeyPressed="#enterUserInput" onMouseClicked="#onSquareClick" prefHeight="59.0" prefWidth="59.0" text=" " GridPane.columnIndex="3" GridPane.rowIndex="4">
+            <TextField fx:id="e4" alignment="CENTER" editable="false" layoutX="186.0" layoutY="200.0" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" onMouseClicked="#onSquareClick" prefHeight="59.0" prefWidth="59.0" text=" " GridPane.columnIndex="3" GridPane.rowIndex="4">
                <font>
                   <Font size="28.0" />
                </font>
             </TextField>
-            <TextField fx:id="e5" alignment="CENTER" editable="false" layoutX="245.0" layoutY="200.0" onKeyPressed="#enterUserInput" onMouseClicked="#onSquareClick" prefHeight="59.0" prefWidth="59.0" text=" " GridPane.columnIndex="4" GridPane.rowIndex="4">
+            <TextField fx:id="e5" alignment="CENTER" editable="false" layoutX="245.0" layoutY="200.0" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" onMouseClicked="#onSquareClick" prefHeight="59.0" prefWidth="59.0" text=" " GridPane.columnIndex="4" GridPane.rowIndex="4">
                <font>
                   <Font size="28.0" />
                </font>
             </TextField>
-            <TextField fx:id="e6" alignment="CENTER" editable="false" layoutX="304.0" layoutY="200.0" onKeyPressed="#enterUserInput" onMouseClicked="#onSquareClick" prefHeight="58.0" prefWidth="58.0" text=" " GridPane.columnIndex="5" GridPane.rowIndex="4">
+            <TextField fx:id="e6" alignment="CENTER" editable="false" layoutX="304.0" layoutY="200.0" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" onMouseClicked="#onSquareClick" prefHeight="58.0" prefWidth="58.0" text=" " GridPane.columnIndex="5" GridPane.rowIndex="4">
                <font>
                   <Font size="28.0" />
                </font>
             </TextField>
-            <TextField fx:id="e7" alignment="CENTER" editable="false" layoutX="363.0" layoutY="200.0" onKeyPressed="#enterUserInput" onMouseClicked="#onSquareClick" prefHeight="59.0" prefWidth="59.0" text=" " GridPane.columnIndex="6" GridPane.rowIndex="4">
+            <TextField fx:id="e7" alignment="CENTER" editable="false" layoutX="363.0" layoutY="200.0" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" onMouseClicked="#onSquareClick" prefHeight="59.0" prefWidth="59.0" text=" " GridPane.columnIndex="6" GridPane.rowIndex="4">
                <font>
                   <Font size="28.0" />
                </font>
             </TextField>
-            <TextField fx:id="e8" alignment="CENTER" editable="false" layoutX="422.0" layoutY="200.0" onKeyPressed="#enterUserInput" onMouseClicked="#onSquareClick" prefHeight="59.0" prefWidth="59.0" text=" " GridPane.columnIndex="7" GridPane.rowIndex="4">
+            <TextField fx:id="e8" alignment="CENTER" editable="false" layoutX="422.0" layoutY="200.0" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" onMouseClicked="#onSquareClick" prefHeight="59.0" prefWidth="59.0" text=" " GridPane.columnIndex="7" GridPane.rowIndex="4">
                <font>
                   <Font size="28.0" />
                </font>
             </TextField>
-            <TextField fx:id="e9" alignment="CENTER" editable="false" layoutX="481.0" layoutY="200.0" onKeyPressed="#enterUserInput" onMouseClicked="#onSquareClick" prefHeight="58.0" prefWidth="58.0" text=" " GridPane.columnIndex="8" GridPane.rowIndex="4">
+            <TextField fx:id="e9" alignment="CENTER" editable="false" layoutX="481.0" layoutY="200.0" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" onMouseClicked="#onSquareClick" prefHeight="58.0" prefWidth="58.0" text=" " GridPane.columnIndex="8" GridPane.rowIndex="4">
                <font>
                   <Font size="28.0" />
                </font>
             </TextField>
-            <TextField fx:id="f1" alignment="CENTER" editable="false" layoutX="10.0" layoutY="23.0" onKeyPressed="#enterUserInput" onMouseClicked="#onSquareClick" prefHeight="58.0" prefWidth="58.0" text=" " GridPane.rowIndex="5">
+            <TextField fx:id="f1" alignment="CENTER" editable="false" layoutX="10.0" layoutY="23.0" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" onMouseClicked="#onSquareClick" prefHeight="58.0" prefWidth="58.0" text=" " GridPane.rowIndex="5">
                <font>
                   <Font size="28.0" />
                </font>
             </TextField>
-            <TextField fx:id="f2" alignment="CENTER" editable="false" layoutX="10.0" layoutY="23.0" onKeyPressed="#enterUserInput" onMouseClicked="#onSquareClick" prefHeight="59.0" prefWidth="59.0" text=" " GridPane.columnIndex="1" GridPane.rowIndex="5">
+            <TextField fx:id="f2" alignment="CENTER" editable="false" layoutX="10.0" layoutY="23.0" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" onMouseClicked="#onSquareClick" prefHeight="59.0" prefWidth="59.0" text=" " GridPane.columnIndex="1" GridPane.rowIndex="5">
                <font>
                   <Font size="28.0" />
                </font>
             </TextField>
-            <TextField fx:id="f3" alignment="CENTER" editable="false" layoutX="10.0" layoutY="23.0" onKeyPressed="#enterUserInput" onMouseClicked="#onSquareClick" prefHeight="58.0" prefWidth="58.0" text=" " GridPane.columnIndex="2" GridPane.rowIndex="5">
+            <TextField fx:id="f3" alignment="CENTER" editable="false" layoutX="10.0" layoutY="23.0" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" onMouseClicked="#onSquareClick" prefHeight="58.0" prefWidth="58.0" text=" " GridPane.columnIndex="2" GridPane.rowIndex="5">
                <font>
                   <Font size="28.0" />
                </font>
             </TextField>
-            <TextField fx:id="f4" alignment="CENTER" editable="false" layoutX="10.0" layoutY="23.0" onKeyPressed="#enterUserInput" onMouseClicked="#onSquareClick" prefHeight="59.0" prefWidth="59.0" text=" " GridPane.columnIndex="3" GridPane.rowIndex="5">
+            <TextField fx:id="f4" alignment="CENTER" editable="false" layoutX="10.0" layoutY="23.0" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" onMouseClicked="#onSquareClick" prefHeight="59.0" prefWidth="59.0" text=" " GridPane.columnIndex="3" GridPane.rowIndex="5">
                <font>
                   <Font size="28.0" />
                </font>
             </TextField>
-            <TextField fx:id="f5" alignment="CENTER" editable="false" layoutX="10.0" layoutY="23.0" onKeyPressed="#enterUserInput" onMouseClicked="#onSquareClick" prefHeight="59.0" prefWidth="59.0" text=" " GridPane.columnIndex="4" GridPane.rowIndex="5">
+            <TextField fx:id="f5" alignment="CENTER" editable="false" layoutX="10.0" layoutY="23.0" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" onMouseClicked="#onSquareClick" prefHeight="59.0" prefWidth="59.0" text=" " GridPane.columnIndex="4" GridPane.rowIndex="5">
                <font>
                   <Font size="28.0" />
                </font>
             </TextField>
-            <TextField fx:id="f6" alignment="CENTER" editable="false" layoutX="10.0" layoutY="23.0" onKeyPressed="#enterUserInput" onMouseClicked="#onSquareClick" prefHeight="58.0" prefWidth="58.0" text=" " GridPane.columnIndex="5" GridPane.rowIndex="5">
+            <TextField fx:id="f6" alignment="CENTER" editable="false" layoutX="10.0" layoutY="23.0" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" onMouseClicked="#onSquareClick" prefHeight="58.0" prefWidth="58.0" text=" " GridPane.columnIndex="5" GridPane.rowIndex="5">
                <font>
                   <Font size="28.0" />
                </font>
             </TextField>
-            <TextField fx:id="f7" alignment="CENTER" editable="false" layoutX="10.0" layoutY="23.0" onKeyPressed="#enterUserInput" onMouseClicked="#onSquareClick" prefHeight="59.0" prefWidth="59.0" text=" " GridPane.columnIndex="6" GridPane.rowIndex="5">
+            <TextField fx:id="f7" alignment="CENTER" editable="false" layoutX="10.0" layoutY="23.0" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" onMouseClicked="#onSquareClick" prefHeight="59.0" prefWidth="59.0" text=" " GridPane.columnIndex="6" GridPane.rowIndex="5">
                <font>
                   <Font size="28.0" />
                </font>
             </TextField>
-            <TextField fx:id="f8" alignment="CENTER" editable="false" layoutX="10.0" layoutY="23.0" onKeyPressed="#enterUserInput" onMouseClicked="#onSquareClick" prefHeight="59.0" prefWidth="59.0" text=" " GridPane.columnIndex="7" GridPane.rowIndex="5">
+            <TextField fx:id="f8" alignment="CENTER" editable="false" layoutX="10.0" layoutY="23.0" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" onMouseClicked="#onSquareClick" prefHeight="59.0" prefWidth="59.0" text=" " GridPane.columnIndex="7" GridPane.rowIndex="5">
                <font>
                   <Font size="28.0" />
                </font>
             </TextField>
-            <TextField fx:id="f9" alignment="CENTER" editable="false" layoutX="10.0" layoutY="23.0" onKeyPressed="#enterUserInput" onMouseClicked="#onSquareClick" prefHeight="58.0" prefWidth="58.0" text=" " GridPane.columnIndex="8" GridPane.rowIndex="5">
+            <TextField fx:id="f9" alignment="CENTER" editable="false" layoutX="10.0" layoutY="23.0" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" onMouseClicked="#onSquareClick" prefHeight="58.0" prefWidth="58.0" text=" " GridPane.columnIndex="8" GridPane.rowIndex="5">
                <font>
                   <Font size="28.0" />
                </font>
             </TextField>
-            <TextField fx:id="g1" alignment="CENTER" editable="false" layoutX="10.0" layoutY="23.0" onKeyPressed="#enterUserInput" onMouseClicked="#onSquareClick" prefHeight="58.0" prefWidth="58.0" text=" " GridPane.rowIndex="6">
+            <TextField fx:id="g1" alignment="CENTER" editable="false" layoutX="10.0" layoutY="23.0" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" onMouseClicked="#onSquareClick" prefHeight="58.0" prefWidth="58.0" text=" " GridPane.rowIndex="6">
                <font>
                   <Font size="28.0" />
                </font>
             </TextField>
-            <TextField fx:id="g2" alignment="CENTER" editable="false" layoutX="10.0" layoutY="23.0" onKeyPressed="#enterUserInput" onMouseClicked="#onSquareClick" prefHeight="59.0" prefWidth="59.0" text=" " GridPane.columnIndex="1" GridPane.rowIndex="6">
+            <TextField fx:id="g2" alignment="CENTER" editable="false" layoutX="10.0" layoutY="23.0" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" onMouseClicked="#onSquareClick" prefHeight="59.0" prefWidth="59.0" text=" " GridPane.columnIndex="1" GridPane.rowIndex="6">
                <font>
                   <Font size="28.0" />
                </font>
             </TextField>
-            <TextField fx:id="g3" alignment="CENTER" editable="false" layoutX="10.0" layoutY="23.0" onKeyPressed="#enterUserInput" onMouseClicked="#onSquareClick" prefHeight="58.0" prefWidth="58.0" text=" " GridPane.columnIndex="2" GridPane.rowIndex="6">
+            <TextField fx:id="g3" alignment="CENTER" editable="false" layoutX="10.0" layoutY="23.0" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" onMouseClicked="#onSquareClick" prefHeight="58.0" prefWidth="58.0" text=" " GridPane.columnIndex="2" GridPane.rowIndex="6">
                <font>
                   <Font size="28.0" />
                </font>
             </TextField>
-            <TextField fx:id="g4" alignment="CENTER" editable="false" layoutX="10.0" layoutY="23.0" onKeyPressed="#enterUserInput" onMouseClicked="#onSquareClick" prefHeight="59.0" prefWidth="59.0" text=" " GridPane.columnIndex="3" GridPane.rowIndex="6">
+            <TextField fx:id="g4" alignment="CENTER" editable="false" layoutX="10.0" layoutY="23.0" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" onMouseClicked="#onSquareClick" prefHeight="59.0" prefWidth="59.0" text=" " GridPane.columnIndex="3" GridPane.rowIndex="6">
                <font>
                   <Font size="28.0" />
                </font>
             </TextField>
-            <TextField fx:id="g5" alignment="CENTER" editable="false" layoutX="10.0" layoutY="23.0" onKeyPressed="#enterUserInput" onMouseClicked="#onSquareClick" prefHeight="59.0" prefWidth="59.0" text=" " GridPane.columnIndex="4" GridPane.rowIndex="6">
+            <TextField fx:id="g5" alignment="CENTER" editable="false" layoutX="10.0" layoutY="23.0" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" onMouseClicked="#onSquareClick" prefHeight="59.0" prefWidth="59.0" text=" " GridPane.columnIndex="4" GridPane.rowIndex="6">
                <font>
                   <Font size="28.0" />
                </font>
             </TextField>
-            <TextField fx:id="g6" alignment="CENTER" editable="false" layoutX="10.0" layoutY="23.0" onKeyPressed="#enterUserInput" onMouseClicked="#onSquareClick" prefHeight="58.0" prefWidth="58.0" text=" " GridPane.columnIndex="5" GridPane.rowIndex="6">
+            <TextField fx:id="g6" alignment="CENTER" editable="false" layoutX="10.0" layoutY="23.0" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" onMouseClicked="#onSquareClick" prefHeight="58.0" prefWidth="58.0" text=" " GridPane.columnIndex="5" GridPane.rowIndex="6">
                <font>
                   <Font size="28.0" />
                </font>
             </TextField>
-            <TextField fx:id="g7" alignment="CENTER" editable="false" layoutX="10.0" layoutY="23.0" onKeyPressed="#enterUserInput" onMouseClicked="#onSquareClick" prefHeight="59.0" prefWidth="59.0" text=" " GridPane.columnIndex="6" GridPane.rowIndex="6">
+            <TextField fx:id="g7" alignment="CENTER" editable="false" layoutX="10.0" layoutY="23.0" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" onMouseClicked="#onSquareClick" prefHeight="59.0" prefWidth="59.0" text=" " GridPane.columnIndex="6" GridPane.rowIndex="6">
                <font>
                   <Font size="28.0" />
                </font>
             </TextField>
-            <TextField fx:id="g8" alignment="CENTER" editable="false" layoutX="10.0" layoutY="23.0" onKeyPressed="#enterUserInput" onMouseClicked="#onSquareClick" prefHeight="59.0" prefWidth="59.0" text=" " GridPane.columnIndex="7" GridPane.rowIndex="6">
+            <TextField fx:id="g8" alignment="CENTER" editable="false" layoutX="10.0" layoutY="23.0" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" onMouseClicked="#onSquareClick" prefHeight="59.0" prefWidth="59.0" text=" " GridPane.columnIndex="7" GridPane.rowIndex="6">
                <font>
                   <Font size="28.0" />
                </font>
             </TextField>
-            <TextField fx:id="g9" alignment="CENTER" editable="false" layoutX="10.0" layoutY="23.0" onKeyPressed="#enterUserInput" onMouseClicked="#onSquareClick" prefHeight="58.0" prefWidth="58.0" text=" " GridPane.columnIndex="8" GridPane.rowIndex="6">
+            <TextField fx:id="g9" alignment="CENTER" editable="false" layoutX="10.0" layoutY="23.0" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" onMouseClicked="#onSquareClick" prefHeight="58.0" prefWidth="58.0" text=" " GridPane.columnIndex="8" GridPane.rowIndex="6">
                <font>
                   <Font size="28.0" />
                </font>
             </TextField>
-            <TextField fx:id="h1" alignment="CENTER" editable="false" layoutX="10.0" layoutY="23.0" onKeyPressed="#enterUserInput" onMouseClicked="#onSquareClick" prefHeight="58.0" prefWidth="58.0" text=" " GridPane.rowIndex="7">
+            <TextField fx:id="h1" alignment="CENTER" editable="false" layoutX="10.0" layoutY="23.0" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" onMouseClicked="#onSquareClick" prefHeight="58.0" prefWidth="58.0" text=" " GridPane.rowIndex="7">
                <font>
                   <Font size="28.0" />
                </font>
             </TextField>
-            <TextField fx:id="h2" alignment="CENTER" editable="false" layoutX="10.0" layoutY="23.0" onKeyPressed="#enterUserInput" onMouseClicked="#onSquareClick" prefHeight="59.0" prefWidth="59.0" text=" " GridPane.columnIndex="1" GridPane.rowIndex="7">
+            <TextField fx:id="h2" alignment="CENTER" editable="false" layoutX="10.0" layoutY="23.0" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" onMouseClicked="#onSquareClick" prefHeight="59.0" prefWidth="59.0" text=" " GridPane.columnIndex="1" GridPane.rowIndex="7">
                <font>
                   <Font size="28.0" />
                </font>
             </TextField>
-            <TextField fx:id="h3" alignment="CENTER" editable="false" layoutX="10.0" layoutY="23.0" onKeyPressed="#enterUserInput" onMouseClicked="#onSquareClick" prefHeight="58.0" prefWidth="58.0" text=" " GridPane.columnIndex="2" GridPane.rowIndex="7">
+            <TextField fx:id="h3" alignment="CENTER" editable="false" layoutX="10.0" layoutY="23.0" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" onMouseClicked="#onSquareClick" prefHeight="58.0" prefWidth="58.0" text=" " GridPane.columnIndex="2" GridPane.rowIndex="7">
                <font>
                   <Font size="28.0" />
                </font>
             </TextField>
-            <TextField fx:id="h4" alignment="CENTER" editable="false" layoutX="10.0" layoutY="23.0" onKeyPressed="#enterUserInput" onMouseClicked="#onSquareClick" prefHeight="59.0" prefWidth="59.0" text=" " GridPane.columnIndex="3" GridPane.rowIndex="7">
+            <TextField fx:id="h4" alignment="CENTER" editable="false" layoutX="10.0" layoutY="23.0" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" onMouseClicked="#onSquareClick" prefHeight="59.0" prefWidth="59.0" text=" " GridPane.columnIndex="3" GridPane.rowIndex="7">
                <font>
                   <Font size="28.0" />
                </font>
             </TextField>
-            <TextField fx:id="h5" alignment="CENTER" editable="false" layoutX="10.0" layoutY="23.0" onKeyPressed="#enterUserInput" onMouseClicked="#onSquareClick" prefHeight="59.0" prefWidth="59.0" text=" " GridPane.columnIndex="4" GridPane.rowIndex="7">
+            <TextField fx:id="h5" alignment="CENTER" editable="false" layoutX="10.0" layoutY="23.0" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" onMouseClicked="#onSquareClick" prefHeight="59.0" prefWidth="59.0" text=" " GridPane.columnIndex="4" GridPane.rowIndex="7">
                <font>
                   <Font size="28.0" />
                </font>
             </TextField>
-            <TextField fx:id="h6" alignment="CENTER" editable="false" layoutX="10.0" layoutY="23.0" onKeyPressed="#enterUserInput" onMouseClicked="#onSquareClick" prefHeight="58.0" prefWidth="58.0" text=" " GridPane.columnIndex="5" GridPane.rowIndex="7">
+            <TextField fx:id="h6" alignment="CENTER" editable="false" layoutX="10.0" layoutY="23.0" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" onMouseClicked="#onSquareClick" prefHeight="58.0" prefWidth="58.0" text=" " GridPane.columnIndex="5" GridPane.rowIndex="7">
                <font>
                   <Font size="28.0" />
                </font>
             </TextField>
-            <TextField fx:id="h7" alignment="CENTER" editable="false" layoutX="10.0" layoutY="23.0" onKeyPressed="#enterUserInput" onMouseClicked="#onSquareClick" prefHeight="59.0" prefWidth="59.0" text=" " GridPane.columnIndex="6" GridPane.rowIndex="7">
+            <TextField fx:id="h7" alignment="CENTER" editable="false" layoutX="10.0" layoutY="23.0" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" onMouseClicked="#onSquareClick" prefHeight="59.0" prefWidth="59.0" text=" " GridPane.columnIndex="6" GridPane.rowIndex="7">
                <font>
                   <Font size="28.0" />
                </font>
             </TextField>
-            <TextField fx:id="h8" alignment="CENTER" editable="false" layoutX="10.0" layoutY="23.0" onKeyPressed="#enterUserInput" onMouseClicked="#onSquareClick" prefHeight="59.0" prefWidth="59.0" text=" " GridPane.columnIndex="7" GridPane.rowIndex="7">
+            <TextField fx:id="h8" alignment="CENTER" editable="false" layoutX="10.0" layoutY="23.0" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" onMouseClicked="#onSquareClick" prefHeight="59.0" prefWidth="59.0" text=" " GridPane.columnIndex="7" GridPane.rowIndex="7">
                <font>
                   <Font size="28.0" />
                </font>
             </TextField>
-            <TextField fx:id="h9" alignment="CENTER" editable="false" layoutX="10.0" layoutY="23.0" onKeyPressed="#enterUserInput" onMouseClicked="#onSquareClick" prefHeight="58.0" prefWidth="58.0" text=" " GridPane.columnIndex="8" GridPane.rowIndex="7">
+            <TextField fx:id="h9" alignment="CENTER" editable="false" layoutX="10.0" layoutY="23.0" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" onMouseClicked="#onSquareClick" prefHeight="58.0" prefWidth="58.0" text=" " GridPane.columnIndex="8" GridPane.rowIndex="7">
                <font>
                   <Font size="28.0" />
                </font>
             </TextField>
-            <TextField fx:id="i1" alignment="CENTER" editable="false" layoutX="10.0" layoutY="23.0" onKeyPressed="#enterUserInput" onMouseClicked="#onSquareClick" prefHeight="58.0" prefWidth="58.0" text=" " GridPane.rowIndex="8">
+            <TextField fx:id="i1" alignment="CENTER" editable="false" layoutX="10.0" layoutY="23.0" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" onMouseClicked="#onSquareClick" prefHeight="58.0" prefWidth="58.0" text=" " GridPane.rowIndex="8">
                <font>
                   <Font size="28.0" />
                </font>
             </TextField>
-            <TextField fx:id="i2" alignment="CENTER" editable="false" layoutX="10.0" layoutY="23.0" onKeyPressed="#enterUserInput" onMouseClicked="#onSquareClick" prefHeight="59.0" prefWidth="59.0" text=" " GridPane.columnIndex="1" GridPane.rowIndex="8">
+            <TextField fx:id="i2" alignment="CENTER" editable="false" layoutX="10.0" layoutY="23.0" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" onMouseClicked="#onSquareClick" prefHeight="59.0" prefWidth="59.0" text=" " GridPane.columnIndex="1" GridPane.rowIndex="8">
                <font>
                   <Font size="28.0" />
                </font>
             </TextField>
-            <TextField fx:id="i3" alignment="CENTER" editable="false" layoutX="10.0" layoutY="23.0" onKeyPressed="#enterUserInput" onMouseClicked="#onSquareClick" prefHeight="58.0" prefWidth="58.0" text=" " GridPane.columnIndex="2" GridPane.rowIndex="8">
+            <TextField fx:id="i3" alignment="CENTER" editable="false" layoutX="10.0" layoutY="23.0" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" onMouseClicked="#onSquareClick" prefHeight="58.0" prefWidth="58.0" text=" " GridPane.columnIndex="2" GridPane.rowIndex="8">
                <font>
                   <Font size="28.0" />
                </font>
             </TextField>
-            <TextField fx:id="i4" alignment="CENTER" editable="false" layoutX="10.0" layoutY="23.0" onKeyPressed="#enterUserInput" onMouseClicked="#onSquareClick" prefHeight="59.0" prefWidth="59.0" text=" " GridPane.columnIndex="3" GridPane.rowIndex="8">
+            <TextField fx:id="i4" alignment="CENTER" editable="false" layoutX="10.0" layoutY="23.0" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" onMouseClicked="#onSquareClick" prefHeight="59.0" prefWidth="59.0" text=" " GridPane.columnIndex="3" GridPane.rowIndex="8">
                <font>
                   <Font size="28.0" />
                </font>
             </TextField>
-            <TextField fx:id="i5" alignment="CENTER" editable="false" layoutX="10.0" layoutY="23.0" onKeyPressed="#enterUserInput" onMouseClicked="#onSquareClick" prefHeight="59.0" prefWidth="59.0" text=" " GridPane.columnIndex="4" GridPane.rowIndex="8">
+            <TextField fx:id="i5" alignment="CENTER" editable="false" layoutX="10.0" layoutY="23.0" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" onMouseClicked="#onSquareClick" prefHeight="59.0" prefWidth="59.0" text=" " GridPane.columnIndex="4" GridPane.rowIndex="8">
                <font>
                   <Font size="28.0" />
                </font>
             </TextField>
-            <TextField fx:id="i6" alignment="CENTER" editable="false" layoutX="10.0" layoutY="23.0" onKeyPressed="#enterUserInput" onMouseClicked="#onSquareClick" prefHeight="58.0" prefWidth="58.0" text=" " GridPane.columnIndex="5" GridPane.rowIndex="8">
+            <TextField fx:id="i6" alignment="CENTER" editable="false" layoutX="10.0" layoutY="23.0" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" onMouseClicked="#onSquareClick" prefHeight="58.0" prefWidth="58.0" text=" " GridPane.columnIndex="5" GridPane.rowIndex="8">
                <font>
                   <Font size="28.0" />
                </font>
             </TextField>
-            <TextField fx:id="i7" alignment="CENTER" editable="false" layoutX="10.0" layoutY="23.0" onKeyPressed="#enterUserInput" onMouseClicked="#onSquareClick" prefHeight="59.0" prefWidth="59.0" text=" " GridPane.columnIndex="6" GridPane.rowIndex="8">
+            <TextField fx:id="i7" alignment="CENTER" editable="false" layoutX="10.0" layoutY="23.0" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" onMouseClicked="#onSquareClick" prefHeight="59.0" prefWidth="59.0" text=" " GridPane.columnIndex="6" GridPane.rowIndex="8">
                <font>
                   <Font size="28.0" />
                </font>
             </TextField>
-            <TextField fx:id="i8" alignment="CENTER" editable="false" layoutX="10.0" layoutY="23.0" onKeyPressed="#enterUserInput" onMouseClicked="#onSquareClick" prefHeight="59.0" prefWidth="59.0" text=" " GridPane.columnIndex="7" GridPane.rowIndex="8">
+            <TextField fx:id="i8" alignment="CENTER" editable="false" layoutX="10.0" layoutY="23.0" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" onMouseClicked="#onSquareClick" prefHeight="59.0" prefWidth="59.0" text=" " GridPane.columnIndex="7" GridPane.rowIndex="8">
                <font>
                   <Font size="28.0" />
                </font>
             </TextField>
-            <TextField fx:id="i9" alignment="CENTER" editable="false" layoutX="10.0" layoutY="23.0" onKeyPressed="#enterUserInput" onMouseClicked="#onSquareClick" prefHeight="58.0" prefWidth="58.0" text=" " GridPane.columnIndex="8" GridPane.rowIndex="8">
+            <TextField fx:id="i9" alignment="CENTER" editable="false" layoutX="10.0" layoutY="23.0" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" onMouseClicked="#onSquareClick" prefHeight="58.0" prefWidth="58.0" text=" " GridPane.columnIndex="8" GridPane.rowIndex="8">
                <font>
                   <Font size="28.0" />
                </font>
@@ -446,17 +447,43 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </GridPane>
-      <Line endX="380.0" endY="367.0" layoutX="183.0" layoutY="123.0" startX="-146.0" startY="367.0" strokeWidth="3.0" />
-      <Line endX="53.0" endY="553.0" layoutX="157.5" layoutY="112.0" startX="53.0" startY="25.0" strokeWidth="3.0" />
-      <Line endX="53.0" endY="553.0" layoutX="334.5" layoutY="112.0" startX="53.0" startY="25.0" strokeWidth="3.0" />
-      <Line endX="380.0" endY="201.0" layoutX="183.0" layoutY="-65.0" startX="-147.0" startY="201.0" strokeWidth="3.0" />
-      <Line endX="383.0" endY="201.0" layoutX="182.0" layoutY="465.0" startX="-147.0" startY="201.0" strokeWidth="3.0" />
-      <Line endX="53.0" endY="553.0" layoutX="-18.0" layoutY="111.0" startX="53.0" startY="25.0" strokeWidth="3.0" />
-      <Line endX="53.0" endY="553.0" layoutX="512.0" layoutY="111.0" startX="53.0" startY="25.0" strokeWidth="3.0" />
-      <Line endX="380.0" endY="367.0" layoutX="183.0" layoutY="-54.0" startX="-146.0" startY="367.0" strokeWidth="3.0" />
-      <Label fx:id="header" layoutX="71.0" layoutY="51.0" prefHeight="41.0" prefWidth="458.0" text="Self Solving Sudoku">
+      <Line endX="380.0" endY="367.0" layoutX="183.0" layoutY="137.0" startX="-146.0" startY="367.0" strokeWidth="3.0" />
+      <Line endX="53.0" endY="553.0" layoutX="157.0" layoutY="126.0" startX="53.0" startY="25.0" strokeWidth="3.0" />
+      <Line endX="53.0" endY="553.0" layoutX="334.0" layoutY="126.0" startX="53.0" startY="25.0" strokeWidth="3.0" />
+      <Line endX="380.0" endY="201.0" layoutX="183.0" layoutY="-51.0" startX="-147.0" startY="201.0" strokeWidth="3.0" />
+      <Line endX="383.0" endY="201.0" layoutX="182.0" layoutY="479.0" startX="-147.0" startY="201.0" strokeWidth="3.0" />
+      <Line endX="53.0" endY="553.0" layoutX="-18.0" layoutY="125.0" startX="53.0" startY="25.0" strokeWidth="3.0" />
+      <Line endX="53.0" endY="553.0" layoutX="512.0" layoutY="125.0" startX="53.0" startY="25.0" strokeWidth="3.0" />
+      <Line endX="380.0" endY="367.0" layoutX="183.0" layoutY="-40.0" startX="-146.0" startY="367.0" strokeWidth="3.0" />
+      <Label fx:id="header" layoutX="34.0" layoutY="38.0" prefHeight="48.0" prefWidth="459.0" style="-fx-background-color: transparent;" text="Game Mode:">
          <font>
-            <Font name="Monospaced Bold" size="40.0" />
+            <Font name="Monospaced Bold" size="34.0" />
+         </font>
+      </Label>
+      <Label fx:id="mistakesLabel" layoutX="37.0" layoutY="112.0" style="-fx-background-color: transparent;" text="mistakes counter: 0 / 5">
+         <font>
+            <Font name="Monospaced Bold" size="16.0" />
+         </font>
+      </Label>
+      <Button layoutX="470.0" layoutY="105.0" mnemonicParsing="false" onAction="#quitButtonClicked" prefHeight="34.0" prefWidth="95.0" style="-fx-background-radius: 25; -fx-background-color: white; -fx-border-color: black; -fx-border-width: 2; -fx-border-radius: 25; -fx-padding: 5 10 5 10; -fx-background-insets: 1.5; -fx-text-fill: #ff6f61;" text="Quit">
+         <font>
+            <Font name="Monospaced Bold" size="16.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <Button fx:id="solveButton" layoutX="365.0" layoutY="105.0" mnemonicParsing="false" onAction="#autoSolve" prefHeight="34.0" prefWidth="95.0" style="-fx-background-radius: 25; -fx-background-color: white; -fx-border-color: black; -fx-border-width: 2; -fx-border-radius: 25; -fx-padding: 5 10 5 10; -fx-background-insets: 1.5; -fx-text-fill: #008080;" text="Solve">
+         <font>
+            <Font name="Monospaced Bold" size="16.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <Label fx:id="timer" layoutX="34.0" layoutY="88.0" style="-fx-background-color: transparent;" text="00:00">
+         <font>
+            <Font name="Monospaced Bold" size="16.0" />
          </font>
       </Label>
    </children>
