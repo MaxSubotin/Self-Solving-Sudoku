@@ -205,7 +205,7 @@ public class SystemController {
     @FXML
     public void quitButtonClicked(ActionEvent e) throws IOException {
         SceneController s = new SceneController();
-        s.switchToStartScene(e);
+        s.switchToStartScene(e, "Quit Button Clicked");
     }
 
     @FXML
@@ -232,24 +232,12 @@ public class SystemController {
     // ----------------------------- FXML Methods : Animations ----------------------------- //
     @FXML
     public void onButtonHoverStart(Event e) {
-        Button btn = (Button) e.getSource();
-
-        ScaleTransition scaleTransition = new ScaleTransition(Duration.seconds(0.2), btn);
-        scaleTransition.setToX(1.15);
-        scaleTransition.setToY(1.15);
-
-        scaleTransition.play();
+        Animator.btnOnHover(e,0.2,1.15);
     }
 
     @FXML
     public void onButtonHoverEnd(Event e) {
-        Button btn = (Button)e.getSource();
-
-        ScaleTransition scaleTransition = new ScaleTransition(Duration.seconds(0.4), btn);
-        scaleTransition.setToX(1);
-        scaleTransition.setToY(1);
-
-        scaleTransition.play();
+        Animator.btnOnHover(e,0.4,1);
     }
 
     // ----------------------------- Helper Methods ----------------------------- //

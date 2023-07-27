@@ -32,7 +32,7 @@ public class SceneController {
     private static String level;
 
     @FXML
-    Label result;
+    Label result, welcomeLabel;
 
     // Create the LinearGradient for the background color
     private LinearGradient backgroundGradient = new LinearGradient(0, 0, 0, 1, true, CycleMethod.NO_CYCLE,
@@ -62,8 +62,11 @@ public class SceneController {
     }
 
     @FXML
-    public void switchToStartScene(ActionEvent event) throws IOException {
-        root = FXMLLoader.load(getClass().getResource("StartScreen.fxml"));
+    public void switchToStartScene(ActionEvent event, String username) throws IOException {
+        FXMLLoader loader = new FXMLLoader (getClass().getResource("StartScreen.fxml")) ;
+        root = loader.load();
+        SceneController s = loader.getController();
+        s.setWelcomeLabelText(username);
 
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
@@ -90,24 +93,17 @@ public class SceneController {
 
     @FXML
     public void onButtonHoverStart(Event e) {
-        Button btn = (Button) e.getSource();
-
-        ScaleTransition scaleTransition = new ScaleTransition(Duration.seconds(0.2), btn);
-        scaleTransition.setToX(0.875);
-        scaleTransition.setToY(0.875);
-
-        scaleTransition.play();
+        Animator.btnOnHover(e,0.2,0.875);
     }
 
     @FXML
     public void onButtonHoverEnd(Event e) {
-        Button btn = (Button)e.getSource();
+        Animator.btnOnHover(e,0.4,1);
+    }
 
-        ScaleTransition scaleTransition = new ScaleTransition(Duration.seconds(0.4), btn);
-        scaleTransition.setToX(1);
-        scaleTransition.setToY(1);
 
-        scaleTransition.play();
+    private void setWelcomeLabelText(String name) {
+        this.welcomeLabel.setText("Welcome "+ name + "!");
     }
 
 }

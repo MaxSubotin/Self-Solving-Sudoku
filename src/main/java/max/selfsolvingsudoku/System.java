@@ -16,7 +16,7 @@ public class System extends Application {
     @Override
     public void start(Stage stage) {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(System.class.getResource("StartScreen.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(System.class.getResource("LoginScreen.fxml"));
             Parent root = fxmlLoader.load();
 
             // Create the LinearGradient for the background color
