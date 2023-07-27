@@ -29,7 +29,7 @@ public class SystemController {
     @FXML
     GridPane gameGrid;
     @FXML
-    Button solveButton;
+    Button solveButton, hintButton;
 
     private Timer gameTimer;
     private TextField activeField = null;
@@ -197,12 +197,34 @@ public class SystemController {
         timeline.play();
         gameTimer.stopTimer();
         solveButton.setVisible(false);
+        hintButton.setVisible(false);
     }
 
     @FXML
     public void quitButtonClicked(ActionEvent e) throws IOException {
         SceneController s = new SceneController();
         s.switchToStartScene(e);
+    }
+
+    @FXML
+    public void showHint(ActionEvent e) {
+        if (this.solvingOnGoing) return;
+
+        int randomIndex;
+        TextField temp;
+
+        do {
+            randomIndex = new Random().nextInt(0, 81);
+            temp = (TextField) gameGrid.getChildren().get(randomIndex);
+        } while (!temp.getText().isEmpty());
+
+        int i = idToRow(temp.getId());
+        int j = idToCol(temp.getId());
+        temp.setText(Integer.toString(sudoku.game[i][j]));
+        if (checkEndGame()) {
+            this.solveButton.setVisible(false);
+            this.hintButton.setVisible(false);
+        }
     }
 
     // ----------------------------- Helper Methods ----------------------------- //
