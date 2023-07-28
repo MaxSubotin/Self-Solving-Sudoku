@@ -8,10 +8,15 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 import java.io.IOException;
-import java.util.Objects;
 
 public class LoginController {
     // ----------------------------- Variables ----------------------------- //
+    private String url = "jdbc:postgresql://localhost:5432/SudokuUsers";
+    private String user = "postgres";
+    private String password = "148369";
+    private DatabaseConfig config = new DatabaseConfig(url, user, password);
+
+
     @FXML
     Button loginButton, signupButton;
     @FXML
@@ -30,15 +35,29 @@ public class LoginController {
         if (!checkUserCredentials(username,password) || username == null || password == null)
             loginErrorMessage.setText("Error, check your username and password and try again.");
         else {
-            LoginController.currentPlayer = new Player("Maxim"); // pass in the real username
-            showStartScene(e);
+            if (Database.isPasswordCorrectForUsername(config, username,password)) {
+                LoginController.currentPlayer = new Player(username); // pass in the real username
+                showStartScene(e);
+            } else {
+                loginErrorMessage.setText("Error, wrong password.");
+            }
         }
     }
 
     @FXML
-    public void onSignupButtonClicked(ActionEvent e) {
-
+    public void onSignupButtonClicked(ActionEvent e) throws IOException {
+        String username = signupUsername.getText(), password = signupPassword.getText();
+        if (checkUserExistence(username,password) || username == null || password == null)
+            signupErrorMessage.setText("Error, username already exists, try another one.");
+        else if (checkUserCredentials(username,password)) {
+            Database.addUserToDatabase(config, username, password);
+            LoginController.currentPlayer = new Player(username); // pass in the real username
+            LoginController.currentPlayer.setSolvedPuzzlesCounter(0);
+            LoginController.currentPlayer.setTotalMistakesCounter(0);
+            showStartScene(e);
+        }
     }
+
 
     // ----------------------------- FXML Methods : Animations ----------------------------- //
 
@@ -54,10 +73,31 @@ public class LoginController {
 
     // ----------------------------- Helper Methods ----------------------------- //
 
-    public boolean checkUserCredentials(String username, String password) {
-        if (username != null && password != null)
-            return Objects.equals(username, "a") && Objects.equals(password, "a");
+    public boolean checkUserExistence(String username, String password) {
+        if (username != null && password != null) {
+            return Database.isUsernameUnique(config, username);
+        }
         return false;
+    }
+
+    public boolean checkUserCredentials(String username, String password) {
+        // Regular expressions for username and password validation
+        String usernameRegex = "^[a-zA-Z0-9]{3,20}$";
+        String passwordRegex = "^(?=.*[a-zA-Z])(?=.*\\d).{6,20}$";
+
+        // Check username
+        if (!username.matches(usernameRegex)) {
+            signupErrorMessage.setText("Invalid username format. It should contain only letters and numbers, and its length should be between 3 and 20 characters.");
+            return false;
+        }
+
+        // Check password
+        if (!password.matches(passwordRegex)) {
+            signupErrorMessage.setText("Invalid password format. It should contain at least one letter, one number, and its length should be between 6 and 20 characters.");
+            return false;
+        }
+
+        return true;
     }
 
     public void showStartScene(ActionEvent e) throws IOException {

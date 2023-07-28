@@ -1,8 +1,11 @@
 package max.selfsolvingsudoku;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+
+import java.io.IOException;
 
 
 public class UserProfileController {
@@ -14,7 +17,6 @@ public class UserProfileController {
     public static int windowCounter = 0;
 
     // ----------------------------- FXML Methods ----------------------------- //
-
 
 
     // ----------------------------- FXML Methods : Animations ----------------------------- //

@@ -87,6 +87,17 @@ public class SceneController {
         stage.show();
     }
 
+    public void switchToLoginScene(ActionEvent event) throws IOException{
+        FXMLLoader loader = new FXMLLoader (getClass().getResource("LoginScreen.fxml"));
+        root = loader.load();
+
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        scene.setFill(backgroundGradient);
+        stage.setScene(scene);
+        stage.show();
+    }
+
     @FXML
     public void openUserProfileScene() {
         if (UserProfileController.windowCounter != 0) return; // makes sure there is only one window open at a time
