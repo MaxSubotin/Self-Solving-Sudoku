@@ -1,15 +1,11 @@
 package max.selfsolvingsudoku;
 
 public class DatabaseConfig {
-    private String url;
-    private String user;
-    private String password;
+    private String url = "jdbc:postgresql://localhost:5432/SudokuUsers";
+    private String user = "postgres";
+    private String password = "148369";
 
-    public DatabaseConfig(String url, String user, String password) {
-        this.url = url;
-        this.user = user;
-        this.password = password;
-    }
+    public DatabaseConfig() {}
 
     // Getters for url, user, and password
     public String getUrl() {

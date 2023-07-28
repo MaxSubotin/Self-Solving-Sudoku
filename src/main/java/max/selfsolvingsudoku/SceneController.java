@@ -99,7 +99,7 @@ public class SceneController {
     }
 
     @FXML
-    public void openUserProfileScene() {
+    public void openUserProfileScene(SystemController s) {
         if (UserProfileController.windowCounter != 0) return; // makes sure there is only one window open at a time
         try {
             // Load the pop-up content from FXML
@@ -119,7 +119,10 @@ public class SceneController {
             scene.setFill(backgroundGradient);
             stage.setScene(scene);
             stage.setResizable(false);
+            stage.setX(240);
+            stage.setY(300);
 
+            s.addListener(fxmlLoader.getController());
             // Show the info window
             stage.show();
         } catch (IOException e) {

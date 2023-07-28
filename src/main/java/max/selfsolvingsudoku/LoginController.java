@@ -11,11 +11,7 @@ import java.io.IOException;
 
 public class LoginController {
     // ----------------------------- Variables ----------------------------- //
-    private String url = "jdbc:postgresql://localhost:5432/SudokuUsers";
-    private String user = "postgres";
-    private String password = "148369";
-    private DatabaseConfig config = new DatabaseConfig(url, user, password);
-
+    private DatabaseConfig config = new DatabaseConfig();
 
     @FXML
     Button loginButton, signupButton;
@@ -32,11 +28,11 @@ public class LoginController {
         String username = loginUsername.getText(), password = loginPassword.getText();
         // maybe look to encrypt the username and password ?
 
-        if (!checkUserCredentials(username,password) || username == null || password == null)
+        if (!checkUserExistence(username,password) || username == null || password == null)
             loginErrorMessage.setText("Error, check your username and password and try again.");
         else {
             if (Database.isPasswordCorrectForUsername(config, username,password)) {
-                LoginController.currentPlayer = new Player(username); // pass in the real username
+                LoginController.currentPlayer = Database.getUserFromDatabase(config,username);
                 showStartScene(e);
             } else {
                 loginErrorMessage.setText("Error, wrong password.");
@@ -51,7 +47,7 @@ public class LoginController {
             signupErrorMessage.setText("Error, username already exists, try another one.");
         else if (checkUserCredentials(username,password)) {
             Database.addUserToDatabase(config, username, password);
-            LoginController.currentPlayer = new Player(username); // pass in the real username
+            LoginController.currentPlayer = new Player(username,0,0); // pass in the real username
             LoginController.currentPlayer.setSolvedPuzzlesCounter(0);
             LoginController.currentPlayer.setTotalMistakesCounter(0);
             showStartScene(e);

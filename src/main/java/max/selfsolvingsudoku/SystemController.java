@@ -24,6 +24,7 @@ import java.util.Random;
 public class SystemController {
 
     // ----------------------------- Variables ----------------------------- //
+    private DatabaseConfig config = new DatabaseConfig();
 
     @FXML
     Label header, mistakesLabel, timer, usernameLabel;
@@ -44,6 +45,8 @@ public class SystemController {
     private final String style = "-fx-border-width: 4; -fx-border-color: blue;";
     private final String goodStyle = "-fx-text-fill: black;";
     private final String badStyle = "-fx-text-fill: red;";
+
+    private UserProfileController listener = null;
 
 
     // ----------------------------- Game Generation Methods ----------------------------- //
@@ -138,6 +141,8 @@ public class SystemController {
                     activeField.setStyle(style + badStyle);
                     increaseMistakes(event);
                     LoginController.currentPlayer.setTotalMistakesCounter(LoginController.currentPlayer.getTotalMistakesCounter() + 1);
+                    Database.setUserMistakesCounter(config, LoginController.currentPlayer.getUsername(), LoginController.currentPlayer.getTotalMistakesCounter());
+                    if (listener != null) listener.setMistakesLabel();
                 } else {
                     activeField.setStyle(style + goodStyle);
                 }
@@ -147,8 +152,11 @@ public class SystemController {
                 try {
                     gameTimer.stopTimer();
                     handlePlayerWins(event);
-                    if (!solvingOnGoing && !hintWasUsed)
+                    if (!solvingOnGoing && !hintWasUsed) {
                         LoginController.currentPlayer.setSolvedPuzzlesCounter(LoginController.currentPlayer.getSolvedPuzzlesCounter() + 1);
+                        Database.setUserSolvedCounter(config, LoginController.currentPlayer.getUsername(), LoginController.currentPlayer.getSolvedPuzzlesCounter());
+                        if (listener != null) listener.setSolvedLabel();
+                    }
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
@@ -235,9 +243,28 @@ public class SystemController {
     }
 
     @FXML
+    public void onSaveButtonClicked(ActionEvent e) {
+        int[][] currentGame = new int[9][9];
+        int i, j;
+        for (Node node: gameGrid.getChildren()) {
+            if (node.getId() == null) break;
+            i = idToRow(node.getId());
+            j = idToCol(node.getId());
+            TextField temp = (TextField) node;
+            if (temp.getText().isEmpty())
+                currentGame[i][j] = 0; //! make sure to check later if the value is 0 replace with ""
+            else
+                currentGame[i][j] = Integer.parseInt(temp.getText());
+        }
+        // save the current game
+        Database.saveCurrentGame(config, LoginController.currentPlayer, currentGame, this.sudoku.game);
+        if (listener != null) listener.setGameList();
+    }
+
+    @FXML
     public void showUserProfile() {
         SceneController s = new SceneController();
-        s.openUserProfileScene();
+        s.openUserProfileScene(this);
     }
 
     // ----------------------------- FXML Methods : Animations ----------------------------- //
@@ -316,5 +343,9 @@ public class SystemController {
         }
         else
             mistakesLabel.setText("mistakes counter: " + this.mistakesCounter + " / " + this.mistakesTotal);
+    }
+
+    public void addListener(UserProfileController listener) {
+        this.listener = listener;
     }
 }

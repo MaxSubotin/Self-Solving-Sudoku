@@ -29,7 +29,7 @@
             <Font name="Monospaced Bold" size="40.0" />
          </font>
       </Label>
-      <Button layoutX="500.0" layoutY="31.0" mnemonicParsing="false" onAction="#switchToLoginScene" prefHeight="40.0" prefWidth="75.0" style="-fx-background-color: #ff6f61; -fx-text-fill: black; -fx-background-insets: 1; -fx-background-radius: 25; -fx-border-radius: 25; -fx-border-width: 1.5; -fx-border-color: black;" text="Button">
+      <Button layoutX="500.0" layoutY="31.0" mnemonicParsing="false" onAction="#switchToLoginScene" prefHeight="40.0" prefWidth="75.0" style="-fx-background-color: #ff6f61; -fx-text-fill: black; -fx-background-insets: 1; -fx-background-radius: 25; -fx-border-radius: 25; -fx-border-width: 1.5; -fx-border-color: black;" text="Logout">
          <font>
             <Font name="Monospaced Bold" size="14.0" />
          </font>

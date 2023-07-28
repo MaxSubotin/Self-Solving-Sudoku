@@ -4,11 +4,10 @@ public class Player {
     private String username;
     private int totalMistakesCounter, solvedPuzzlesCounter;
 
-    public Player(String username) {
+    public Player(String username, int solved, int mistakes) {
         setUsername(username);
-        // load info from database
-        setSolvedPuzzlesCounter(50);
-        setTotalMistakesCounter(100);
+        setSolvedPuzzlesCounter(solved);
+        setTotalMistakesCounter(mistakes);
     }
 
 

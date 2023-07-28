@@ -6,6 +6,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 
 public class UserProfileController {
@@ -14,6 +15,7 @@ public class UserProfileController {
     Label usernameLabel, solvedLabel, mistakesLabel;
     @FXML
     ListView gameList;
+    private DatabaseConfig config = new DatabaseConfig();
     public static int windowCounter = 0;
 
     // ----------------------------- FXML Methods ----------------------------- //
@@ -27,14 +29,25 @@ public class UserProfileController {
         UserProfileController.windowCounter++;
 
         usernameLabel.setText("Username: " + LoginController.currentPlayer.getUsername());
-        solvedLabel.setText("Solved Puzzles: " + LoginController.currentPlayer.getSolvedPuzzlesCounter());
-        mistakesLabel.setText("Total Mistakes: " + LoginController.currentPlayer.getTotalMistakesCounter());
+        setSolvedLabel();
+        setMistakesLabel();
 
-        // temporary data
-        gameList.getItems().add(new String("gameDate1"));
-        gameList.getItems().add(new String("gameDate2"));
-        gameList.getItems().add(new String("gameDate3"));
-        gameList.getItems().add(new String("gameDate4"));
+        setGameList();
     }
 
+    public void setMistakesLabel() {
+        mistakesLabel.setText("Total Mistakes: " + LoginController.currentPlayer.getTotalMistakesCounter());
+    }
+
+    public void setSolvedLabel() {
+        solvedLabel.setText("Solved Puzzles: " + LoginController.currentPlayer.getSolvedPuzzlesCounter());
+    }
+
+    public void setGameList() {
+        ArrayList<String> temp = Database.getAllUserGameDates(config, LoginController.currentPlayer.getUsername());
+        gameList.getItems().clear();
+        for (String date: temp) {
+            gameList.getItems().add(date);
+        }
+    }
 }

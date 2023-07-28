@@ -1,8 +1,14 @@
 package max.selfsolvingsudoku;
 
 import java.sql.*;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import com.google.gson.Gson;
 
 
 public class Database {
@@ -41,10 +47,32 @@ public class Database {
             insertPstUsersInfo.executeUpdate();
 
         } catch (SQLException e) {
-            Logger lgr = Logger.getLogger(Database.class.getName());
-            lgr.log(Level.SEVERE, e.getMessage(), e);
+            catchBlockCode(e);
         }
     }
+
+    public static Player getUserFromDatabase(DatabaseConfig config, String userUsername) {
+        String query = "SELECT * FROM users_info WHERE username = ?";
+        Player userFromDatabase = null;
+
+        try (Connection con = DriverManager.getConnection(config.getUrl(), config.getUser(), config.getPassword());
+             PreparedStatement pst = con.prepareStatement(query)) {
+
+            pst.setString(1, userUsername);
+            ResultSet rs = pst.executeQuery();
+
+            if (rs.next()) {
+                userFromDatabase = new Player(rs.getString("username"), rs.getInt("solved"), rs.getInt("mistakes"));
+            }
+
+        } catch (SQLException e) {
+            catchBlockCode(e);
+        }
+
+        return userFromDatabase;
+    }
+
+    // ------------------------------------------------------------------ //
 
     public static boolean isUsernameUnique(DatabaseConfig config, String userUsername) {
         String Username = userUsername;
@@ -66,8 +94,7 @@ public class Database {
             }
 
         } catch (SQLException e) {
-            Logger lgr = Logger.getLogger(Database.class.getName());
-            lgr.log(Level.SEVERE, e.getMessage(), e);
+            catchBlockCode(e);
         }
 
         return usernameExists;
@@ -92,11 +119,96 @@ public class Database {
             }
 
         } catch (SQLException e) {
-            Logger lgr = Logger.getLogger(Database.class.getName());
-            lgr.log(Level.SEVERE, e.getMessage(), e);
+            catchBlockCode(e);
         }
 
         return credentialsCorrect;
+    }
+
+    // ------------------------------------------------------------------ //
+
+    public static void saveCurrentGame(DatabaseConfig config, Player currentPlayer, int[][] currentGame, int[][] gameSolution) {
+        String query = "INSERT INTO users_games(username, date, game, solution) VALUES(?, ?, ?::json, ?::json)";
+
+        try (Connection con = DriverManager.getConnection(config.getUrl(), config.getUser(), config.getPassword());
+             PreparedStatement pst = con.prepareStatement(query)) {
+
+            // Get the current date
+            LocalDate currentDate = LocalDate.now();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            String formattedDate = currentDate.format(formatter);
+
+            pst.setString(1, currentPlayer.getUsername());
+            pst.setString(2, formattedDate);// add something that makes the date unique ?
+            pst.setString(3, new Gson().toJson(currentGame));
+            pst.setString(4, new Gson().toJson(gameSolution));
+            pst.executeUpdate();
+
+        } catch (SQLException e) {
+            catchBlockCode(e);
+        }
+    }
+
+    public static ArrayList<String> getAllUserGameDates(DatabaseConfig config, String userUsername) {
+        String query = "SELECT * FROM users_games WHERE username = ?";
+        ArrayList<String> dates = new ArrayList<String>();
+
+        try (Connection con = DriverManager.getConnection(config.getUrl(), config.getUser(), config.getPassword());
+             PreparedStatement pst = con.prepareStatement(query)) {
+
+            pst.setString(1,userUsername);
+            ResultSet rs = pst.executeQuery();
+
+            int counter = 1;
+            while(rs.next()) {
+                dates.add(rs.getString("date") + " - " + counter++);
+            }
+
+        } catch (SQLException e) {
+            catchBlockCode(e);
+        }
+
+        return dates;
+    }
+
+
+
+    public static void setUserMistakesCounter(DatabaseConfig config, String userUsername, int count) {
+        String query = "UPDATE users_info SET mistakes = ? WHERE username = ?";
+
+        try (Connection con = DriverManager.getConnection(config.getUrl(), config.getUser(), config.getPassword());
+             PreparedStatement pst = con.prepareStatement(query)) {
+
+            pst.setInt(1, count);
+            pst.setString(2, userUsername);
+            pst.executeUpdate();
+
+        } catch (SQLException e) {
+            catchBlockCode(e);
+        }
+    }
+
+    public static void setUserSolvedCounter(DatabaseConfig config, String userUsername, int count) {
+        String query = "UPDATE users_info SET solved = ? WHERE username = ?";
+
+        try (Connection con = DriverManager.getConnection(config.getUrl(), config.getUser(), config.getPassword());
+             PreparedStatement pst = con.prepareStatement(query)) {
+
+            pst.setInt(1, count);
+            pst.setString(2, userUsername);
+            pst.executeUpdate();
+
+        } catch (SQLException e) {
+            catchBlockCode(e);
+        }
+    }
+
+
+    // ------------------------------------------------------------------ //
+
+    private static void catchBlockCode(SQLException e) {
+        Logger lgr = Logger.getLogger(Database.class.getName());
+        lgr.log(Level.SEVERE, e.getMessage(), e);
     }
 
 
