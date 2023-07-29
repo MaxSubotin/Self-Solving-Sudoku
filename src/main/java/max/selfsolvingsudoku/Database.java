@@ -4,7 +4,6 @@ import java.sql.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -21,7 +20,7 @@ public class Database {
 
         String lastIdQuery = "SELECT id FROM users ORDER BY id DESC LIMIT 1";
         String insertQueryUsers = "INSERT INTO users(id, username, password) VALUES(?, ?, ?)";
-        String insertQueryUsersInfo = "INSERT INTO users_info(id, username, solved, mistakes) VALUES(?, ?, ?, ?)";
+        String insertQueryUsersInfo = "INSERT INTO users_info(id, username, solved, mistakes, saves_games) VALUES(?, ?, ?, ?, ?)";
 
         try (Connection con = DriverManager.getConnection(config.getUrl(), config.getUser(), config.getPassword());
              PreparedStatement getLastIdPst = con.prepareStatement(lastIdQuery);
@@ -44,6 +43,7 @@ public class Database {
             insertPstUsersInfo.setString(2, Username);
             insertPstUsersInfo.setInt(3, 0);
             insertPstUsersInfo.setInt(4, 0);
+            insertPstUsersInfo.setInt(5, 1);
             insertPstUsersInfo.executeUpdate();
 
         } catch (SQLException e) {
@@ -63,6 +63,7 @@ public class Database {
 
             if (rs.next()) {
                 userFromDatabase = new Player(rs.getString("username"), rs.getInt("solved"), rs.getInt("mistakes"));
+                userFromDatabase.setSavedGamesCounter(rs.getInt("saved_games"));
             }
 
         } catch (SQLException e) {
@@ -128,23 +129,29 @@ public class Database {
     // ------------------------------------------------------------------ //
 
     public static void saveCurrentGame(DatabaseConfig config, Player currentPlayer, int[][] currentGame, int[][] gameSolution) {
-        String query = "INSERT INTO users_games(username, date, game, solution) VALUES(?, ?, ?::json, ?::json)";
+        String saveQuery = "INSERT INTO users_games(username, date, game, solution) VALUES(?, ?, ?::json, ?::json)";
+        String updateQuery = "UPDATE users_info SET saved_games = ? WHERE username = ?";
 
         try (Connection con = DriverManager.getConnection(config.getUrl(), config.getUser(), config.getPassword());
-             PreparedStatement pst = con.prepareStatement(query)) {
+             PreparedStatement pstSave = con.prepareStatement(saveQuery);
+             PreparedStatement pstUpdate = con.prepareStatement(updateQuery)) {
 
             // Get the current date
             LocalDate currentDate = LocalDate.now();
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
             String formattedDate = currentDate.format(formatter);
 
-            pst.setString(1, currentPlayer.getUsername());
-            pst.setString(2, formattedDate + "-" + LoginController.currentPlayer.getSavedGamesCounter());
-            pst.setString(3, new Gson().toJson(currentGame));
-            pst.setString(4, new Gson().toJson(gameSolution));
-            pst.executeUpdate();
+            pstSave.setString(1, currentPlayer.getUsername());
+            pstSave.setString(2, formattedDate + "-" + LoginController.currentPlayer.getSavedGamesCounter());
+            pstSave.setString(3, new Gson().toJson(currentGame));
+            pstSave.setString(4, new Gson().toJson(gameSolution));
+            pstSave.executeUpdate();
 
             LoginController.currentPlayer.setSavedGamesCounter(LoginController.currentPlayer.getSavedGamesCounter() + 1);
+
+            pstUpdate.setInt(1, currentPlayer.getSavedGamesCounter());
+            pstUpdate.setString(2, currentPlayer.getUsername());
+            pstUpdate.executeUpdate();
 
         } catch (SQLException e) {
             catchBlockCode(e);
@@ -184,21 +191,33 @@ public class Database {
             ResultSet rs = pst.executeQuery();
 
             if (rs.next()) {
-                String json = rs.getString("game");
-                Gson gson = new Gson();
-                int[][] first = gson.fromJson(json, int[][].class);
-
-                json = rs.getString("solution");
-                gson = new Gson();
-                int[][] second = gson.fromJson(json, int[][].class);
-
-                requestedGame = new SudokuGameData(gameDate, first, second);
+                requestedGame = turnJsonIntoArray(rs);
             }
 
         } catch (SQLException e) {
             catchBlockCode(e);
         }
 
+        return requestedGame;
+    }
+
+    public static SudokuGameData getLastGame(DatabaseConfig config, String userUsername) {
+        String query = "SELECT * FROM users_games WHERE username = ? ORDER BY date DESC LIMIT 1";
+        SudokuGameData requestedGame = null;
+
+        try (Connection con = DriverManager.getConnection(config.getUrl(), config.getUser(), config.getPassword());
+             PreparedStatement pst = con.prepareStatement(query)) {
+
+            pst.setString(1, userUsername);
+            ResultSet rs = pst.executeQuery();
+
+            if (rs.next()) {
+                requestedGame = turnJsonIntoArray(rs);
+            }
+
+        } catch (SQLException e) {
+            catchBlockCode(e);
+        }
         return requestedGame;
     }
 
@@ -236,13 +255,19 @@ public class Database {
     // ------------------------------------------------------------------ //
 
     public static void deleteRowsByUsername(DatabaseConfig config, String userUsername) {
-        String query = "DELETE FROM users_games WHERE username = ?";
+        String deleteQuery = "DELETE FROM users_games WHERE username = ?";
+        String updateQuery = "UPDATE users_info SET saved_games = ? WHERE username = ?";
 
         try (Connection con = DriverManager.getConnection(config.getUrl(), config.getUser(), config.getPassword());
-             PreparedStatement pst = con.prepareStatement(query)) {
+             PreparedStatement pstDelete = con.prepareStatement(deleteQuery);
+             PreparedStatement pstUpdate = con.prepareStatement(updateQuery)) {
 
-            pst.setString(1, userUsername);
-            pst.executeUpdate();
+            pstDelete.setString(1, userUsername);
+            pstDelete.executeUpdate();
+
+            pstUpdate.setInt(1,1);
+            pstUpdate.setString(2,userUsername);
+            pstUpdate.executeUpdate();
 
         } catch (SQLException e) {
             catchBlockCode(e);
@@ -256,5 +281,16 @@ public class Database {
         lgr.log(Level.SEVERE, e.getMessage(), e);
     }
 
+    private static SudokuGameData turnJsonIntoArray(ResultSet rs) throws SQLException {
+        String json = rs.getString("game");
+        Gson gson = new Gson();
+        int[][] first = gson.fromJson(json, int[][].class);
+
+        json = rs.getString("solution");
+        gson = new Gson();
+        int[][] second = gson.fromJson(json, int[][].class);
+
+        return new SudokuGameData(first, second);
+    }
 
 }

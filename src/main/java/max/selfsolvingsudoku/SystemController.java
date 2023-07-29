@@ -101,7 +101,7 @@ public class SystemController {
     public void loadExistingGame(SudokuGameData existingGame) {
         int i, j;
         this.sudoku.setGame(existingGame.getSolutionArray());
-        gameTimer.stopTimer();
+        if (gameTimer != null) gameTimer.stopTimer();
         this.timer.setText("00:00");
         gameTimer = new Timer(this.timer);
         gameTimer.startTimer();
@@ -377,4 +377,7 @@ public class SystemController {
     public void addListener(UserProfileController listener) {
         this.listener = listener;
     }
+
+    public Sudoku getSudoku() { return this.sudoku; }
+    public void setSudoku(Sudoku sudoku) { this.sudoku = sudoku; }
 }

@@ -133,6 +133,23 @@ public class SceneController {
         }
     }
 
+    @FXML
+    public void onLoadLastGameButtonClicked(ActionEvent e) throws IOException {
+        FXMLLoader loader = new FXMLLoader (getClass().getResource("MainScreen.fxml"));
+        root = loader.load();
+
+        SystemController s = loader.getController();
+        DatabaseConfig config = new DatabaseConfig();
+        s.setSudoku(new Sudoku(3));
+        s.loadExistingGame(Database.getLastGame(config, LoginController.currentPlayer.getUsername()));
+
+        stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        scene.setFill(backgroundGradient);
+        stage.setScene(scene);
+        stage.show();
+    }
+
     // ----------------------------- FXML Methods : Animations ----------------------------- //
 
     @FXML

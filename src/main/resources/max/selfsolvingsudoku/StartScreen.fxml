@@ -52,7 +52,7 @@
             </Label>
          </children>
       </VBox>
-      <Button layoutX="192.0" layoutY="431.0" mnemonicParsing="false" onMouseEntered="#onButtonHoverStart" onMouseExited="#onButtonHoverEnd" prefHeight="55.0" prefWidth="216.0" style="-fx-background-radius: 25; -fx-background-color: white; -fx-border-color: black; -fx-border-width: 2; -fx-border-radius: 25; -fx-padding: 5 10 5 10; -fx-background-insets: 1.5; -fx-text-fill: black;" text="Load Last Game" textAlignment="CENTER">
+      <Button layoutX="192.0" layoutY="431.0" mnemonicParsing="false" onAction="#onLoadLastGameButtonClicked" onMouseEntered="#onButtonHoverStart" onMouseExited="#onButtonHoverEnd" prefHeight="55.0" prefWidth="216.0" style="-fx-background-radius: 25; -fx-background-color: white; -fx-border-color: black; -fx-border-width: 2; -fx-border-radius: 25; -fx-padding: 5 10 5 10; -fx-background-insets: 1.5; -fx-text-fill: black;" text="Load Last Game" textAlignment="CENTER">
          <font>
             <Font name="Monospaced Bold" size="20.0" />
          </font>

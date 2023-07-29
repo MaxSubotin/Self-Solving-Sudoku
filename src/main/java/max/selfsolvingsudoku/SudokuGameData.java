@@ -3,22 +3,12 @@ package max.selfsolvingsudoku;
 import java.util.Date;
 
 public class SudokuGameData {
-    private String date;
     private int[][] gameArray;
     private int[][] solutionArray;
 
-    public SudokuGameData(String date, int[][] gameArray, int[][] solutionArray) {
-        this.date = date;
+    public SudokuGameData(int[][] gameArray, int[][] solutionArray) {
         this.gameArray = gameArray;
         this.solutionArray = solutionArray;
-    }
-
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
     }
 
     public int[][] getGameArray() {
