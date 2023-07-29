@@ -3,6 +3,7 @@ package max.selfsolvingsudoku;
 public class Player {
     private String username;
     private int totalMistakesCounter, solvedPuzzlesCounter;
+    private int savedGamesCounter = 1;
 
     public Player(String username, int solved, int mistakes) {
         setUsername(username);
@@ -33,5 +34,13 @@ public class Player {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public void setSavedGamesCounter(int savedGamesCounter) {
+        this.savedGamesCounter = savedGamesCounter;
+    }
+
+    public int getSavedGamesCounter() {
+        return savedGamesCounter;
     }
 }

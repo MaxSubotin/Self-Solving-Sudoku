@@ -122,7 +122,10 @@ public class SceneController {
             stage.setX(240);
             stage.setY(300);
 
+            // add listeners so that main screen and user profile can update in real time
             s.addListener(fxmlLoader.getController());
+            ((UserProfileController)fxmlLoader.getController()).addListener(s);
+
             // Show the info window
             stage.show();
         } catch (IOException e) {

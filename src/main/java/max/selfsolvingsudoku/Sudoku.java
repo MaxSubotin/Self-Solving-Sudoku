@@ -84,4 +84,6 @@ public class Sudoku {
             array[i] = temp;
         }
     }
+
+    public void setGame(int[][] game) {this.game = game;}
 }

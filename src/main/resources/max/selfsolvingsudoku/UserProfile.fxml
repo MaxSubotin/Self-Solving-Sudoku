@@ -45,7 +45,7 @@
             </ListView>
             <VBox alignment="CENTER">
                <children>
-                  <Button mnemonicParsing="false" text="Load Selected Game">
+                  <Button mnemonicParsing="false" onAction="#onLoadGameClicked" text="Load Selected Game">
                      <font>
                         <Font name="Monospaced Bold" size="14.0" />
                      </font>
@@ -53,7 +53,7 @@
                         <Insets bottom="5.0" />
                      </VBox.margin>
                   </Button>
-                  <Button mnemonicParsing="false" text="Delete History">
+                  <Button mnemonicParsing="false" onAction="#onDeleteHistoryButtonClicked" text="Delete History">
                      <font>
                         <Font name="Monospaced Bold" size="14.0" />
                      </font>

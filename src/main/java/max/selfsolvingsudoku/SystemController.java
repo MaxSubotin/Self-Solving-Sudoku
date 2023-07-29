@@ -98,6 +98,35 @@ public class SystemController {
         }
     }
 
+    public void loadExistingGame(SudokuGameData existingGame) {
+        int i, j;
+        this.sudoku.setGame(existingGame.getSolutionArray());
+        gameTimer.stopTimer();
+        this.timer.setText("00:00");
+        gameTimer = new Timer(this.timer);
+        gameTimer.startTimer();
+
+        for (Node node: gameGrid.getChildren()) {
+            if (node.getId() == null) return;
+            i = idToRow(node.getId());
+            j = idToCol(node.getId());
+            activeField = (TextField)node;
+            activeField.setText(Integer.toString(existingGame.getGameArray()[i][j]));
+            if (existingGame.getGameArray()[i][j] == this.sudoku.game[i][j] && existingGame.getGameArray()[i][j] != 0) {
+                activeField.setOpacity(0.75);
+                activeField.setStyle(goodStyle);
+            }
+            else if (existingGame.getGameArray()[i][j] != this.sudoku.game[i][j] && existingGame.getGameArray()[i][j] != 0) {
+                activeField.setOpacity(1);
+                activeField.setStyle(badStyle);
+            }
+            else if (existingGame.getGameArray()[i][j] == 0) {
+                activeField.setText("");
+                activeField.setOpacity(1);
+            }
+        }
+    }
+
     // ----------------------------- FXML Methods ----------------------------- //
 
     @FXML

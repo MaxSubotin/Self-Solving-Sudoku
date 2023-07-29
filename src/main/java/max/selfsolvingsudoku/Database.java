@@ -139,10 +139,12 @@ public class Database {
             String formattedDate = currentDate.format(formatter);
 
             pst.setString(1, currentPlayer.getUsername());
-            pst.setString(2, formattedDate);// add something that makes the date unique ?
+            pst.setString(2, formattedDate + "-" + LoginController.currentPlayer.getSavedGamesCounter());
             pst.setString(3, new Gson().toJson(currentGame));
             pst.setString(4, new Gson().toJson(gameSolution));
             pst.executeUpdate();
+
+            LoginController.currentPlayer.setSavedGamesCounter(LoginController.currentPlayer.getSavedGamesCounter() + 1);
 
         } catch (SQLException e) {
             catchBlockCode(e);
@@ -159,9 +161,8 @@ public class Database {
             pst.setString(1,userUsername);
             ResultSet rs = pst.executeQuery();
 
-            int counter = 1;
             while(rs.next()) {
-                dates.add(rs.getString("date") + " - " + counter++);
+                dates.add(rs.getString("date"));
             }
 
         } catch (SQLException e) {
@@ -171,7 +172,35 @@ public class Database {
         return dates;
     }
 
+    public static SudokuGameData getGameByUsernameAndDate(DatabaseConfig config, String userUsername, String gameDate) {
+        String query = "SELECT * FROM users_games WHERE username = ? AND date = ?";
+        SudokuGameData requestedGame = null;
 
+        try (Connection con = DriverManager.getConnection(config.getUrl(), config.getUser(), config.getPassword());
+             PreparedStatement pst = con.prepareStatement(query)) {
+
+            pst.setString(1, userUsername);
+            pst.setString(2, gameDate);
+            ResultSet rs = pst.executeQuery();
+
+            if (rs.next()) {
+                String json = rs.getString("game");
+                Gson gson = new Gson();
+                int[][] first = gson.fromJson(json, int[][].class);
+
+                json = rs.getString("solution");
+                gson = new Gson();
+                int[][] second = gson.fromJson(json, int[][].class);
+
+                requestedGame = new SudokuGameData(gameDate, first, second);
+            }
+
+        } catch (SQLException e) {
+            catchBlockCode(e);
+        }
+
+        return requestedGame;
+    }
 
     public static void setUserMistakesCounter(DatabaseConfig config, String userUsername, int count) {
         String query = "UPDATE users_info SET mistakes = ? WHERE username = ?";
@@ -203,6 +232,22 @@ public class Database {
         }
     }
 
+
+    // ------------------------------------------------------------------ //
+
+    public static void deleteRowsByUsername(DatabaseConfig config, String userUsername) {
+        String query = "DELETE FROM users_games WHERE username = ?";
+
+        try (Connection con = DriverManager.getConnection(config.getUrl(), config.getUser(), config.getPassword());
+             PreparedStatement pst = con.prepareStatement(query)) {
+
+            pst.setString(1, userUsername);
+            pst.executeUpdate();
+
+        } catch (SQLException e) {
+            catchBlockCode(e);
+        }
+    }
 
     // ------------------------------------------------------------------ //
 
