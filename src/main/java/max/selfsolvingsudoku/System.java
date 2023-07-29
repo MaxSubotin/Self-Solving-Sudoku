@@ -16,7 +16,7 @@ public class System extends Application {
     @Override
     public void start(Stage stage) {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(System.class.getResource("StartScreen.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(System.class.getResource("LoginScreen.fxml"));
             Parent root = fxmlLoader.load();
 
             // Create the LinearGradient for the background color
@@ -31,6 +31,7 @@ public class System extends Application {
 
             stage.setTitle("SUDOKU");
             stage.setScene(scene);
+            stage.setResizable(false);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

@@ -1,7 +1,6 @@
 package max.selfsolvingsudoku;
 
 import javafx.animation.KeyFrame;
-import javafx.animation.ScaleTransition;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
@@ -25,9 +24,10 @@ import java.util.Random;
 public class SystemController {
 
     // ----------------------------- Variables ----------------------------- //
+    private DatabaseConfig config = new DatabaseConfig();
 
     @FXML
-    Label header,mistakesLabel,timer;
+    Label header, mistakesLabel, timer, usernameLabel;
     @FXML
     GridPane gameGrid;
     @FXML
@@ -38,12 +38,15 @@ public class SystemController {
     private Sudoku sudoku = null;
     private boolean keyProcessing = false; // a flag to track if a key is being processed
     private boolean solvingOnGoing = false;
+    private boolean hintWasUsed = false;
     private final int mistakesTotal = 5;
     private int mistakesCounter = 0;
 
     private final String style = "-fx-border-width: 4; -fx-border-color: blue;";
     private final String goodStyle = "-fx-text-fill: black;";
     private final String badStyle = "-fx-text-fill: red;";
+
+    private UserProfileController listener = null;
 
 
     // ----------------------------- Game Generation Methods ----------------------------- //
@@ -60,6 +63,7 @@ public class SystemController {
             removeSomeNumbers(44);
 
         solveButton.setVisible(true);
+        usernameLabel.setText("@" + LoginController.currentPlayer.getUsername());
         gameTimer = new Timer(this.timer);
         gameTimer.startTimer();
     }
@@ -91,6 +95,35 @@ public class SystemController {
             activeField.setOpacity(1);
             activeField.setCursor(Cursor.HAND);
             count++;
+        }
+    }
+
+    public void loadExistingGame(SudokuGameData existingGame) {
+        int i, j;
+        this.sudoku.setGame(existingGame.getSolutionArray());
+        gameTimer.stopTimer();
+        this.timer.setText("00:00");
+        gameTimer = new Timer(this.timer);
+        gameTimer.startTimer();
+
+        for (Node node: gameGrid.getChildren()) {
+            if (node.getId() == null) return;
+            i = idToRow(node.getId());
+            j = idToCol(node.getId());
+            activeField = (TextField)node;
+            activeField.setText(Integer.toString(existingGame.getGameArray()[i][j]));
+            if (existingGame.getGameArray()[i][j] == this.sudoku.game[i][j] && existingGame.getGameArray()[i][j] != 0) {
+                activeField.setOpacity(0.75);
+                activeField.setStyle(goodStyle);
+            }
+            else if (existingGame.getGameArray()[i][j] != this.sudoku.game[i][j] && existingGame.getGameArray()[i][j] != 0) {
+                activeField.setOpacity(1);
+                activeField.setStyle(badStyle);
+            }
+            else if (existingGame.getGameArray()[i][j] == 0) {
+                activeField.setText("");
+                activeField.setOpacity(1);
+            }
         }
     }
 
@@ -136,6 +169,9 @@ public class SystemController {
                 if (!isCorrectInput(activeField.getId(), input)) {
                     activeField.setStyle(style + badStyle);
                     increaseMistakes(event);
+                    LoginController.currentPlayer.setTotalMistakesCounter(LoginController.currentPlayer.getTotalMistakesCounter() + 1);
+                    Database.setUserMistakesCounter(config, LoginController.currentPlayer.getUsername(), LoginController.currentPlayer.getTotalMistakesCounter());
+                    if (listener != null) listener.setMistakesLabel();
                 } else {
                     activeField.setStyle(style + goodStyle);
                 }
@@ -145,6 +181,11 @@ public class SystemController {
                 try {
                     gameTimer.stopTimer();
                     handlePlayerWins(event);
+                    if (!solvingOnGoing && !hintWasUsed) {
+                        LoginController.currentPlayer.setSolvedPuzzlesCounter(LoginController.currentPlayer.getSolvedPuzzlesCounter() + 1);
+                        Database.setUserSolvedCounter(config, LoginController.currentPlayer.getUsername(), LoginController.currentPlayer.getSolvedPuzzlesCounter());
+                        if (listener != null) listener.setSolvedLabel();
+                    }
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
@@ -227,29 +268,43 @@ public class SystemController {
             this.solveButton.setVisible(false);
             this.hintButton.setVisible(false);
         }
+        hintWasUsed = true;
+    }
+
+    @FXML
+    public void onSaveButtonClicked(ActionEvent e) {
+        int[][] currentGame = new int[9][9];
+        int i, j;
+        for (Node node: gameGrid.getChildren()) {
+            if (node.getId() == null) break;
+            i = idToRow(node.getId());
+            j = idToCol(node.getId());
+            TextField temp = (TextField) node;
+            if (temp.getText().isEmpty())
+                currentGame[i][j] = 0; //! make sure to check later if the value is 0 replace with ""
+            else
+                currentGame[i][j] = Integer.parseInt(temp.getText());
+        }
+        // save the current game
+        Database.saveCurrentGame(config, LoginController.currentPlayer, currentGame, this.sudoku.game);
+        if (listener != null) listener.setGameList();
+    }
+
+    @FXML
+    public void showUserProfile() {
+        SceneController s = new SceneController();
+        s.openUserProfileScene(this);
     }
 
     // ----------------------------- FXML Methods : Animations ----------------------------- //
     @FXML
     public void onButtonHoverStart(Event e) {
-        Button btn = (Button) e.getSource();
-
-        ScaleTransition scaleTransition = new ScaleTransition(Duration.seconds(0.2), btn);
-        scaleTransition.setToX(1.15);
-        scaleTransition.setToY(1.15);
-
-        scaleTransition.play();
+        Animator.btnOnHover(e,0.2,1.15);
     }
 
     @FXML
     public void onButtonHoverEnd(Event e) {
-        Button btn = (Button)e.getSource();
-
-        ScaleTransition scaleTransition = new ScaleTransition(Duration.seconds(0.4), btn);
-        scaleTransition.setToX(1);
-        scaleTransition.setToY(1);
-
-        scaleTransition.play();
+        Animator.btnOnHover(e,0.4,1);
     }
 
     // ----------------------------- Helper Methods ----------------------------- //
@@ -317,5 +372,9 @@ public class SystemController {
         }
         else
             mistakesLabel.setText("mistakes counter: " + this.mistakesCounter + " / " + this.mistakesTotal);
+    }
+
+    public void addListener(UserProfileController listener) {
+        this.listener = listener;
     }
 }

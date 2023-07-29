@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="400.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="max.selfsolvingsudoku.UserProfileController">
+   <children>
+      <VBox alignment="CENTER_LEFT" layoutX="18.0" prefHeight="400.0" prefWidth="262.0">
+         <children>
+            <Label fx:id="usernameLabel" text="Username: ">
+               <font>
+                  <Font name="Monospaced Bold" size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="solvedLabel" text="Solved puzzles:">
+               <font>
+                  <Font name="Monospaced Bold" size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="mistakesLabel" text="Total mistakes:">
+               <font>
+                  <Font name="Monospaced Bold" size="14.0" />
+               </font>
+            </Label>
+            <Line endX="161.2928924560547" endY="0.7928932309150696" startX="-100.0" strokeWidth="2.0">
+               <VBox.margin>
+                  <Insets bottom="5.0" top="5.0" />
+               </VBox.margin>
+            </Line>
+            <Label text="Game History:">
+               <font>
+                  <Font name="Monospaced Bold" size="14.0" />
+               </font>
+            </Label>
+            <ListView fx:id="gameList" prefHeight="213.0" prefWidth="300.0">
+               <VBox.margin>
+                  <Insets bottom="5.0" top="5.0" />
+               </VBox.margin>
+            </ListView>
+            <VBox alignment="CENTER">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#onLoadGameClicked" text="Load Selected Game">
+                     <font>
+                        <Font name="Monospaced Bold" size="14.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets bottom="5.0" />
+                     </VBox.margin>
+                  </Button>
+                  <Button mnemonicParsing="false" onAction="#onDeleteHistoryButtonClicked" text="Delete History">
+                     <font>
+                        <Font name="Monospaced Bold" size="14.0" />
+                     </font>
+                  </Button>
+               </children>
+            </VBox>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

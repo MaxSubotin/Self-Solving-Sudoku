@@ -4,6 +4,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="715.0" prefWidth="600.0" style="-fx-background-color: linear-gradient(from 0% 0% to 0% 100%, #74c2e3,#00a8e8);" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="max.selfsolvingsudoku.SceneController">
@@ -13,7 +14,7 @@
             <Font name="Monospaced Bold" size="40.0" />
          </font>
       </Label>
-      <Button layoutX="97.0" layoutY="427.0" mnemonicParsing="false" onAction="#switchToMainScene" onMouseEntered="#onButtonHoverStart" onMouseExited="#onButtonHoverEnd" prefHeight="55.0" prefWidth="116.0" style="-fx-background-radius: 25; -fx-background-color: white; -fx-border-color: black; -fx-border-width: 2; -fx-border-radius: 25; -fx-padding: 5 10 5 10; -fx-background-insets: 1.5; -fx-text-fill: #008080;" text="Easy" textAlignment="CENTER">
+      <Button layoutX="97.0" layoutY="344.0" mnemonicParsing="false" onAction="#switchToMainScene" onMouseEntered="#onButtonHoverStart" onMouseExited="#onButtonHoverEnd" prefHeight="55.0" prefWidth="116.0" style="-fx-background-radius: 25; -fx-background-color: white; -fx-border-color: black; -fx-border-width: 2; -fx-border-radius: 25; -fx-padding: 5 10 5 10; -fx-background-insets: 1.5; -fx-text-fill: #008080;" text="Easy" textAlignment="CENTER">
          <font>
             <Font name="Monospaced Bold" size="20.0" />
          </font>
@@ -21,7 +22,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Button layoutX="386.0" layoutY="427.0" mnemonicParsing="false" onAction="#switchToMainScene" onMouseEntered="#onButtonHoverStart" onMouseExited="#onButtonHoverEnd" prefHeight="55.0" prefWidth="116.0" style="-fx-background-radius: 25; -fx-background-color: white; -fx-border-color: black; -fx-border-width: 2; -fx-border-radius: 25; -fx-padding: 5 10 5 10; -fx-background-insets: 1.5; -fx-text-fill: #ff6f61;" text="Hard" textAlignment="CENTER">
+      <Button layoutX="386.0" layoutY="344.0" mnemonicParsing="false" onAction="#switchToMainScene" onMouseEntered="#onButtonHoverStart" onMouseExited="#onButtonHoverEnd" prefHeight="55.0" prefWidth="116.0" style="-fx-background-radius: 25; -fx-background-color: white; -fx-border-color: black; -fx-border-width: 2; -fx-border-radius: 25; -fx-padding: 5 10 5 10; -fx-background-insets: 1.5; -fx-text-fill: #ff6f61;" text="Hard" textAlignment="CENTER">
          <font>
             <Font name="Monospaced Bold" size="20.0" />
          </font>
@@ -29,7 +30,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Button layoutX="242.0" layoutY="427.0" mnemonicParsing="false" onAction="#switchToMainScene" onMouseEntered="#onButtonHoverStart" onMouseExited="#onButtonHoverEnd" prefHeight="55.0" prefWidth="116.0" style="-fx-background-radius: 25; -fx-background-color: white; -fx-border-color: black; -fx-border-width: 2; -fx-border-radius: 25; -fx-padding: 5 10 5 10; -fx-background-insets: 1.5; -fx-text-fill: #00a8e8;" text="Medium" textAlignment="CENTER">
+      <Button layoutX="242.0" layoutY="344.0" mnemonicParsing="false" onAction="#switchToMainScene" onMouseEntered="#onButtonHoverStart" onMouseExited="#onButtonHoverEnd" prefHeight="55.0" prefWidth="116.0" style="-fx-background-radius: 25; -fx-background-color: white; -fx-border-color: black; -fx-border-width: 2; -fx-border-radius: 25; -fx-padding: 5 10 5 10; -fx-background-insets: 1.5; -fx-text-fill: #00a8e8;" text="Medium" textAlignment="CENTER">
          <font>
             <Font name="Monospaced Bold" size="20.0" />
          </font>
@@ -37,10 +38,32 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Label layoutX="197.0" layoutY="343.0" text="choose your level">
+      <VBox alignment="CENTER" layoutY="230.0" prefHeight="90.0" prefWidth="600.0">
+         <children>
+            <Label fx:id="welcomeLabel" text="welcome USER!">
+               <font>
+                  <Font name="Monospaced Bold" size="20.0" />
+               </font>
+            </Label>
+            <Label text="choose your level">
+               <font>
+                  <Font name="Monospaced Bold" size="20.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
+      <Button layoutX="192.0" layoutY="431.0" mnemonicParsing="false" onMouseEntered="#onButtonHoverStart" onMouseExited="#onButtonHoverEnd" prefHeight="55.0" prefWidth="216.0" style="-fx-background-radius: 25; -fx-background-color: white; -fx-border-color: black; -fx-border-width: 2; -fx-border-radius: 25; -fx-padding: 5 10 5 10; -fx-background-insets: 1.5; -fx-text-fill: black;" text="Load Last Game" textAlignment="CENTER">
          <font>
             <Font name="Monospaced Bold" size="20.0" />
          </font>
-      </Label>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <Button layoutX="486.0" layoutY="30.0" mnemonicParsing="false" onAction="#switchToLoginScene" prefHeight="40.0" prefWidth="75.0" style="-fx-background-color: #ff6f61; -fx-text-fill: black; -fx-background-insets: 1; -fx-background-radius: 25; -fx-border-radius: 25; -fx-border-width: 1.5; -fx-border-color: black;" text="Logout">
+         <font>
+            <Font name="Monospaced Bold" size="14.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

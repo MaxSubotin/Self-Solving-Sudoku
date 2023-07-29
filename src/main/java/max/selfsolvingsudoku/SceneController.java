@@ -1,6 +1,5 @@
 package max.selfsolvingsudoku;
 
-import javafx.animation.ScaleTransition;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -16,7 +15,6 @@ import javafx.scene.paint.LinearGradient;
 import javafx.scene.paint.Stop;
 import javafx.stage.Stage;
 import javafx.scene.control.Label;
-import javafx.util.Duration;
 
 
 import java.io.IOException;
@@ -32,7 +30,7 @@ public class SceneController {
     private static String level;
 
     @FXML
-    Label result;
+    Label result, welcomeLabel;
 
     // Create the LinearGradient for the background color
     private LinearGradient backgroundGradient = new LinearGradient(0, 0, 0, 1, true, CycleMethod.NO_CYCLE,
@@ -49,7 +47,7 @@ public class SceneController {
         if (!Objects.equals(temp, "Retry"))
             level = temp;
 
-        FXMLLoader loader = new FXMLLoader (getClass().getResource("MainScreen.fxml")) ;
+        FXMLLoader loader = new FXMLLoader (getClass().getResource("MainScreen.fxml"));
         root = loader.load();
         SystemController s = loader.getController();
         s.setup(level);
@@ -63,7 +61,10 @@ public class SceneController {
 
     @FXML
     public void switchToStartScene(ActionEvent event) throws IOException {
-        root = FXMLLoader.load(getClass().getResource("StartScreen.fxml"));
+        FXMLLoader loader = new FXMLLoader (getClass().getResource("StartScreen.fxml"));
+        root = loader.load();
+        SceneController s = loader.getController();
+        s.setWelcomeLabelText(LoginController.currentPlayer.getUsername());
 
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
@@ -74,7 +75,7 @@ public class SceneController {
 
     @FXML
     public void switchToEndScene(KeyEvent event, String temp) throws IOException {
-        FXMLLoader loader = new FXMLLoader (getClass().getResource("EndScreen.fxml")) ;
+        FXMLLoader loader = new FXMLLoader (getClass().getResource("EndScreen.fxml"));
         root = loader.load();
         SceneController s = loader.getController();
         s.result.setText("You "+temp+"!");
@@ -86,28 +87,67 @@ public class SceneController {
         stage.show();
     }
 
+    public void switchToLoginScene(ActionEvent event) throws IOException{
+        FXMLLoader loader = new FXMLLoader (getClass().getResource("LoginScreen.fxml"));
+        root = loader.load();
+
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        scene.setFill(backgroundGradient);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    @FXML
+    public void openUserProfileScene(SystemController s) {
+        if (UserProfileController.windowCounter != 0) return; // makes sure there is only one window open at a time
+        try {
+            // Load the pop-up content from FXML
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("UserProfile.fxml"));
+            Parent root = fxmlLoader.load();
+
+            // Create a new Stage for the info window
+            Stage stage = new Stage();
+            stage.setTitle("User Profile");
+
+            // Add the setOnCloseRequest event handler
+            stage.setOnCloseRequest(event -> {
+                UserProfileController.windowCounter = 0;
+            });
+
+            Scene scene = new Scene(root);
+            scene.setFill(backgroundGradient);
+            stage.setScene(scene);
+            stage.setResizable(false);
+            stage.setX(240);
+            stage.setY(300);
+
+            // add listeners so that main screen and user profile can update in real time
+            s.addListener(fxmlLoader.getController());
+            ((UserProfileController)fxmlLoader.getController()).addListener(s);
+
+            // Show the info window
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     // ----------------------------- FXML Methods : Animations ----------------------------- //
 
     @FXML
     public void onButtonHoverStart(Event e) {
-        Button btn = (Button) e.getSource();
-
-        ScaleTransition scaleTransition = new ScaleTransition(Duration.seconds(0.2), btn);
-        scaleTransition.setToX(0.875);
-        scaleTransition.setToY(0.875);
-
-        scaleTransition.play();
+        Animator.btnOnHover(e,0.2,0.875);
     }
 
     @FXML
     public void onButtonHoverEnd(Event e) {
-        Button btn = (Button)e.getSource();
+        Animator.btnOnHover(e,0.4,1);
+    }
 
-        ScaleTransition scaleTransition = new ScaleTransition(Duration.seconds(0.4), btn);
-        scaleTransition.setToX(1);
-        scaleTransition.setToY(1);
 
-        scaleTransition.play();
+    private void setWelcomeLabelText(String name) {
+        this.welcomeLabel.setText("Welcome "+ name + "!");
     }
 
 }
