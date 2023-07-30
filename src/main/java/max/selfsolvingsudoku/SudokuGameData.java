@@ -1,7 +1,5 @@
 package max.selfsolvingsudoku;
 
-import java.util.Date;
-
 public class SudokuGameData {
     private int[][] gameArray;
     private int[][] solutionArray;
