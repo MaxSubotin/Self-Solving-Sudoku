@@ -128,8 +128,8 @@ public class Database {
 
     // ------------------------------------------------------------------ //
 
-    public static void saveCurrentGame(DatabaseConfig config, Player currentPlayer, int[][] currentGame, int[][] gameSolution) {
-        String saveQuery = "INSERT INTO users_games(username, date, game, solution) VALUES(?, ?, ?::json, ?::json)";
+    public static void saveCurrentGame(DatabaseConfig config, Player currentPlayer, int[][] currentGame, int[][] gameSolution, String difficulty, String timer, int mistakes) {
+        String saveQuery = "INSERT INTO users_games(username, date, game, solution, difficulty, timer, mistakes) VALUES(?, ?, ?::json, ?::json, ?, ?, ?)";
         String updateQuery = "UPDATE users_info SET saved_games = ? WHERE username = ?";
 
         try (Connection con = DriverManager.getConnection(config.getUrl(), config.getUser(), config.getPassword());
@@ -145,6 +145,9 @@ public class Database {
             pstSave.setString(2, formattedDate + "-" + LoginController.currentPlayer.getSavedGamesCounter());
             pstSave.setString(3, new Gson().toJson(currentGame));
             pstSave.setString(4, new Gson().toJson(gameSolution));
+            pstSave.setString(5, difficulty);
+            pstSave.setString(6, timer);
+            pstSave.setInt(7, mistakes);
             pstSave.executeUpdate();
 
             LoginController.currentPlayer.setSavedGamesCounter(LoginController.currentPlayer.getSavedGamesCounter() + 1);
@@ -290,7 +293,7 @@ public class Database {
         gson = new Gson();
         int[][] second = gson.fromJson(json, int[][].class);
 
-        return new SudokuGameData(first, second);
+        return new SudokuGameData(first, second, rs.getString("difficulty"), rs.getString("timer"), rs.getInt("mistakes"));
     }
 
 }
