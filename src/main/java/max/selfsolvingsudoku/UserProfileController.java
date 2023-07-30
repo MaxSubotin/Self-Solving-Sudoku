@@ -1,6 +1,7 @@
 package max.selfsolvingsudoku;
 
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
@@ -43,6 +44,15 @@ public class UserProfileController {
 
     // ----------------------------- FXML Methods : Animations ----------------------------- //
 
+    @FXML
+    public void onButtonHoverStart(Event e) {
+        Animator.btnOnHover(e,0.2,0.875);
+    }
+
+    @FXML
+    public void onButtonHoverEnd(Event e) {
+        Animator.btnOnHover(e,0.4,1);
+    }
 
     // ----------------------------- Helper Methods ----------------------------- //
     public void initialize() { // this method will run when the user profile window first opens

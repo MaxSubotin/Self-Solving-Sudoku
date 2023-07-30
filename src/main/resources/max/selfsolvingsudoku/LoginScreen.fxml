@@ -12,15 +12,15 @@
 
 <AnchorPane prefHeight="715.0" prefWidth="600.0" style="-fx-background-color: linear-gradient(from 0% 0% to 0% 100%, #74c2e3,#00a8e8);" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="max.selfsolvingsudoku.LoginController">
    <children>
-      <VBox alignment="CENTER" layoutX="4.0" layoutY="86.0" prefHeight="615.0" prefWidth="592.0">
+      <VBox alignment="CENTER" layoutX="4.0" layoutY="61.0" prefHeight="576.0" prefWidth="592.0">
          <children>
-            <Label text="Login">
-               <font>
-                  <Font name="Monospaced Bold" size="34.0" />
-               </font>
-            </Label>
-            <VBox alignment="CENTER" prefHeight="128.0" prefWidth="436.0" spacing="10.0">
+            <VBox alignment="CENTER" prefHeight="230.0" prefWidth="592.0" spacing="10.0">
                <children>
+                  <Label text="Login">
+                     <font>
+                        <Font name="Monospaced Bold" size="38.0" />
+                     </font>
+                  </Label>
                   <TextField fx:id="loginUsername" prefHeight="31.0" prefWidth="185.0" promptText="username" style="-fx-border-color: black; -fx-border-radius: 25; -fx-border-width: 1.5; -fx-background-radius: 25; -fx-background-insets: 1;">
                      <font>
                         <Font name="Monospaced Bold" size="16.0" />
@@ -31,9 +31,9 @@
                         <Font name="Monospaced Bold" size="16.0" />
                      </font>
                   </TextField>
-                  <Button fx:id="loginButton" mnemonicParsing="false" onAction="#onLoginButtonClicked" onMouseEntered="#onButtonHoverStart" onMouseExited="#onButtonHoverEnd" prefHeight="35.0" prefWidth="90.0" style="-fx-border-color: black; -fx-border-width: 2; -fx-border-radius: 25; -fx-background-color: white; -fx-background-insets: 1; -fx-background-radius: 25; -fx-text-fill: #008080;" text="Login">
+                  <Button fx:id="loginButton" mnemonicParsing="false" onAction="#onLoginButtonClicked" onMouseEntered="#onButtonHoverStart" onMouseExited="#onButtonHoverEnd" prefHeight="45.0" prefWidth="115.0" style="-fx-border-color: black; -fx-border-width: 2; -fx-border-radius: 25; -fx-background-color: white; -fx-background-insets: 1; -fx-background-radius: 25; -fx-text-fill: #008080;" text="Login">
                      <font>
-                        <Font name="Monospaced Bold" size="16.0" />
+                        <Font name="Monospaced Bold" size="20.0" />
                      </font>
                      <cursor>
                         <Cursor fx:constant="HAND" />
@@ -60,16 +60,16 @@
             </Label>
             <Line endX="123.29290771484375" endY="-0.5014106035232544" startX="-309.5" strokeWidth="2.0">
                <VBox.margin>
-                  <Insets bottom="80.0" />
+                  <Insets bottom="50.0" />
                </VBox.margin>
             </Line>
-            <Label text="Signup">
-               <font>
-                  <Font name="Monospaced Bold" size="34.0" />
-               </font>
-            </Label>
-            <VBox alignment="CENTER" prefHeight="126.0" prefWidth="436.0" spacing="10.0">
+            <VBox alignment="CENTER" prefHeight="233.0" prefWidth="592.0" spacing="10.0">
                <children>
+                  <Label text="Signup">
+                     <font>
+                        <Font name="Monospaced Bold" size="38.0" />
+                     </font>
+                  </Label>
                   <TextField fx:id="signupUsername" prefHeight="31.0" prefWidth="185.0" promptText="username" style="-fx-border-color: black; -fx-border-radius: 25; -fx-border-width: 1.5; -fx-background-radius: 25; -fx-background-insets: 1;">
                      <font>
                         <Font name="Monospaced Bold" size="16.0" />
@@ -80,9 +80,9 @@
                         <Font name="Monospaced Bold" size="16.0" />
                      </font>
                   </TextField>
-                  <Button fx:id="signupButton" mnemonicParsing="false" onAction="#onSignupButtonClicked" onMouseEntered="#onButtonHoverStart" onMouseExited="#onButtonHoverEnd" prefHeight="35.0" prefWidth="90.0" style="-fx-border-color: black; -fx-border-width: 2; -fx-border-radius: 25; -fx-background-color: white; -fx-background-insets: 1; -fx-background-radius: 25; -fx-text-fill: #00a8e8;" text="Signup">
+                  <Button fx:id="signupButton" mnemonicParsing="false" onAction="#onSignupButtonClicked" onMouseEntered="#onButtonHoverStart" onMouseExited="#onButtonHoverEnd" prefHeight="45.0" prefWidth="115.0" style="-fx-border-color: black; -fx-border-width: 2; -fx-border-radius: 25; -fx-background-color: white; -fx-background-insets: 1; -fx-background-radius: 25; -fx-text-fill: #00a8e8;" text="Signup">
                      <font>
-                        <Font name="Monospaced Bold" size="16.0" />
+                        <Font name="Monospaced Bold" size="20.0" />
                      </font>
                      <cursor>
                         <Cursor fx:constant="HAND" />
@@ -93,13 +93,16 @@
                   <Insets left="180.0" right="180.0" />
                </padding>
                <VBox.margin>
-                  <Insets bottom="10.0" top="20.0" />
+                  <Insets />
                </VBox.margin>
             </VBox>
             <Label fx:id="signupErrorMessage" alignment="CENTER" contentDisplay="CENTER" prefHeight="76.0" prefWidth="589.0" style="-fx-text-fill: #a6514c; -fx-text-alignment: center;" wrapText="true">
                <font>
                   <Font name="Monospaced Bold" size="14.0" />
                </font>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
             </Label>
          </children>
       </VBox>

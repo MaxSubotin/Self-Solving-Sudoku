@@ -99,6 +99,8 @@ public class SystemController {
     }
 
     public void loadExistingGame(SudokuGameData existingGame) {
+        if (existingGame == null) return;
+
         int i, j;
         this.sudoku.setGame(existingGame.getSolutionArray());
 
@@ -369,7 +371,7 @@ public class SystemController {
             }
         }
         else
-            mistakesLabel.setText("mistakes counter: " + this.mistakesCounter + " / " + this.mistakesTotal);
+            mistakesLabel.setText("Mistakes Counter: " + this.mistakesCounter + " / " + this.mistakesTotal);
     }
 
     public void addListener(UserProfileController listener) {
@@ -382,7 +384,7 @@ public class SystemController {
         this.header.setText("Game Mode: " + game.getDifficulty());
 
         this.mistakesCounter = game.getMistakes();
-        this.mistakesLabel.setText("mistakes counter: " + this.mistakesCounter + " / " + this.mistakesTotal);
+        this.mistakesLabel.setText("Mistakes Counter: " + this.mistakesCounter + " / " + this.mistakesTotal);
 
         if (gameTimer != null) gameTimer.stopTimer();
         gameTimer = new Timer(this.timer);

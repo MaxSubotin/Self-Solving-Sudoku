@@ -30,7 +30,7 @@ public class SceneController {
     public static String level;
 
     @FXML
-    Label result, welcomeLabel;
+    Label result, welcomeLabel, errorMessage;
 
     // Create the LinearGradient for the background color
     private LinearGradient backgroundGradient = new LinearGradient(0, 0, 0, 1, true, CycleMethod.NO_CYCLE,
@@ -125,9 +125,13 @@ public class SceneController {
         SystemController s = loader.getController();
         DatabaseConfig config = new DatabaseConfig();
         s.setSudoku(new Sudoku(3));
-        s.loadExistingGame(Database.getLastGame(config, LoginController.currentPlayer.getUsername()));
 
-        showStage(event);
+        SudokuGameData loadedGame = Database.getLastGame(config, LoginController.currentPlayer.getUsername());
+        if (loadedGame != null) {
+            s.loadExistingGame(loadedGame);
+            showStage(event);
+        }
+        else this.errorMessage.setText("You don't have any saved games.");
     }
 
     // ----------------------------- FXML Methods : Animations ----------------------------- //
