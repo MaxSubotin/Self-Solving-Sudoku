@@ -99,12 +99,12 @@ public class SystemController {
     }
 
     public void loadExistingGame(SudokuGameData existingGame) {
+        if (existingGame == null) return;
+
         int i, j;
         this.sudoku.setGame(existingGame.getSolutionArray());
-        gameTimer.stopTimer();
-        this.timer.setText("00:00");
-        gameTimer = new Timer(this.timer);
-        gameTimer.startTimer();
+
+        setupGameScreen(existingGame);
 
         for (Node node: gameGrid.getChildren()) {
             if (node.getId() == null) return;
@@ -286,7 +286,7 @@ public class SystemController {
                 currentGame[i][j] = Integer.parseInt(temp.getText());
         }
         // save the current game
-        Database.saveCurrentGame(config, LoginController.currentPlayer, currentGame, this.sudoku.game);
+        Database.saveCurrentGame(config, LoginController.currentPlayer, currentGame, this.sudoku.game, SceneController.level, this.timer.getText(), this.mistakesCounter);
         if (listener != null) listener.setGameList();
     }
 
@@ -371,10 +371,23 @@ public class SystemController {
             }
         }
         else
-            mistakesLabel.setText("mistakes counter: " + this.mistakesCounter + " / " + this.mistakesTotal);
+            mistakesLabel.setText("Mistakes Counter: " + this.mistakesCounter + " / " + this.mistakesTotal);
     }
 
     public void addListener(UserProfileController listener) {
         this.listener = listener;
+    }
+
+    public void setSudoku(Sudoku sudoku) { this.sudoku = sudoku; }
+
+    private void setupGameScreen(SudokuGameData game) {
+        this.header.setText("Game Mode: " + game.getDifficulty());
+
+        this.mistakesCounter = game.getMistakes();
+        this.mistakesLabel.setText("Mistakes Counter: " + this.mistakesCounter + " / " + this.mistakesTotal);
+
+        if (gameTimer != null) gameTimer.stopTimer();
+        gameTimer = new Timer(this.timer);
+        gameTimer.startTimerFrom(game.getTimer());
     }
 }

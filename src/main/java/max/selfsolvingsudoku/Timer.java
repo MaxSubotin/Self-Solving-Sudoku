@@ -6,6 +6,7 @@ import javafx.animation.Timeline;
 import javafx.scene.control.Label;
 import javafx.util.Duration;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -18,18 +19,31 @@ public class Timer {
         this.timer = timer;
     }
 
-    // Start the timer
+    // Start the timer from 00:00
     public void startTimer() {
-        runningTime = 0;
+        startTimerFrom("00:00");
+    }
 
-        if (time != null && time.getStatus() == Animation.Status.RUNNING) {
-            return; // Timer is already running
+    // Start the timer from a specific time (in the format "mm:ss")
+    public void startTimerFrom(String startTime) {
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("mm:ss");
+            Date startDate = sdf.parse(startTime);
+            runningTime = (int) (startDate.getTime() / 1000);
+
+            if (time != null && time.getStatus() == Animation.Status.RUNNING) {
+                return; // Timer is already running
+            }
+
+            this.timer.setText(startTime);
+
+            // Create a Timeline to update the timer every second
+            time = new Timeline(new KeyFrame(Duration.seconds(1), event -> updateTimer()));
+            time.setCycleCount(Animation.INDEFINITE);
+            time.play();
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
-
-        // Create a Timeline to update the timer every second
-        time = new Timeline(new KeyFrame(Duration.seconds(1), event -> updateTimer()));
-        time.setCycleCount(Animation.INDEFINITE);
-        time.play();
     }
 
     // Stop the timer

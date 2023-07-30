@@ -27,10 +27,10 @@ public class SceneController {
     private Stage stage;
     private Scene scene;
     private Parent root;
-    private static String level;
+    public static String level;
 
     @FXML
-    Label result, welcomeLabel;
+    Label result, welcomeLabel, errorMessage;
 
     // Create the LinearGradient for the background color
     private LinearGradient backgroundGradient = new LinearGradient(0, 0, 0, 1, true, CycleMethod.NO_CYCLE,
@@ -52,11 +52,7 @@ public class SceneController {
         SystemController s = loader.getController();
         s.setup(level);
 
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        scene.setFill(backgroundGradient);
-        stage.setScene(scene);
-        stage.show();
+        showStage(event);
     }
 
     @FXML
@@ -66,11 +62,7 @@ public class SceneController {
         SceneController s = loader.getController();
         s.setWelcomeLabelText(LoginController.currentPlayer.getUsername());
 
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        scene.setFill(backgroundGradient);
-        stage.setScene(scene);
-        stage.show();
+        showStage(event);
     }
 
     @FXML
@@ -80,22 +72,14 @@ public class SceneController {
         SceneController s = loader.getController();
         s.result.setText("You "+temp+"!");
 
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        scene.setFill(backgroundGradient);
-        stage.setScene(scene);
-        stage.show();
+        showStage(event);
     }
 
     public void switchToLoginScene(ActionEvent event) throws IOException{
         FXMLLoader loader = new FXMLLoader (getClass().getResource("LoginScreen.fxml"));
         root = loader.load();
 
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        scene.setFill(backgroundGradient);
-        stage.setScene(scene);
-        stage.show();
+        showStage(event);
     }
 
     @FXML
@@ -133,6 +117,23 @@ public class SceneController {
         }
     }
 
+    @FXML
+    public void onLoadLastGameButtonClicked(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader (getClass().getResource("MainScreen.fxml"));
+        root = loader.load();
+
+        SystemController s = loader.getController();
+        DatabaseConfig config = new DatabaseConfig();
+        s.setSudoku(new Sudoku(3));
+
+        SudokuGameData loadedGame = Database.getLastGame(config, LoginController.currentPlayer.getUsername());
+        if (loadedGame != null) {
+            s.loadExistingGame(loadedGame);
+            showStage(event);
+        }
+        else this.errorMessage.setText("You don't have any saved games.");
+    }
+
     // ----------------------------- FXML Methods : Animations ----------------------------- //
 
     @FXML
@@ -148,6 +149,14 @@ public class SceneController {
 
     private void setWelcomeLabelText(String name) {
         this.welcomeLabel.setText("Welcome "+ name + "!");
+    }
+
+    private void showStage(Event event) {
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        scene.setFill(backgroundGradient);
+        stage.setScene(scene);
+        stage.show();
     }
 
 }

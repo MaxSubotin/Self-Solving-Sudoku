@@ -1,24 +1,18 @@
 package max.selfsolvingsudoku;
 
-import java.util.Date;
-
 public class SudokuGameData {
-    private String date;
     private int[][] gameArray;
     private int[][] solutionArray;
 
-    public SudokuGameData(String date, int[][] gameArray, int[][] solutionArray) {
-        this.date = date;
+    private String difficulty, timer;
+    private int mistakes;
+
+    public SudokuGameData(int[][] gameArray, int[][] solutionArray, String difficulty, String timer, int mistakes) {
         this.gameArray = gameArray;
         this.solutionArray = solutionArray;
-    }
-
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
+        this.difficulty = difficulty;
+        this.timer = timer;
+        this.mistakes = mistakes;
     }
 
     public int[][] getGameArray() {
@@ -35,6 +29,30 @@ public class SudokuGameData {
 
     public void setSolutionArray(int[][] solutionArray) {
         this.solutionArray = solutionArray;
+    }
+
+    public String getDifficulty() {
+        return difficulty;
+    }
+
+    public void setDifficulty(String difficulty) {
+        this.difficulty = difficulty;
+    }
+
+    public String getTimer() {
+        return timer;
+    }
+
+    public void setTimer(String timer) {
+        this.timer = timer;
+    }
+
+    public int getMistakes() {
+        return mistakes;
+    }
+
+    public void setMistakes(int mistakes) {
+        this.mistakes = mistakes;
     }
 }
 
