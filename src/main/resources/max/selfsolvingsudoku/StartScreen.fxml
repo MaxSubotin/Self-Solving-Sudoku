@@ -42,7 +42,7 @@
       </Label>
       <VBox alignment="CENTER" layoutX="36.0" layoutY="372.0" prefHeight="145.0" prefWidth="529.0">
          <children>
-            <HBox alignment="CENTER" prefHeight="67.0" prefWidth="529.0" spacing="40.0">
+            <HBox alignment="CENTER" prefHeight="74.0" prefWidth="529.0" spacing="40.0">
                <children>
                   <Button mnemonicParsing="false" onAction="#switchToMainScene" onMouseEntered="#onButtonHoverStart" onMouseExited="#onButtonHoverEnd" prefHeight="45.0" prefWidth="115.0" style="-fx-background-radius: 25; -fx-background-color: white; -fx-border-color: black; -fx-border-width: 2; -fx-border-radius: 25; -fx-padding: 5 10 5 10; -fx-background-insets: 1.5; -fx-text-fill: #008080;" text="Easy" textAlignment="CENTER">
                      <font>
@@ -73,7 +73,7 @@
                   <Insets bottom="20.0" />
                </padding>
             </HBox>
-            <Button mnemonicParsing="false" onAction="#onLoadLastGameButtonClicked" onMouseEntered="#onButtonHoverStart" onMouseExited="#onButtonHoverEnd" prefHeight="45.0" prefWidth="190.0" style="-fx-background-radius: 25; -fx-background-color: white; -fx-border-color: black; -fx-border-width: 2; -fx-border-radius: 25; -fx-padding: 5 10 5 10; -fx-background-insets: 1.5; -fx-text-fill: black;" text="Load Last Game" textAlignment="CENTER">
+            <Button mnemonicParsing="false" onAction="#onLoadLastGameButtonClicked" onMouseEntered="#onButtonHoverStart" onMouseExited="#onButtonHoverEnd" prefHeight="45.0" prefWidth="205.0" style="-fx-background-radius: 25; -fx-background-color: white; -fx-border-color: black; -fx-border-width: 2; -fx-border-radius: 25; -fx-padding: 5 10 5 10; -fx-background-insets: 1.5; -fx-text-fill: black;" text="Load Last Game" textAlignment="CENTER">
                <font>
                   <Font name="Monospaced Bold" size="20.0" />
                </font>
