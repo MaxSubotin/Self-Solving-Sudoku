@@ -43,11 +43,11 @@ git clone https://github.com/your_username/your_repository.git
 
 ### Screenshots
 
-![Login Screen](images/login.png) 
+![Login Screen](images/login.jpg) 
 
-![Starting Screen](images/start.png) 
+![Starting Screen](images/start.jpg) 
 
-![Game Screen](images/game.png) 
+![Game Screen](images/game.jpg) 
 
    
 ## License
