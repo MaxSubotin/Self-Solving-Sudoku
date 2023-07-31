@@ -103,6 +103,7 @@ public class SystemController {
 
         int i, j;
         this.sudoku.setGame(existingGame.getSolutionArray());
+        this.usernameLabel.setText("@" + LoginController.currentPlayer.getUsername());
 
         setupGameScreen(existingGame);
 
