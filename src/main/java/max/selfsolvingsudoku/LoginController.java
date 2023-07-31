@@ -11,7 +11,6 @@ import java.io.IOException;
 
 public class LoginController {
     // ----------------------------- Variables ----------------------------- //
-    private DatabaseConfig config = new DatabaseConfig();
 
     @FXML
     Button loginButton, signupButton;
@@ -31,8 +30,8 @@ public class LoginController {
         if (!checkUserExistence(username,password) || username == null || password == null)
             loginErrorMessage.setText("Error, check your username and password and try again.");
         else {
-            if (Database.isPasswordCorrectForUsername(config, username,password)) {
-                LoginController.currentPlayer = Database.getUserFromDatabase(config,username);
+            if (Database.isPasswordCorrectForUsername(username,password)) {
+                LoginController.currentPlayer = Database.getUserFromDatabase(username);
                 showStartScene(e);
             } else {
                 loginErrorMessage.setText("Error, wrong password.");
@@ -46,7 +45,7 @@ public class LoginController {
         if (checkUserExistence(username,password) || username == null || password == null)
             signupErrorMessage.setText("Error, username already exists, try another one.");
         else if (checkUserCredentials(username,password)) {
-            Database.addUserToDatabase(config, username, password);
+            Database.addUserToDatabase(username, password);
             LoginController.currentPlayer = new Player(username,0,0); // pass in the real username
             LoginController.currentPlayer.setSolvedPuzzlesCounter(0);
             LoginController.currentPlayer.setTotalMistakesCounter(0);
@@ -71,7 +70,7 @@ public class LoginController {
 
     public boolean checkUserExistence(String username, String password) {
         if (username != null && password != null) {
-            return Database.isUsernameUnique(config, username);
+            return Database.isUsernameUnique(username);
         }
         return false;
     }

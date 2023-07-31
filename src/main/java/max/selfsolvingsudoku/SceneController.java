@@ -76,9 +76,10 @@ public class SceneController {
     }
 
     public void switchToLoginScene(ActionEvent event) throws IOException{
+        Database.setUserMistakesCounter(LoginController.currentPlayer.getUsername(), LoginController.currentPlayer.getTotalMistakesCounter());
+
         FXMLLoader loader = new FXMLLoader (getClass().getResource("LoginScreen.fxml"));
         root = loader.load();
-
         showStage(event);
     }
 
@@ -123,10 +124,9 @@ public class SceneController {
         root = loader.load();
 
         SystemController s = loader.getController();
-        DatabaseConfig config = new DatabaseConfig();
         s.setSudoku(new Sudoku(3));
 
-        SudokuGameData loadedGame = Database.getLastGame(config, LoginController.currentPlayer.getUsername());
+        SudokuGameData loadedGame = Database.getLastGame(LoginController.currentPlayer.getUsername());
         if (loadedGame != null) {
             s.loadExistingGame(loadedGame);
             showStage(event);

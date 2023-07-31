@@ -17,23 +17,22 @@ public class UserProfileController {
     Label usernameLabel, solvedLabel, mistakesLabel;
     @FXML
     ListView gameList;
-    private DatabaseConfig config = new DatabaseConfig();
     private SystemController listener = null;
     public static int windowCounter = 0;
 
     // ----------------------------- FXML Methods ----------------------------- //
     @FXML
     public void onDeleteHistoryButtonClicked() {
-        Database.deleteRowsByUsername(config, LoginController.currentPlayer.getUsername());
+        Database.deleteRowsByUsername(LoginController.currentPlayer.getUsername());
         setGameList();
         LoginController.currentPlayer.setSavedGamesCounter(1);
     }
 
     @FXML
     public void onLoadGameClicked(ActionEvent e) {
-        String selecetedItem = gameList.getSelectionModel().getSelectedItem().toString();
-        if (selecetedItem != null) {
-            SudokuGameData clickedGame = Database.getGameByUsernameAndDate(config, LoginController.currentPlayer.getUsername(), selecetedItem);
+        String selectedItem = gameList.getSelectionModel().getSelectedItem().toString();
+        if (selectedItem != null) {
+            SudokuGameData clickedGame = Database.getGameByUsernameAndDate(LoginController.currentPlayer.getUsername(), selectedItem);
             listener.loadExistingGame(clickedGame);
             windowCounter = 0;
             ((Stage) ((Node) e.getSource()).getScene().getWindow()).close();
@@ -72,7 +71,7 @@ public class UserProfileController {
     }
 
     public void setGameList() {
-        ArrayList<String> temp = Database.getAllUserGameDates(config, LoginController.currentPlayer.getUsername());
+        ArrayList<String> temp = Database.getAllUserGameDates(LoginController.currentPlayer.getUsername());
         gameList.getItems().clear();
         for (String date: temp) {
             gameList.getItems().add(date);

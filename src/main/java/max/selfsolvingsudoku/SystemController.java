@@ -170,7 +170,6 @@ public class SystemController {
                     activeField.setStyle(style + badStyle);
                     increaseMistakes(event);
                     LoginController.currentPlayer.setTotalMistakesCounter(LoginController.currentPlayer.getTotalMistakesCounter() + 1);
-                    Database.setUserMistakesCounter(config, LoginController.currentPlayer.getUsername(), LoginController.currentPlayer.getTotalMistakesCounter());
                     if (listener != null) listener.setMistakesLabel();
                 } else {
                     activeField.setStyle(style + goodStyle);
@@ -183,7 +182,7 @@ public class SystemController {
                     handlePlayerWins(event);
                     if (!solvingOnGoing && !hintWasUsed) {
                         LoginController.currentPlayer.setSolvedPuzzlesCounter(LoginController.currentPlayer.getSolvedPuzzlesCounter() + 1);
-                        Database.setUserSolvedCounter(config, LoginController.currentPlayer.getUsername(), LoginController.currentPlayer.getSolvedPuzzlesCounter());
+                        Database.setUserSolvedCounter(LoginController.currentPlayer.getUsername(), LoginController.currentPlayer.getSolvedPuzzlesCounter());
                         if (listener != null) listener.setSolvedLabel();
                     }
                 } catch (IOException e) {
@@ -241,12 +240,14 @@ public class SystemController {
         gameTimer.stopTimer();
         solveButton.setVisible(false);
         hintButton.setVisible(false);
+        Database.setUserMistakesCounter(LoginController.currentPlayer.getUsername(), LoginController.currentPlayer.getTotalMistakesCounter());
     }
 
     @FXML
     public void quitButtonClicked(ActionEvent e) throws IOException {
         SceneController s = new SceneController();
         s.switchToStartScene(e);
+        Database.setUserMistakesCounter(LoginController.currentPlayer.getUsername(), LoginController.currentPlayer.getTotalMistakesCounter());
     }
 
     @FXML
@@ -286,7 +287,7 @@ public class SystemController {
                 currentGame[i][j] = Integer.parseInt(temp.getText());
         }
         // save the current game
-        Database.saveCurrentGame(config, LoginController.currentPlayer, currentGame, this.sudoku.game, SceneController.level, this.timer.getText(), this.mistakesCounter);
+        Database.saveCurrentGame(LoginController.currentPlayer, currentGame, this.sudoku.game, SceneController.level, this.timer.getText(), this.mistakesCounter);
         if (listener != null) listener.setGameList();
     }
 

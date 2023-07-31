@@ -1,5 +1,6 @@
 package max.selfsolvingsudoku;
 
+import java.net.URLEncoder;
 import java.sql.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -13,16 +14,13 @@ import com.google.gson.Gson;
 public class Database {
 
 
-    public static void addUserToDatabase(DatabaseConfig config, String userUsername, String userPassword) {
+    public static void addUserToDatabase(String userUsername, String userPassword) {
         int Id;
-        String Username = userUsername;
-        String Password = userPassword;
-
         String lastIdQuery = "SELECT id FROM users ORDER BY id DESC LIMIT 1";
         String insertQueryUsers = "INSERT INTO users(id, username, password) VALUES(?, ?, ?)";
         String insertQueryUsersInfo = "INSERT INTO users_info(id, username, solved, mistakes, saves_games) VALUES(?, ?, ?, ?, ?)";
 
-        try (Connection con = DriverManager.getConnection(config.getUrl(), config.getUser(), config.getPassword());
+        try (Connection con = DatabaseConfig.getConnection();
              PreparedStatement getLastIdPst = con.prepareStatement(lastIdQuery);
              ResultSet rs = getLastIdPst.executeQuery();
              PreparedStatement insertPstUsers = con.prepareStatement(insertQueryUsers);
@@ -35,12 +33,12 @@ public class Database {
             }
 
             insertPstUsers.setInt(1, Id);
-            insertPstUsers.setString(2, Username);
-            insertPstUsers.setString(3, Password);
+            insertPstUsers.setString(2, userUsername);
+            insertPstUsers.setString(3, userPassword);
             insertPstUsers.executeUpdate();
 
             insertPstUsersInfo.setInt(1, Id);
-            insertPstUsersInfo.setString(2, Username);
+            insertPstUsersInfo.setString(2, userUsername);
             insertPstUsersInfo.setInt(3, 0);
             insertPstUsersInfo.setInt(4, 0);
             insertPstUsersInfo.setInt(5, 1);
@@ -51,11 +49,11 @@ public class Database {
         }
     }
 
-    public static Player getUserFromDatabase(DatabaseConfig config, String userUsername) {
+    public static Player getUserFromDatabase(String userUsername) {
         String query = "SELECT * FROM users_info WHERE username = ?";
         Player userFromDatabase = null;
-
-        try (Connection con = DriverManager.getConnection(config.getUrl(), config.getUser(), config.getPassword());
+        
+        try (Connection con = DatabaseConfig.getConnection();
              PreparedStatement pst = con.prepareStatement(query)) {
 
             pst.setString(1, userUsername);
@@ -75,16 +73,14 @@ public class Database {
 
     // ------------------------------------------------------------------ //
 
-    public static boolean isUsernameUnique(DatabaseConfig config, String userUsername) {
-        String Username = userUsername;
-
+    public static boolean isUsernameUnique(String userUsername) {
         String findUserQuery = "SELECT COUNT(*) as count FROM users WHERE username = ?";
         boolean usernameExists = false;
 
-        try (Connection con = DriverManager.getConnection(config.getUrl(), config.getUser(), config.getPassword());
+        try (Connection con = DatabaseConfig.getConnection();
              PreparedStatement pst = con.prepareStatement(findUserQuery)) {
 
-            pst.setString(1, Username);
+            pst.setString(1, userUsername);
             ResultSet rs = pst.executeQuery();
 
             if (rs.next()) {
@@ -101,11 +97,11 @@ public class Database {
         return usernameExists;
     }
 
-    public static boolean isPasswordCorrectForUsername(DatabaseConfig config, String userUsername, String userPassword) {
+    public static boolean isPasswordCorrectForUsername(String userUsername, String userPassword) {
         String query = "SELECT COUNT(*) as count FROM users WHERE username = ? AND password = ?";
         boolean credentialsCorrect = false;
 
-        try (Connection con = DriverManager.getConnection(config.getUrl(), config.getUser(), config.getPassword());
+        try (Connection con = DatabaseConfig.getConnection();
              PreparedStatement pst = con.prepareStatement(query)) {
 
             pst.setString(1, userUsername);
@@ -128,11 +124,11 @@ public class Database {
 
     // ------------------------------------------------------------------ //
 
-    public static void saveCurrentGame(DatabaseConfig config, Player currentPlayer, int[][] currentGame, int[][] gameSolution, String difficulty, String timer, int mistakes) {
+    public static void saveCurrentGame(Player currentPlayer, int[][] currentGame, int[][] gameSolution, String difficulty, String timer, int mistakes) {
         String saveQuery = "INSERT INTO users_games(username, date, game, solution, difficulty, timer, mistakes) VALUES(?, ?, ?::json, ?::json, ?, ?, ?)";
         String updateQuery = "UPDATE users_info SET saved_games = ? WHERE username = ?";
 
-        try (Connection con = DriverManager.getConnection(config.getUrl(), config.getUser(), config.getPassword());
+        try (Connection con = DatabaseConfig.getConnection();
              PreparedStatement pstSave = con.prepareStatement(saveQuery);
              PreparedStatement pstUpdate = con.prepareStatement(updateQuery)) {
 
@@ -161,11 +157,11 @@ public class Database {
         }
     }
 
-    public static ArrayList<String> getAllUserGameDates(DatabaseConfig config, String userUsername) {
+    public static ArrayList<String> getAllUserGameDates(String userUsername) {
         String query = "SELECT * FROM users_games WHERE username = ?";
         ArrayList<String> dates = new ArrayList<String>();
 
-        try (Connection con = DriverManager.getConnection(config.getUrl(), config.getUser(), config.getPassword());
+        try (Connection con = DatabaseConfig.getConnection();
              PreparedStatement pst = con.prepareStatement(query)) {
 
             pst.setString(1,userUsername);
@@ -182,11 +178,11 @@ public class Database {
         return dates;
     }
 
-    public static SudokuGameData getGameByUsernameAndDate(DatabaseConfig config, String userUsername, String gameDate) {
+    public static SudokuGameData getGameByUsernameAndDate(String userUsername, String gameDate) {
         String query = "SELECT * FROM users_games WHERE username = ? AND date = ?";
         SudokuGameData requestedGame = null;
 
-        try (Connection con = DriverManager.getConnection(config.getUrl(), config.getUser(), config.getPassword());
+        try (Connection con = DatabaseConfig.getConnection();
              PreparedStatement pst = con.prepareStatement(query)) {
 
             pst.setString(1, userUsername);
@@ -204,11 +200,11 @@ public class Database {
         return requestedGame;
     }
 
-    public static SudokuGameData getLastGame(DatabaseConfig config, String userUsername) {
+    public static SudokuGameData getLastGame(String userUsername) {
         String query = "SELECT * FROM users_games WHERE username = ? ORDER BY date DESC LIMIT 1";
         SudokuGameData requestedGame = null;
 
-        try (Connection con = DriverManager.getConnection(config.getUrl(), config.getUser(), config.getPassword());
+        try (Connection con = DatabaseConfig.getConnection();
              PreparedStatement pst = con.prepareStatement(query)) {
 
             pst.setString(1, userUsername);
@@ -224,10 +220,10 @@ public class Database {
         return requestedGame;
     }
 
-    public static void setUserMistakesCounter(DatabaseConfig config, String userUsername, int count) {
+    public static void setUserMistakesCounter(String userUsername, int count) {
         String query = "UPDATE users_info SET mistakes = ? WHERE username = ?";
 
-        try (Connection con = DriverManager.getConnection(config.getUrl(), config.getUser(), config.getPassword());
+        try (Connection con = DatabaseConfig.getConnection();
              PreparedStatement pst = con.prepareStatement(query)) {
 
             pst.setInt(1, count);
@@ -239,10 +235,10 @@ public class Database {
         }
     }
 
-    public static void setUserSolvedCounter(DatabaseConfig config, String userUsername, int count) {
+    public static void setUserSolvedCounter(String userUsername, int count) {
         String query = "UPDATE users_info SET solved = ? WHERE username = ?";
 
-        try (Connection con = DriverManager.getConnection(config.getUrl(), config.getUser(), config.getPassword());
+        try (Connection con = DatabaseConfig.getConnection();
              PreparedStatement pst = con.prepareStatement(query)) {
 
             pst.setInt(1, count);
@@ -257,11 +253,11 @@ public class Database {
 
     // ------------------------------------------------------------------ //
 
-    public static void deleteRowsByUsername(DatabaseConfig config, String userUsername) {
+    public static void deleteRowsByUsername(String userUsername) {
         String deleteQuery = "DELETE FROM users_games WHERE username = ?";
         String updateQuery = "UPDATE users_info SET saved_games = ? WHERE username = ?";
 
-        try (Connection con = DriverManager.getConnection(config.getUrl(), config.getUser(), config.getPassword());
+        try (Connection con = DatabaseConfig.getConnection();
              PreparedStatement pstDelete = con.prepareStatement(deleteQuery);
              PreparedStatement pstUpdate = con.prepareStatement(updateQuery)) {
 
